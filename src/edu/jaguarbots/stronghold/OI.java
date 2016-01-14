@@ -1,6 +1,6 @@
 package edu.jaguarbots.stronghold;
 
-import edu.jaguarbots.stronghold.commands.ExampleCommand;
+import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.wpi.first.wpilibj.buttons.Button;
 
 /**

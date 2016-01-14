@@ -16,12 +16,21 @@ public class DriveSubsystem extends Subsystem
     private RobotDrive robotDrive = new RobotDrive(leftDrive, rightDrive);
     private Encoder leftEncoder = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
     private Encoder rightEncoder = new Encoder(RobotMap.rightEncoderAChannel, RobotMap.rightEncoderBChannel);
-    private double[] adjustedDrive = null;
     private double leftEncoderValue;
     private double rightEncoderValue;
     private double[] encoderValues = {leftEncoderValue, rightEncoderValue};
+    private double bias = 1;
+    private double constant = .2;
     
-    public double[] getEncoder()
+    public void resetEncoders(boolean left, boolean right)
+    {
+        if (left)
+            leftEncoder.reset();
+        if (right)
+            rightEncoder.reset();
+    }
+    
+    public double[] getEncoders()
     {
         leftEncoderValue = leftEncoder.getDistance();
         rightEncoderValue = rightEncoder.getDistance();
@@ -34,21 +43,23 @@ public class DriveSubsystem extends Subsystem
         robotDrive.tankDrive(left, right);
     }
     
-    public double[] driveAdjusted(double left, double right)
+    public void driveAdjusted(double left, double right)
     {
+        resetEncoders(true, true);
         double leftEnc = leftEncoder.getRaw();
         double rightEnc = rightEncoder.getRaw();
         double delta = leftEnc - rightEnc;
-        if(delta >= 0)
+        if(delta >= 0)  //if left is faster than right
         {
-            left = left*.8;
+            bias = Math.abs((rightEnc/leftEnc) - constant); //adjust bias
+            left = left*bias;   //reduce left power
         }
-        else if(delta <= 0)
+        else if(delta <= 0) //if right is faster than left
         {
-            right = right*.8;
+            bias = Math.abs((leftEnc/rightEnc) - constant); //adjust bias
+            right = right*bias; //if left is faster than right
         }
-        adjustedDrive = new double[] {left, right};
-        return adjustedDrive;
+        robotDrive.tankDrive(left, right);
     }
     
     public void initDefaultCommand()

@@ -1,7 +1,6 @@
 package edu.jaguarbots.stronghold;
 
-import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -34,5 +33,7 @@ public class OI {
     // Start the command when the button is released  and let it run the command
     // until it is finished as determined by it's isFinished method.
     // button.whenReleased(new ExampleCommand());
+    public Joystick leftStick = new Joystick(RobotMap.leftStick);
+    public Joystick rightStick = new Joystick(RobotMap.rightStick);
 }
 

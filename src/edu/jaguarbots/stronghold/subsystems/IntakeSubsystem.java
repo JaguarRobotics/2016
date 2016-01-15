@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Talon;
 
 /**
  *

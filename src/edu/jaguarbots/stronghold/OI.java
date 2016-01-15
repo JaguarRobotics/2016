@@ -1,6 +1,8 @@
 package edu.jaguarbots.stronghold;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -35,5 +37,8 @@ public class OI {
     // button.whenReleased(new ExampleCommand());
     public Joystick leftStick = new Joystick(RobotMap.leftStick);
     public Joystick rightStick = new Joystick(RobotMap.rightStick);
+    public Joystick manipulator = new Joystick(RobotMap.manipulator);
+    public Button intakeButton = new JoystickButton(manipulator, 500);
+    public Button outputButton = new JoystickButton(manipulator, 501);
 }
 

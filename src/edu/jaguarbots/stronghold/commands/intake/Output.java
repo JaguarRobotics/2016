@@ -1,7 +1,6 @@
 package edu.jaguarbots.stronghold.commands.intake;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.jaguarbots.stronghold.subsystems.IntakeSubsystem;
 
 /**
  *

@@ -2,11 +2,6 @@ package edu.jaguarbots.stronghold.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.vision.AxisCamera;
-import edu.wpi.first.wpilibj.image.*;
-import java.util.Comparator;
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.*;
 
 // Based on HSL or Hue, Saturation and Luminance
 public class VisionSubsystem extends Subsystem

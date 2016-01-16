@@ -1,13 +1,10 @@
 package edu.jaguarbots.stronghold;
 
-import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,8 +16,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot
 {
     public static final DriveSubsystem exampleSubsystem = new DriveSubsystem();
-    public static OI                     oi;
-    Command                              autonomousCommand;
+    public static OI                   oi;
+    Command                            autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -29,7 +26,6 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
         oi = new OI();
-
         // chooser.addObject("My Auto", new MyAutoCommand());
     }
 

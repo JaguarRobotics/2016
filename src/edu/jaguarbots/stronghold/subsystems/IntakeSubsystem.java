@@ -1,28 +1,26 @@
 package edu.jaguarbots.stronghold.subsystems;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.jaguarbots.stronghold.RobotMap;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class IntakeSubsystem extends Subsystem {
-    
+public class IntakeSubsystem extends Subsystem
+{
     /*
      * the motor that sucks in the ball
      */
     private Victor intakeMotor = new Victor(RobotMap.pwmIntakeMotor);
-    
+
     /*
      * Constructor for IntakeSubsytem
      */
     public IntakeSubsystem()
     {
-        
     }
-    
+
     /*
      * runs the intake motor in the default direction
      */
@@ -30,7 +28,7 @@ public class IntakeSubsystem extends Subsystem {
     {
         intakeMotor.set(1);
     }
-    
+
     /*
      * runs the intake motor in the opposite direction of the default direction
      */
@@ -38,7 +36,7 @@ public class IntakeSubsystem extends Subsystem {
     {
         intakeMotor.set(-1);
     }
-    
+
     /*
      * stops the intake motor
      */
@@ -46,10 +44,10 @@ public class IntakeSubsystem extends Subsystem {
     {
         intakeMotor.set(0);
     }
-    
-    public void initDefaultCommand() {
+
+    public void initDefaultCommand()
+    {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        // setDefaultCommand(new MySpecialCommand());
     }
 }
-

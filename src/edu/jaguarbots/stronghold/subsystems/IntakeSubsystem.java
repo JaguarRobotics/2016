@@ -10,8 +10,14 @@ import edu.wpi.first.wpilibj.Victor;
  */
 public class IntakeSubsystem extends Subsystem {
     
+    /*
+     * the motor that sucks in the ball
+     */
     private Victor intakeMotor = new Victor(RobotMap.pwmIntakeMotor);
     
+    /*
+     * Constructor for IntakeSubsytem
+     */
     public IntakeSubsystem()
     {
         

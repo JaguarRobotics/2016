@@ -17,8 +17,8 @@ public class OI
 {
     public OI()
     {
-        Manipulator_DpadUp.whenPressed(new Intake());
-        Manipulator_DpadDown.whenPressed(new Output());
+        Manipulator_DpadUp.whileHeld(new Intake());
+        Manipulator_DpadDown.whileHeld(new Output());
         Manipulator_DpadRight.whenPressed(new Grab());
         Manipulator_DpadLeft.whenPressed(new Retract());
     }

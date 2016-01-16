@@ -1,6 +1,5 @@
 package edu.jaguarbots.stronghold.subsystems;
 
-
 import edu.jaguarbots.stronghold.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -9,12 +8,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class ShooterSubsystem extends Subsystem {
-    
-    private DigitalInput shooter = new DigitalInput(RobotMap.pwmShooterMotor);
-
-    private DigitalInput shooterMotor = new DigitalInput(RobotMap.pwmShooterMotor);
-    private Solenoid solShooter = new Solenoid(RobotMap.pwmSolShooter);
+public class ShooterSubsystem extends Subsystem
+{
+    private DigitalInput shooter      = new DigitalInput(
+                    RobotMap.pwmShooterMotor);
+    private DigitalInput shooterMotor = new DigitalInput(
+                    RobotMap.pwmShooterMotor);
+    private Solenoid     shooterSol   = new Solenoid(RobotMap.pwmShooterSol);
 
     public void startMotor()
     {
@@ -25,18 +25,20 @@ public class ShooterSubsystem extends Subsystem {
     {
         shooterMotor.stopLiveWindowMode();
     }
-    
-    public void solUp ()
+
+    public void solUp()
     {
-        solShooter.set(true);
+        shooterSol.set(true);
     }
 
     public void solDown()
     {
-        solShooter.set(false);
+        shooterSol.set(false);
     }
-    public void initDefaultCommand() {
+
+    public void initDefaultCommand()
+    {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        // setDefaultCommand(new MySpecialCommand());
     }
 }

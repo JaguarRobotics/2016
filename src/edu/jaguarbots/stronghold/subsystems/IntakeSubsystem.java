@@ -12,7 +12,7 @@ public class IntakeSubsystem extends Subsystem {
     
     private Victor intakeMotor = new Victor(RobotMap.pwmIntakeMotor);
     
-    private IntakeSubsystem()
+    public IntakeSubsystem()
     {
         
     }

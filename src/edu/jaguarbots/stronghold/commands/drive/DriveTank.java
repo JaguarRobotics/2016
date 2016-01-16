@@ -14,6 +14,7 @@ public class DriveTank extends CommandBase
 
     double left;
     double right;
+
     // Called just before this Command runs the first time
     protected void initialize()
     {

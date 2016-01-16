@@ -23,6 +23,7 @@ public class ClimberSubsystem extends Subsystem
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
     }
+
     /**
      * Makes motor able to start running
      */
@@ -30,7 +31,7 @@ public class ClimberSubsystem extends Subsystem
     {
         climberMotor.startLiveWindowMode();
     }
-    
+
     /**
      * Makes climber motor turn forward
      */

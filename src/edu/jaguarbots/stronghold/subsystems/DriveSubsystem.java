@@ -3,7 +3,7 @@ package edu.jaguarbots.stronghold.subsystems;
 import edu.jaguarbots.stronghold.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -11,8 +11,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveSubsystem extends Subsystem
 {
-    private Talon leftDrive = new Talon(RobotMap.leftDrive);    
-    private Talon rightDrive = new Talon(RobotMap.rightDrive);
+    private Spark leftDrive = new Spark(RobotMap.leftDrive);    
+    private Spark rightDrive = new Spark(RobotMap.rightDrive);
     private RobotDrive robotDrive = new RobotDrive(leftDrive, rightDrive);
     private Encoder leftEncoder = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
     private Encoder rightEncoder = new Encoder(RobotMap.rightEncoderAChannel, RobotMap.rightEncoderBChannel);

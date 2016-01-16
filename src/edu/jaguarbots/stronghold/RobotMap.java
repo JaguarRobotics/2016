@@ -17,8 +17,10 @@ public class RobotMap
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
-    public static final int pwmShooterMotor       = 10000000;//temporary pwm value you can change if you want
-    public static final int pwmClimberMotor       = 10000000;//temporary pwm value you can change if you want  
+    public static final int pwmShooterMotor       = 10000000;//temporary pwm value you can change if you want   
+    public static final int pwmClimberMotor = 1000000; //temporary pwm value you can change if you want
+    public static final int pwmSolShooter = 100;//temporary pwm value you can change if you want   
+
 //  digital ios
     public static final int leftEncoderAChannel = 0;
     public static final int leftEncoderBChannel = 1;

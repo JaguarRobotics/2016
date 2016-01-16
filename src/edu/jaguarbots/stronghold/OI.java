@@ -1,6 +1,8 @@
 package edu.jaguarbots.stronghold;
 
 import edu.jaguarbots.stronghold.RobotMap;
+import edu.jaguarbots.stronghold.commands.climber.Grab;
+import edu.jaguarbots.stronghold.commands.climber.Retract;
 import edu.jaguarbots.stronghold.commands.intake.Intake;
 import edu.jaguarbots.stronghold.commands.intake.Output;
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,6 +18,8 @@ public class OI {
     {
         Manipulator_DpadUp.whenPressed(new Intake());
         Manipulator_DpadDown.whenPressed(new Output());
+        Manipulator_DpadRight.whenPressed(new Grab());
+        Manipulator_DpadLeft.whenPressed(new Retract());
     }
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a joystick.
@@ -75,9 +79,9 @@ public class OI {
     public final Button Manipulator_R3 = new JoystickButton(Manipulator, 3);
     public final Button Manipulator_Start = new JoystickButton(Manipulator, 4);
     public final Button Manipulator_DpadUp = new JoystickButton(Manipulator, 5);
-    public final Button Maipulator_DpadRight = new JoystickButton(Manipulator, 6);
+    public final Button Manipulator_DpadRight = new JoystickButton(Manipulator, 6);
     public final Button Manipulator_DpadDown = new JoystickButton(Manipulator, 7);
-    public final Button Maipulator_DpadLeft = new JoystickButton(Manipulator, 8);
+    public final Button Manipulator_DpadLeft = new JoystickButton(Manipulator, 8);
     public final Button Manipulator_L2 = new JoystickButton(Manipulator, 9);
     public final Button Manipulator_R2 = new JoystickButton(Manipulator, 10);
     public final Button Manipulator_L1 = new JoystickButton(Manipulator, 11);

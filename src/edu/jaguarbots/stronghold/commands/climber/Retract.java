@@ -3,10 +3,13 @@ package edu.jaguarbots.stronghold.commands.climber;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 /**
- *
+ * Retracts the winch
+ * @author Cody Moose
+ * @since 2016
  */
 public class Retract extends CommandBase
 {
+//    TODO Add code for limit switch
     public Retract()
     {
         requires(climbSubsystem);
@@ -16,18 +19,19 @@ public class Retract extends CommandBase
     protected void initialize()
     {
         climbSubsystem.initMotor();
+        climbSubsystem.motorForward();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        climbSubsystem.motorForward();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
         return false;
+//        TODO add limit switch integration
     }
 
     // Called once after isFinished returns true

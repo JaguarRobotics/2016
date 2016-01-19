@@ -47,6 +47,7 @@ public class ClimberSubsystem extends Subsystem
     public void stopMotor()
     {
         climberMotor.stopMotor();
+        climberMotor.stopLiveWindowMode();
     }
 
     /**

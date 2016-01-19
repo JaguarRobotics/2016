@@ -25,8 +25,13 @@ public abstract class CommandBase extends Command
         super();
     }
 
-    public static void init() throws InterruptedException
+    public static void init()
     {
+        try {
         oi = new OI();
-    }
+        } 
+        catch(Exception e){
+            e.printStackTrace();
+        }
+   }
 }

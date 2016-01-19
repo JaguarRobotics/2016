@@ -39,5 +39,6 @@ public class Output extends CommandBase
     // subsystems is scheduled to run
     protected void interrupted()
     {
+        intakeSubsystem.stopMotor();
     }
 }

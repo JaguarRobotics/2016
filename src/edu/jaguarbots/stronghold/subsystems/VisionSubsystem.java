@@ -43,6 +43,7 @@ public class VisionSubsystem extends Subsystem
     public VisionSubsystem()
     {
         table = NetworkTable.getTable("GRIP/myContoursReport");
+        System.out.println("centerX " + getCenterX());
     }
 
     // For GRIP - I'm figuring out some stuff with GRIP, so we will see how it

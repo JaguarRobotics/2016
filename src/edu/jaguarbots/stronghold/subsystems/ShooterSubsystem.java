@@ -35,7 +35,22 @@ public class ShooterSubsystem extends Subsystem
     {
         shooterSol.set(false);
     }
+    
+    public void wenchMotor(Boolean limit)
+    {
+        while (limit==false)
+        {
+            startMotor();
+        }
+        stopMotor();
+    }
 
+    public void shootFinal()
+    {
+        startMotor();
+        edu.wpi.first.wpilibj.Timer.delay(1);
+        stopMotor();
+    }
     public void initDefaultCommand()
     {
         // Set the default command for a subsystem here.

@@ -12,32 +12,36 @@ public class VisionSubsystem extends Subsystem
     double[]     centerY;
     double[]     width;
     double[]     height;
-    double[]     defaultValue = null; // returns
-                                      // if
-                                      // nothing
-                                      // is
-                                      // found
-                                      // in
-                                      // the
-                                      // array
-    double[]     leftTarget   = null;
-    double[]     rightTarget  = null;
-    double[]     midTarget    = null; // The
-                                      // targets
-                                      // are
-                                      // in
-                                      // the
-                                      // format
-                                      // {x,
-                                      // y,
-                                      // width,
-                                      // height,
-                                      // area}
-    int          numTargets   = 0;
+    double[]     defaultValue    = null; // returns
+                                         // if
+                                         // nothing
+                                         // is
+                                         // found
+                                         // in
+                                         // the
+                                         // array
+    double[]     leftTarget      = null;
+    double[]     rightTarget     = null;
+    double[]     midTarget       = null; // The
+                                         // targets
+                                         // are
+                                         // in
+                                         // the
+                                         // format
+                                         // {x,
+                                         // y,
+                                         // width,
+                                         // height,
+                                         // area}
+    double[]     targetXDistance = null;
+    double[]     targetYDistance = null;
+    int          numTargets      = 0;
 
     public VisionSubsystem()
     {
         table = NetworkTable.getTable("GRIP/myContoursReport");
+        centerX = getCenterX();
+        System.out.println(centerX[0]);
     }
 
     // For GRIP - I'm figuring out some stuff with GRIP, so we will see how it
@@ -99,6 +103,16 @@ public class VisionSubsystem extends Subsystem
         rightTarget = new double[] { centerX[2], centerY[2], width[2],
                         height[2], area[2] };
         return rightTarget;
+    }
+
+    public double[] getTargetXDistance()
+    {
+        return targetXDistance;
+    }
+
+    public double[] getTargetYDistance()
+    {
+        return targetYDistance;
     }
 
     public void initDefaultCommand()

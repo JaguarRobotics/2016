@@ -21,6 +21,7 @@ public class DriveSubsystem extends Subsystem
     private double[] encoderValues = {leftEncoderValue, rightEncoderValue};
     private double bias = 1;
     private double constant = .2;
+    private boolean inAdjustedDrive = false;
     
     public void resetEncoders(boolean left, boolean right)
     {
@@ -29,6 +30,10 @@ public class DriveSubsystem extends Subsystem
         if (right)
             rightEncoder.reset();
     }
+    
+    public void startEncoders()
+    {
+    } 
     
     public double[] getEncoders()
     {
@@ -40,23 +45,36 @@ public class DriveSubsystem extends Subsystem
     
     public void driveTank(double left, double right)
     {
-        robotDrive.tankDrive(left, right);
+        if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
+        {
+            if (!inAdjustedDrive)
+            {
+                inAdjustedDrive = true;
+                resetEncoders(true, true);
+                // reset encoders
+            }
+            driveAdjusted(left, right);
+        }
+        else
+        {
+            inAdjustedDrive = false;
+            robotDrive.tankDrive(left, right);
+        }
     }
     
     public void driveAdjusted(double left, double right)
     {
-        resetEncoders(true, true);
         double leftEnc = leftEncoder.getRaw();
         double rightEnc = rightEncoder.getRaw();
         double delta = leftEnc - rightEnc;
-        if(delta >= 0)  //if left is faster than right
+        if(delta > 0)  //if left is faster than right
         {
-            bias = Math.abs((rightEnc/leftEnc) - constant); //adjust bias
+            bias = Math.abs((rightEnc/(leftEnc + delta))); //adjust bias
             left = left*bias;   //reduce left power
         }
-        else if(delta <= 0) //if right is faster than left
+        else if(delta < 0) //if right is faster than left
         {
-            bias = Math.abs((leftEnc/rightEnc) - constant); //adjust bias
+            bias = Math.abs((leftEnc/(rightEnc - delta))); //adjust bias
             right = right*bias; //if left is faster than right
         }
         robotDrive.tankDrive(left, right);

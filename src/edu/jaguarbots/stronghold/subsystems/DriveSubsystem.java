@@ -1,10 +1,12 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.jaguarbots.stronghold.RobotMap;
+import edu.jaguarbots.stronghold.commands.drive.DriveTank;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  *
@@ -20,8 +22,8 @@ public class DriveSubsystem extends Subsystem
     private double rightEncoderValue;
     private double[] encoderValues = {leftEncoderValue, rightEncoderValue};
     private double bias = 1;
-    private double constant = .2;
     private boolean inAdjustedDrive = false;
+    private Gyro gyro;
     
     public void resetEncoders(boolean left, boolean right)
     {
@@ -30,10 +32,6 @@ public class DriveSubsystem extends Subsystem
         if (right)
             rightEncoder.reset();
     }
-    
-    public void startEncoders()
-    {
-    } 
     
     public double[] getEncoders()
     {
@@ -82,7 +80,6 @@ public class DriveSubsystem extends Subsystem
     
     public void initDefaultCommand()
     {
-        // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new DriveTank());
     }
 }

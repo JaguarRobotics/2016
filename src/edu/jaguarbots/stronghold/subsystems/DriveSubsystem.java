@@ -3,6 +3,7 @@ package edu.jaguarbots.stronghold.subsystems;
 import edu.jaguarbots.stronghold.RobotMap;
 import edu.jaguarbots.stronghold.commands.drive.DriveTank;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;

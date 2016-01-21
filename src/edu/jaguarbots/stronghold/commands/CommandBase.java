@@ -17,7 +17,7 @@ public abstract class CommandBase extends Command
     public static final DriveSubsystem   driveSubsystem  = new DriveSubsystem();
     public static final VisionSubsystem  visionSubsystem = new VisionSubsystem();
     public static final IntakeSubsystem  intakeSubsystem = new IntakeSubsystem();
-    public static final ShooterSubsystem shooterSubsytem = new ShooterSubsystem();
+    public static final ShooterSubsystem shooterSubsystem = new ShooterSubsystem();
     public static final ClimberSubsystem climbSubsystem  = new ClimberSubsystem();
 
     public CommandBase()

@@ -45,10 +45,10 @@ public class ShooterSubsystem extends Subsystem
         stopMotor();
     }
 
-    public void shootFinal()
+    public void shootFinal(double time)
     {
         startMotor();
-        edu.wpi.first.wpilibj.Timer.delay(1);
+        edu.wpi.first.wpilibj.Timer.delay(time);
         stopMotor();
     }
     public void initDefaultCommand()

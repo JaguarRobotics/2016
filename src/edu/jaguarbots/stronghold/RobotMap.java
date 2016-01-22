@@ -23,6 +23,7 @@ public class RobotMap
     public static final int pwmShooterSol        = 100;
     // temporary pwm value you can change if you want
     public static final int pwmClimberSol        = 100;
+    public static final int digitalIOGyro        = 100;
     // temporary pwm value you can change if you want
     // digital ios
     public static final int leftEncoderAChannel  = 0;

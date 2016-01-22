@@ -11,44 +11,47 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-
 public class DriveSubsystem extends Subsystem
 {
-    private Victor leftDrive = new Victor(RobotMap.leftDrive);
-    private Victor rightDrive = new Victor(RobotMap.rightDrive);
-    private RobotDrive robotDrive = new RobotDrive(leftDrive, rightDrive);
-    private Encoder leftEncoder = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
-    private Encoder rightEncoder = new Encoder(RobotMap.rightEncoderAChannel, RobotMap.rightEncoderBChannel);
-    private double leftEncoderValue;
-    private double rightEncoderValue;
-    private double[] encoderValues = {leftEncoderValue, rightEncoderValue};
-    private double bias = 1;
-    private boolean inAdjustedDrive = false;
-    private AnalogGyro gyro = new AnalogGyro(1);
-    private double diameter = 21;
-    
+    private Victor     leftDrive       = new Victor(RobotMap.leftDrive);
+    private Victor     rightDrive      = new Victor(RobotMap.rightDrive);
+    private RobotDrive robotDrive      = new RobotDrive(leftDrive, rightDrive);
+    private Encoder    leftEncoder     = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
+    private Encoder    rightEncoder    = new Encoder(RobotMap.rightEncoderAChannel, RobotMap.rightEncoderBChannel);
+    private double     leftEncoderValue;
+    private double     rightEncoderValue;
+    private double[]   encoderValues   = { leftEncoderValue, rightEncoderValue };
+    private double     bias            = 1;
+    private boolean    inAdjustedDrive = false;
+    private double     diameter        = 21;
+    private AnalogGyro gyro            = new AnalogGyro(10000);                                                    // TODO
+                                                                                                                   // Add
+                                                                                                                   // pwm
+                                                                                                                   // or
+                                                                                                                   // whatever
+                                                                                                                   // for
+                                                                                                                   // Gyro
+
     public void resetEncoders(boolean left, boolean right)
     {
-        if (left)
-            leftEncoder.reset();
-        if (right)
-            rightEncoder.reset();
+        if (left) leftEncoder.reset();
+        if (right) rightEncoder.reset();
     }
-    
+
     public void startEncoders()
     {
-        leftEncoder.setDistancePerPulse(Math.PI*diameter/360);
-        rightEncoder.setDistancePerPulse(Math.PI*diameter/360);
+        leftEncoder.setDistancePerPulse(Math.PI * diameter / 360);
+        rightEncoder.setDistancePerPulse(Math.PI * diameter / 360);
     }
-    
+
     public double[] getEncoders()
     {
         leftEncoderValue = leftEncoder.getDistance();
         rightEncoderValue = rightEncoder.getDistance();
-        encoderValues = new double[] {leftEncoderValue, rightEncoderValue};
+        encoderValues = new double[] { leftEncoderValue, rightEncoderValue };
         return encoderValues;
     }
-    
+
     public void driveTank(double left, double right)
     {
         if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
@@ -67,25 +70,57 @@ public class DriveSubsystem extends Subsystem
             robotDrive.tankDrive(left, right);
         }
     }
-    
+
     public void driveAdjusted(double left, double right)
     {
         double leftEnc = leftEncoder.getRaw();
         double rightEnc = rightEncoder.getRaw();
         double delta = leftEnc - rightEnc;
-        if(delta > 0)  //if left is faster than right
+        if (delta > 0) // if left is faster than right
         {
-            bias = Math.abs((rightEnc/(leftEnc + delta))); //adjust bias
-            left = left*bias;   //reduce left power
+            bias = Math.abs((rightEnc / (leftEnc + delta))); // adjust bias
+            left = left * bias; // reduce left power
         }
-        else if(delta < 0) //if right is faster than left
+        else if (delta < 0) // if right is faster than left
         {
-            bias = Math.abs((leftEnc/(rightEnc - delta))); //adjust bias
-            right = right*bias; //if left is faster than right
+            bias = Math.abs((leftEnc / (rightEnc - delta))); // adjust bias
+            right = right * bias; // if left is faster than right
         }
         robotDrive.tankDrive(left, right);
     }
-    
+
+    public void robotTurn(int direction)
+    {
+        if (direction == -1 || direction == 1) robotDrive.tankDrive(-direction, direction);
+        // direction = -1: left turn
+        // direction = 1: right turn
+    }
+
+    public void robotStop()
+    {
+        robotDrive.tankDrive(0, 0);
+    }
+
+    public void gyroTurn(double turnAmount)
+    {
+        double startAngle = gyro.getAngle();
+        if (turnAmount < 0)
+        {
+            while ((gyro.getAngle() + startAngle) > turnAmount)
+            {
+                robotTurn(-1);
+            }
+        }
+        else if (turnAmount > 0)
+        {
+            while ((gyro.getAngle() - startAngle) < turnAmount)
+            {
+                robotTurn(1);
+            }
+        }
+        robotStop();
+    }
+
     public void initDefaultCommand()
     {
         setDefaultCommand(new DriveTank());

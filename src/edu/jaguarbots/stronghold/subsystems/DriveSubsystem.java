@@ -2,19 +2,19 @@ package edu.jaguarbots.stronghold.subsystems;
 
 import edu.jaguarbots.stronghold.RobotMap;
 import edu.jaguarbots.stronghold.commands.drive.DriveTank;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.GyroBase;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  *
  */
+
 public class DriveSubsystem extends Subsystem
 {
-    private Victor leftDrive = new Victor(RobotMap.leftDrive);    
+    private Victor leftDrive = new Victor(RobotMap.leftDrive);
     private Victor rightDrive = new Victor(RobotMap.rightDrive);
     private RobotDrive robotDrive = new RobotDrive(leftDrive, rightDrive);
     private Encoder leftEncoder = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
@@ -24,7 +24,8 @@ public class DriveSubsystem extends Subsystem
     private double[] encoderValues = {leftEncoderValue, rightEncoderValue};
     private double bias = 1;
     private boolean inAdjustedDrive = false;
-    private Gyro gyro;
+    private AnalogGyro gyro = new AnalogGyro(1);
+    private double diameter = 21;
     
     public void resetEncoders(boolean left, boolean right)
     {
@@ -32,6 +33,12 @@ public class DriveSubsystem extends Subsystem
             leftEncoder.reset();
         if (right)
             rightEncoder.reset();
+    }
+    
+    public void startEncoders()
+    {
+        leftEncoder.setDistancePerPulse(Math.PI*diameter/360);
+        rightEncoder.setDistancePerPulse(Math.PI*diameter/360);
     }
     
     public double[] getEncoders()

@@ -13,15 +13,16 @@ import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 public class DriveFix extends CommandBase
 {
     private double startAngle;
-    public DriveFix()
+    public DriveFix(double startAngle)
     {
         requires(driveSubsystem);
+
+        this.startAngle = startAngle;
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        startAngle = DriveSubsystem.gyroGetAngle();
     }
 
     // Called repeatedly when this Command is scheduled to run

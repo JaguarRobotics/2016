@@ -15,6 +15,7 @@ public class ShooterSubsystem extends Subsystem
     private DigitalInput shooterMotor = new DigitalInput(
                     RobotMap.pwmShooterMotor);
     private Solenoid     shooterSol   = new Solenoid(RobotMap.pwmShooterSol);
+    private DigitalInput stop = new DigitalInput(RobotMap.dioShooterWench);
 
     public void startMotor()
     {
@@ -36,9 +37,9 @@ public class ShooterSubsystem extends Subsystem
         shooterSol.set(false);
     }
     
-    public void wenchMotor(Boolean limit)
+    public void wenchMotor()
     {
-        while (limit==false)
+        while (stop.get()==false)
         {
             startMotor();
         }

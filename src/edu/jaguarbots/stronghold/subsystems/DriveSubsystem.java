@@ -7,15 +7,16 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  *
  */
 public class DriveSubsystem extends Subsystem
 {
-    private Victor     leftDrive       = new Victor(RobotMap.leftDrive);
-    private Victor     rightDrive      = new Victor(RobotMap.rightDrive);
-    private RobotDrive robotDrive      = new RobotDrive(leftDrive, rightDrive);
+    private static Victor     leftDrive       = new Victor(RobotMap.leftDrive);
+    private static Victor     rightDrive      = new Victor(RobotMap.rightDrive);
+    private static RobotDrive robotDrive      = new RobotDrive(leftDrive, rightDrive);
     private Encoder    leftEncoder     = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
     private Encoder    rightEncoder    = new Encoder(RobotMap.rightEncoderAChannel, RobotMap.rightEncoderBChannel);
     private double     leftEncoderValue;
@@ -24,7 +25,7 @@ public class DriveSubsystem extends Subsystem
     private double     bias            = 1;
     private boolean    inAdjustedDrive = false;
     private double     diameter        = 21;
-    private AnalogGyro gyro            = new AnalogGyro(10000);                                                    // TODO
+    private static AnalogGyro gyro            = new AnalogGyro(10000);                                                    // TODO
                                                                                                                    // Add
                                                                                                                    // pwm
                                                                                                                    // or
@@ -89,36 +90,45 @@ public class DriveSubsystem extends Subsystem
         robotDrive.tankDrive(left, right);
     }
 
-    public void robotTurn(int direction)
+    public static void robotTurn(int direction)
     {
         if (direction == -1 || direction == 1) robotDrive.tankDrive(-direction, direction);
         // direction = -1: left turn
         // direction = 1: right turn
     }
 
-    public void robotStop()
+    public static void robotStop()
     {
         robotDrive.tankDrive(0, 0);
     }
+    
+    public static double gyroGetAngle(){
+        return gyro.getAngle();
+    }
 
-    public void gyroTurn(double turnAmount)
+    public static void gyroTurnToAngle(double angle)
     {
-        double startAngle = gyro.getAngle();
-        if (turnAmount < 0)
+        if (angle < 0)
         {
-            while ((gyro.getAngle() + startAngle) > turnAmount)
+            while (gyro.getAngle() > angle)
             {
                 robotTurn(-1);
             }
         }
-        else if (turnAmount > 0)
+        else if (angle > 0)
         {
-            while ((gyro.getAngle() - startAngle) < turnAmount)
+            while (gyro.getAngle() < angle)
             {
                 robotTurn(1);
             }
         }
         robotStop();
+    }
+    
+    public static void gyroTurn(double turnAmount)
+    {
+        double toAngle = gyro.getAngle() + turnAmount;
+        gyroTurnToAngle(toAngle);
     }
 
     public void initDefaultCommand()

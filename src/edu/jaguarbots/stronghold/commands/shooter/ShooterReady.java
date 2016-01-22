@@ -4,17 +4,15 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 
 public class ShooterReady extends CommandBase
 {
-      private Boolean stop;
     
-    public ShooterReady(Boolean stop)
+    public ShooterReady()
     {
         requires(shooterSubsystem);
-        this.stop=stop;
     }
     @Override
     protected void initialize()
     {
-        shooterSubsystem.wenchMotor(stop);
+        shooterSubsystem.wenchMotor();
     }
     
     @Override

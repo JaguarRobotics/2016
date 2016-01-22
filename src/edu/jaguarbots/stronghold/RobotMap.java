@@ -33,6 +33,8 @@ public class RobotMap
     public static final int leftEncoderBChannel    = 1;
     public static final int rightEncoderAChannel   = 2;
     public static final int rightEncoderBChannel   = 3;
+    public static final int intakePositionEncoderAChannel    = 4;
+    public static final int intakePositionEncoderBChannel    = 4;
     // joysticks
     public static final int leftStick              = 0;
     public static final int rightStick             = 1;

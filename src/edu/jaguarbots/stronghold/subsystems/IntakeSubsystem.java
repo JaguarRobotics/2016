@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.jaguarbots.stronghold.RobotMap;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -15,6 +16,7 @@ public class IntakeSubsystem extends Subsystem
      */
     private Victor intakeMotor = new Victor(RobotMap.pwmIntakeMotor);
     private Relay positionMotor = new Relay(RobotMap.pwmIntakePositionMotor);
+    private Encoder positionEncoder = new Encoder(RobotMap.intakePositionEncoderAChannel, RobotMap.intakePositionEncoderBChannel);
 
     /*
      * Constructor for IntakeSubsytem
@@ -69,6 +71,22 @@ public class IntakeSubsystem extends Subsystem
     public void stopPositionMotor()
     {
         positionMotor.set(Relay.Value.kOff);
+    }
+
+    /*
+     * resets the position encoder
+     */
+    public void resetPositionEncoder()
+    {
+        positionEncoder.reset();
+    }
+
+    /*
+     * gets the position encoder value
+     */
+    public void getPositionEncoderValue()
+    {
+        positionEncoder.get();
     }
     
     public void initDefaultCommand()

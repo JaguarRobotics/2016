@@ -14,9 +14,9 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  */
 public class DriveSubsystem extends Subsystem
 {
-    private Victor     leftDrive       = new Victor(RobotMap.leftDrive);
-    private Victor     rightDrive      = new Victor(RobotMap.rightDrive);
-    private RobotDrive robotDrive      = new RobotDrive(leftDrive, rightDrive);
+    private static Victor     leftDrive       = new Victor(RobotMap.leftDrive);
+    private static Victor     rightDrive      = new Victor(RobotMap.rightDrive);
+    private static RobotDrive robotDrive      = new RobotDrive(leftDrive, rightDrive);
     private Encoder    leftEncoder     = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
     private Encoder    rightEncoder    = new Encoder(RobotMap.rightEncoderAChannel, RobotMap.rightEncoderBChannel);
     private double     leftEncoderValue;

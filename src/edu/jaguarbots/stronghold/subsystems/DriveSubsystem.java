@@ -127,22 +127,8 @@ public class DriveSubsystem extends Subsystem
     
     public static void gyroTurn(double turnAmount)
     {
-        double startAngle = gyro.getAngle();
-        if (turnAmount < 0)
-        {
-            while ((gyro.getAngle() + startAngle) > turnAmount)
-            {
-                robotTurn(-1);
-            }
-        }
-        else if (turnAmount > 0)
-        {
-            while ((gyro.getAngle() - startAngle) < turnAmount)
-            {
-                robotTurn(1);
-            }
-        }
-        robotStop();
+        double toAngle = gyro.getAngle() + turnAmount;
+        gyroTurnToAngle(toAngle);
     }
 
     public void initDefaultCommand()

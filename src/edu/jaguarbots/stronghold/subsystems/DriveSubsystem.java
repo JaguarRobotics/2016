@@ -125,4 +125,14 @@ public class DriveSubsystem extends Subsystem
     {
         setDefaultCommand(new DriveTank());
     }
+    
+    public double getEncoderLeft()
+    {
+        return leftEncoder.getDistance();
+    }
+    
+    public double getEncoderRight()
+    {
+        return rightEncoder.getDistance();
+    }
 }

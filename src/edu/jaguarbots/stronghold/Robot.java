@@ -21,6 +21,7 @@ public class Robot extends IterativeRobot
 {
     public static final DriveSubsystem exampleSubsystem = new DriveSubsystem();
     Command                            autonomousCommand;
+    //vars for auto
     SendableChooser positionChooser = new SendableChooser();
     int position;
     SendableChooser categoryChooser = new SendableChooser();

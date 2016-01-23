@@ -1,11 +1,14 @@
 package edu.jaguarbots.stronghold;
 
+import edu.jaguarbots.stronghold.commands.Autonomous;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -18,7 +21,13 @@ public class Robot extends IterativeRobot
 {
     public static final DriveSubsystem exampleSubsystem = new DriveSubsystem();
     Command                            autonomousCommand;
-
+    SendableChooser positionChooser = new SendableChooser();
+    int position;
+    SendableChooser categoryChooser = new SendableChooser();
+    int category;
+    SendableChooser defenseChooser = new SendableChooser();
+    boolean defense;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -26,7 +35,25 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
         CommandBase.init();
-        // chooser.addObject("My Auto", new MyAutoCommand());
+        autonomousCommand = new Autonomous();
+        positionChooser.addDefault("1", position = 1);
+        positionChooser.addDefault("2", position = 2);
+        positionChooser.addDefault("3", position = 3);
+        positionChooser.addDefault("4", position = 4);
+        positionChooser.addDefault("5", position = 5);
+        SmartDashboard.putData("Position", positionChooser);
+        
+        categoryChooser.addDefault("low bar", category = 0);
+        categoryChooser.addDefault("A", category = 1);
+        categoryChooser.addDefault("B", category = 2);
+        categoryChooser.addDefault("C", category = 3);
+        categoryChooser.addDefault("D", category = 4);
+        SmartDashboard.putData("Category", categoryChooser);
+        
+        defenseChooser.addDefault("gate, moat, drawbridge, and rockwall", defense = false);
+        defenseChooser.addDefault("teetor-totter, steps, door, terrain", defense = true);
+        SmartDashboard.putData("Defense", defenseChooser);
+        
     }
 
     /**
@@ -62,6 +89,7 @@ public class Robot extends IterativeRobot
          * autonomousCommand = new ExampleCommand(); break; }
          */
         // schedule the autonomous command (example)
+        autonomousCommand = new Autonomous(position, category, defense);
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

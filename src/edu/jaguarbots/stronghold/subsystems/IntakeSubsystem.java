@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.jaguarbots.stronghold.RobotMap;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Victor;
@@ -14,15 +15,19 @@ public class IntakeSubsystem extends Subsystem
     /*
      * the motor that sucks in the ball
      */
-    private Victor intakeMotor = new Victor(RobotMap.pwmIntakeMotor);
-    private Relay positionMotor = new Relay(RobotMap.pwmIntakePositionMotor);
-    private Encoder positionEncoder = new Encoder(RobotMap.intakePositionEncoderAChannel, RobotMap.intakePositionEncoderBChannel);
+    private Victor       intakeMotor     = new Victor(RobotMap.pwmIntakeMotor);
+    private Relay        positionMotor   = new Relay(RobotMap.pwmIntakePositionMotor);
+    private Encoder      positionEncoder = new Encoder(RobotMap.intakePositionEncoderAChannel,
+                    RobotMap.intakePositionEncoderBChannel);
+    private DigitalInput limitSwitch     = new DigitalInput(RobotMap.intakeLimitSwitch);
+    private int originalEncoderValue;
 
     /*
      * Constructor for IntakeSubsytem
      */
     public IntakeSubsystem()
     {
+        originalEncoderValue = getPositionEncoderValue();
     }
 
     /*
@@ -54,17 +59,29 @@ public class IntakeSubsystem extends Subsystem
      */
     public void positionMotorUp()
     {
-        positionMotor.set(Relay.Value.kForward);
+        if (limitSwitch.get() == true)
+        {
+            resetPositionEncoder();
+        }
+        stopPositionMotor();
     }
 
     /*
-     * runs the position motor in the opposite direction of the default direction
+     * runs the position motor in the opposite direction of the default
+     * direction
      */
     public void positionMotorDown()
     {
-        positionMotor.set(Relay.Value.kReverse);
+        if(getPositionEncoderValue() != originalEncoderValue)
+        {
+            positionMotor.set(Relay.Value.kReverse);
+        }
+        else
+        {
+            stopPositionMotor();
+        }
     }
-    
+
     /*
      * stops the position motor
      */
@@ -84,11 +101,11 @@ public class IntakeSubsystem extends Subsystem
     /*
      * gets the position encoder value
      */
-    public void getPositionEncoderValue()
+    public int getPositionEncoderValue()
     {
-        positionEncoder.get();
+        return positionEncoder.get();
     }
-    
+
     public void initDefaultCommand()
     {
         // Set the default command for a subsystem here.

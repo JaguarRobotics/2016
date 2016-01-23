@@ -4,6 +4,7 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 
 public class ShooterReady extends CommandBase
 {
+    private boolean end;
     
     public ShooterReady()
     {
@@ -12,20 +13,19 @@ public class ShooterReady extends CommandBase
     @Override
     protected void initialize()
     {
-        shooterSubsystem.wenchMotor();
+        
     }
     
     @Override
     protected void execute()
     {
-        // TODO Auto-generated method stub
-        
+        end = shooterSubsystem.wenchMotor();
     }    
     
     @Override
     protected boolean isFinished()
     {
-        return true;
+        return end;
     }
     
     @Override

@@ -20,14 +20,15 @@ public class IntakeSubsystem extends Subsystem
     private Encoder      positionEncoder = new Encoder(RobotMap.intakePositionEncoderAChannel,
                     RobotMap.intakePositionEncoderBChannel);
     private DigitalInput limitSwitch     = new DigitalInput(RobotMap.intakeLimitSwitch);
-    private int originalEncoderValue;
+    private int          bottomPosition;
+    private int          topPosition;
 
     /*
      * Constructor for IntakeSubsytem
      */
     public IntakeSubsystem()
     {
-        originalEncoderValue = getPositionEncoderValue();
+        bottomPosition = getPositionEncoderValue();
     }
 
     /*
@@ -61,6 +62,8 @@ public class IntakeSubsystem extends Subsystem
     {
         if (limitSwitch.get() == true)
         {
+            topPosition = getPositionEncoderValue();
+            bottomPosition = Math.abs(topPosition - bottomPosition);
             resetPositionEncoder();
         }
         stopPositionMotor();
@@ -72,13 +75,13 @@ public class IntakeSubsystem extends Subsystem
      */
     public void positionMotorDown()
     {
-        if(getPositionEncoderValue() != originalEncoderValue)
+        if (getPositionEncoderValue() == bottomPosition)
         {
-            positionMotor.set(Relay.Value.kReverse);
+            stopPositionMotor();
         }
         else
         {
-            stopPositionMotor();
+            positionMotor.set(Relay.Value.kReverse);
         }
     }
 

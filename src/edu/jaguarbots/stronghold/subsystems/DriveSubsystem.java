@@ -5,6 +5,7 @@ import edu.jaguarbots.stronghold.commands.drive.DriveTank;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
@@ -16,21 +17,18 @@ public class DriveSubsystem extends Subsystem
 {
     private static Victor     leftDrive       = new Victor(RobotMap.leftDrive);
     private static Victor     rightDrive      = new Victor(RobotMap.rightDrive);
-    private static RobotDrive robotDrive      = new RobotDrive(leftDrive,
-                    rightDrive);
-    private Encoder           leftEncoder     = new Encoder(
-                    RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
-    private Encoder           rightEncoder    = new Encoder(
-                    RobotMap.rightEncoderAChannel,
+    private static RobotDrive robotDrive      = new RobotDrive(leftDrive, rightDrive);
+    private Encoder           leftEncoder     = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
+    private Encoder           rightEncoder    = new Encoder(RobotMap.rightEncoderAChannel,
                     RobotMap.rightEncoderBChannel);
     private double            leftEncoderValue;
     private double            rightEncoderValue;
-    private double[]          encoderValues   = { leftEncoderValue,
-                    rightEncoderValue };
+    private double[]          encoderValues   = { leftEncoderValue, rightEncoderValue };
     private double            bias            = 1;
     private boolean           inAdjustedDrive = false;
     private double            diameter        = 21;
     private static AnalogGyro gyro            = new AnalogGyro(RobotMap.gyro);
+    private static Solenoid   gearSol         = new Solenoid(RobotMap.pwmGearSol);
 
     public void resetEncoders(boolean left, boolean right)
     {
@@ -136,5 +134,20 @@ public class DriveSubsystem extends Subsystem
     public double getEncoderRight()
     {
         return rightEncoder.getDistance();
+    }
+
+    public static boolean getGearShift()
+    {
+        return gearSol.get();
+    }
+
+    public static void gearShiftOut()
+    {
+        gearSol.set(true);
+    }
+
+    public static void gearShiftIn()
+    {
+        gearSol.set(false);
     }
 }

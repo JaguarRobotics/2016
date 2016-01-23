@@ -3,6 +3,7 @@ package edu.jaguarbots.stronghold;
 import edu.jaguarbots.stronghold.commands.climber.Extend;
 import edu.jaguarbots.stronghold.commands.climber.Grab;
 import edu.jaguarbots.stronghold.commands.climber.Retract;
+import edu.jaguarbots.stronghold.commands.drive.GearShift;
 import edu.jaguarbots.stronghold.commands.intake.Intake;
 import edu.jaguarbots.stronghold.commands.intake.Output;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterDown;
@@ -29,6 +30,7 @@ public class OI
             new Retract();
         if(Manipulator.getY(Hand.kLeft)<-.7)
             new Extend();
+        Joystick1_Button1.whenPressed(new GearShift());
     }
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a

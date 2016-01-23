@@ -11,13 +11,13 @@ public class ShooterDown extends CommandBase
     @Override
     protected void initialize()
     {
-        
+        shooterSubsystem.solDown();
     }
     
     @Override
     protected void execute()
     {
-        shooterSubsystem.solDown();
+        
         
     }    
     

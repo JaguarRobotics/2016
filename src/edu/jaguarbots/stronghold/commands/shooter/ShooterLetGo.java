@@ -13,15 +13,13 @@ public class ShooterLetGo extends CommandBase
     @Override
     protected void initialize()
     {
-        
+        shooterSubsystem.shootFinal(wait);
     }
     
     @Override
     protected void execute()
     {
         // TODO Auto-generated method stub
-        shooterSubsystem.shootFinal(wait);
-        
     }    
     
     @Override

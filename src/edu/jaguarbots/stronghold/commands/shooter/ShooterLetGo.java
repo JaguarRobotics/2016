@@ -20,7 +20,6 @@ public class ShooterLetGo extends CommandBase
     protected void execute()
     {
         // TODO Auto-generated method stub
-        
     }    
     
     @Override

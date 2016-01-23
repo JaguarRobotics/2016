@@ -26,7 +26,7 @@ public class Intake extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return false;
+        return oi.Manipulator_L1.get();
     }
 
     // Called once after isFinished returns true

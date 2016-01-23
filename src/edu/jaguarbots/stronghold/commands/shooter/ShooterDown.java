@@ -17,7 +17,7 @@ public class ShooterDown extends CommandBase
     @Override
     protected void execute()
     {
-        // TODO Auto-generated method stub
+        
         
     }    
     

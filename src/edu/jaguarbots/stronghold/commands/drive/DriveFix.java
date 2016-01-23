@@ -13,6 +13,7 @@ import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 public class DriveFix extends CommandBase
 {
     private double startAngle;
+    private double speed = .7;
     public DriveFix(double startAngle)
     {
         requires(driveSubsystem);
@@ -28,16 +29,14 @@ public class DriveFix extends CommandBase
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        DriveSubsystem.gyroTurnToAngle(startAngle);
+        driveSubsystem.gyroTurnToAngle(startAngle, speed);
 
-        if(DriveSubsystem.gyroGetAngle() == startAngle)
-            isFinished();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return (DriveSubsystem.gyroGetAngle() == startAngle);
+        return (driveSubsystem.getGyro() >= startAngle);
     }
 
     // Called once after isFinished returns true

@@ -19,7 +19,6 @@ public class ShooterUp extends CommandBase
     protected void execute()
     {
         // TODO Auto-generated method stub
-        
     }    
     
     @Override

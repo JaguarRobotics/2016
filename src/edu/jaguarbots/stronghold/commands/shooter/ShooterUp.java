@@ -12,14 +12,14 @@ public class ShooterUp extends CommandBase
     @Override
     protected void initialize()
     {
-        shooterSubsystem.solUp();
+        
     }
     
     @Override
     protected void execute()
     {
         // TODO Auto-generated method stub
-        
+        shooterSubsystem.solUp();
     }    
     
     @Override

@@ -5,6 +5,7 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 public class EncoderDrive extends CommandBase
 {
     private double distance;
+    private double speed = .7;
     private boolean end;
     
     public EncoderDrive(double distance)
@@ -13,16 +14,25 @@ public class EncoderDrive extends CommandBase
         this.distance=distance;
         end = false;
     }
+    
+    public EncoderDrive(double distance, double speed)
+    {
+        requires(driveSubsystem);
+        this.distance=distance;
+        this.speed = speed;
+        end = false;
+    }
     protected void initialize()
     {
+        driveSubsystem.startEncoders();
         driveSubsystem.resetEncoders(true, true);
-        driveSubsystem.driveTank(1, 1);
+        driveSubsystem.driveTank(speed, speed);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        if (driveSubsystem.getEncoderLeft() < distance || driveSubsystem.getEncoderRight() < distance)
+        if (driveSubsystem.getEncoderLeft() >= distance || driveSubsystem.getEncoderRight() >= distance)
         {
             driveSubsystem.driveTank(0, 0);
             end=true;

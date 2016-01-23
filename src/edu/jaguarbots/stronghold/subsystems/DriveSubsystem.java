@@ -16,22 +16,21 @@ public class DriveSubsystem extends Subsystem
 {
     private static Victor     leftDrive       = new Victor(RobotMap.leftDrive);
     private static Victor     rightDrive      = new Victor(RobotMap.rightDrive);
-    private static RobotDrive robotDrive      = new RobotDrive(leftDrive, rightDrive);
-    private Encoder    leftEncoder     = new Encoder(RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
-    private Encoder    rightEncoder    = new Encoder(RobotMap.rightEncoderAChannel, RobotMap.rightEncoderBChannel);
-    private double     leftEncoderValue;
-    private double     rightEncoderValue;
-    private double[]   encoderValues   = { leftEncoderValue, rightEncoderValue };
-    private double     bias            = 1;
-    private boolean    inAdjustedDrive = false;
-    private double     diameter        = 21;
-    private static AnalogGyro gyro            = new AnalogGyro(10000);                                                    // TODO
-                                                                                                                   // Add
-                                                                                                                   // pwm
-                                                                                                                   // or
-                                                                                                                   // whatever
-                                                                                                                   // for
-                                                                                                                   // Gyro
+    private static RobotDrive robotDrive      = new RobotDrive(leftDrive,
+                    rightDrive);
+    private Encoder           leftEncoder     = new Encoder(
+                    RobotMap.leftEncoderAChannel, RobotMap.leftEncoderBChannel);
+    private Encoder           rightEncoder    = new Encoder(
+                    RobotMap.rightEncoderAChannel,
+                    RobotMap.rightEncoderBChannel);
+    private double            leftEncoderValue;
+    private double            rightEncoderValue;
+    private double[]          encoderValues   = { leftEncoderValue,
+                    rightEncoderValue };
+    private double            bias            = 1;
+    private boolean           inAdjustedDrive = false;
+    private double            diameter        = 21;
+    private static AnalogGyro gyro            = new AnalogGyro(RobotMap.gyro);
 
     public void resetEncoders(boolean left, boolean right)
     {
@@ -90,57 +89,50 @@ public class DriveSubsystem extends Subsystem
         robotDrive.tankDrive(left, right);
     }
 
-    public static void robotTurn(int direction)
+    public void robotTurn(double speed)
     {
-        if (direction == -1 || direction == 1) robotDrive.tankDrive(-direction, direction);
-        // direction = -1: left turn
-        // direction = 1: right turn
+        robotDrive.tankDrive(-speed, speed);
     }
 
-    public static void robotStop()
+    public void robotStop()
     {
         robotDrive.tankDrive(0, 0);
     }
-    
-    public static double gyroGetAngle(){
-        return gyro.getAngle();
-    }
 
-    public static void gyroTurnToAngle(double angle)
+    public void gyroTurnToAngle(double angle, double speed)
     {
         if (angle < 0)
         {
-            while (gyro.getAngle() > angle)
+            if (gyro.getAngle() > angle)
             {
-                robotTurn(-1);
+                robotTurn(-speed);
             }
         }
         else if (angle > 0)
         {
-            while (gyro.getAngle() < angle)
+            if (gyro.getAngle() < angle)
             {
-                robotTurn(1);
+                robotTurn(speed);
             }
         }
         robotStop();
     }
-    
-    public static void gyroTurn(double turnAmount)
+
+    public double getGyro()
     {
-        double toAngle = gyro.getAngle() + turnAmount;
-        gyroTurnToAngle(toAngle);
+        return gyro.getAngle();
     }
 
     public void initDefaultCommand()
     {
         setDefaultCommand(new DriveTank());
     }
-    
+
     public double getEncoderLeft()
     {
         return leftEncoder.getDistance();
     }
-    
+
     public double getEncoderRight()
     {
         return rightEncoder.getDistance();

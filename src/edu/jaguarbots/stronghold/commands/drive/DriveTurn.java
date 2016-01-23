@@ -5,52 +5,56 @@ import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 
 /**
  * Turns robot a specified angle left or right. Negative angles turn left.
+ * 
  * @author Cody Moose
  * @version 2016
  * @since 2016
- *
  */
 public class DriveTurn extends CommandBase
 {
     private double turnAmount;
-    
+    private double angle;
+
     /**
      * Turns robot a specified angle left or right.
-     * @param turnAmount Angle to turn. Negative values cause a left turn.
+     * 
+     * @param turnAmount
+     *            Angle to turn. Negative values cause a left turn.
      */
-    public DriveTurn(double turnAmount){
+    public DriveTurn(double turnAmount)
+    {
+        requires(driveSubsystem);
         this.turnAmount = turnAmount;
     }
 
     @Override
     protected void initialize()
     {
-        DriveSubsystem.gyroTurn(this.turnAmount);
-        
+        angle = turnAmount + driveSubsystem.getGyro();
     }
 
     @Override
     protected void execute()
     {
-        
+        if(turnAmount>0)
+            driveSubsystem.robotTurn(.7);
+        if(turnAmount<0)
+            driveSubsystem.robotTurn(-.7);
     }
 
     @Override
     protected boolean isFinished()
     {
-        return false;
+        return driveSubsystem.getGyro()>=turnAmount;
     }
 
     @Override
     protected void end()
     {
-        
     }
 
     @Override
     protected void interrupted()
     {
-        
     }
-    
 }

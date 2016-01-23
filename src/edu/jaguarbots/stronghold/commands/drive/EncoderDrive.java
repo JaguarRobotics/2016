@@ -33,8 +33,7 @@ public class EncoderDrive extends CommandBase
     protected void execute()
     {
         if (driveSubsystem.getEncoderLeft() >= distance || driveSubsystem.getEncoderRight() >= distance)
-        {
-            driveSubsystem.driveTank(0, 0);
+        { 
             end=true;
         }
     }
@@ -48,6 +47,7 @@ public class EncoderDrive extends CommandBase
     // Called once after isFinished returns true
     protected void end()
     {
+        driveSubsystem.driveTank(0, 0);
     }
 
     // Called when another command which requires one or more of the same

@@ -65,8 +65,10 @@ public class IntakeSubsystem extends Subsystem
             topPosition = getPositionEncoderValue();
             bottomPosition = Math.abs(topPosition - bottomPosition);
             resetPositionEncoder();
+            stopPositionMotor();
         }
-        stopPositionMotor();
+        else
+            positionMotor.set(Relay.Value.kForward);
     }
 
     /*
@@ -75,7 +77,7 @@ public class IntakeSubsystem extends Subsystem
      */
     public void positionMotorDown()
     {
-        if (getPositionEncoderValue() == bottomPosition)
+        if (getPositionEncoderValue() <= bottomPosition)
         {
             stopPositionMotor();
         }

@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.jaguarbots.stronghold.RobotMap;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -17,6 +18,7 @@ public class ClimberSubsystem extends Subsystem
 {
     private Relay    climberMotor = new Relay(RobotMap.pwmClimberMotor);
     private Solenoid climberSol   = new Solenoid(RobotMap.pwmClimberSol);
+    private DigitalInput climberLimit = new DigitalInput(RobotMap.climberLimitSwitch);
 
     public void initDefaultCommand()
     {
@@ -30,6 +32,11 @@ public class ClimberSubsystem extends Subsystem
     public void initMotor()
     {
         climberMotor.startLiveWindowMode();
+    }
+    
+    public boolean getLimit()
+    {
+        return climberLimit.get();
     }
 
     /**

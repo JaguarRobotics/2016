@@ -12,14 +12,14 @@ public class Retract extends CommandBase
 //    TODO Add code for limit switch
     public Retract()
     {
-        requires(climbSubsystem);
+        requires(climberSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        climbSubsystem.initMotor();
-        climbSubsystem.motorForward();
+        climberSubsystem.initMotor();
+        climberSubsystem.motorForward();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -30,14 +30,14 @@ public class Retract extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return false;
+        return climberSubsystem.getLimit();
 //        TODO add limit switch integration
     }
 
     // Called once after isFinished returns true
     protected void end()
     {
-        climbSubsystem.stopMotor();
+        climberSubsystem.stopMotor();
     }
 
     // Called when another command which requires one or more of the same

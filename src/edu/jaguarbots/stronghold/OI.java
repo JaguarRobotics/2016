@@ -23,14 +23,6 @@ public class OI
         Manipulator_R1.whileHeld(new Intake());
         Manipulator_L1.whileHeld(new Output());
         Manipulator_Select.whenPressed(new Grab());
-        Manipulator_DpadLeft.whenPressed(new Retract());// TODO Make left
-                                                        // joystick up/down
-                                                        // retract and extend,
-                                                        // respectively
-        Manipulator_DpadLeft.whenPressed(new Extend()); // TODO Make left
-                                                        // joystick up/down
-                                                        // retract and extend,
-                                                        // respectively
         Manipulator_DpadUp.whenPressed(new ShooterUp());
         Manipulator_DpadDown.whenPressed(new ShooterDown());
         if(Manipulator.getY(Hand.kLeft)>.7)

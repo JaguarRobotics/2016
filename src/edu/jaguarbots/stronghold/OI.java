@@ -1,10 +1,12 @@
 package edu.jaguarbots.stronghold;
 
-import edu.jaguarbots.stronghold.RobotMap;
+import edu.jaguarbots.stronghold.commands.climber.Extend;
 import edu.jaguarbots.stronghold.commands.climber.Grab;
 import edu.jaguarbots.stronghold.commands.climber.Retract;
 import edu.jaguarbots.stronghold.commands.intake.Intake;
 import edu.jaguarbots.stronghold.commands.intake.Output;
+import edu.jaguarbots.stronghold.commands.shooter.ShooterDown;
+import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -17,10 +19,19 @@ public class OI
 {
     public OI()
     {
-        Manipulator_DpadUp.whileHeld(new Intake());
-        Manipulator_DpadDown.whileHeld(new Output());
-        Manipulator_DpadRight.whenPressed(new Grab());
-        Manipulator_DpadLeft.whenPressed(new Retract());
+        Manipulator_R1.whileHeld(new Intake());
+        Manipulator_L1.whileHeld(new Output());
+        Manipulator_Select.whenPressed(new Grab());
+        Manipulator_DpadLeft.whenPressed(new Retract());// TODO Make left
+                                                        // joystick up/down
+                                                        // retract and extend,
+                                                        // respectively
+        Manipulator_DpadLeft.whenPressed(new Extend()); // TODO Make left
+                                                        // joystick up/down
+                                                        // retract and extend,
+                                                        // respectively
+        Manipulator_DpadUp.whenPressed(new ShooterUp());
+        Manipulator_DpadDown.whenPressed(new ShooterDown());
     }
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a

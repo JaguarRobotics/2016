@@ -12,14 +12,14 @@ public class Extend extends CommandBase
 //    TODO Add code for limit switch
     public Extend()
     {
-        requires(climbSubsystem);
+        requires(climberSubsystem);
     }
 
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        climbSubsystem.initMotor();
-        climbSubsystem.motorBackward();
+        climberSubsystem.initMotor();
+        climberSubsystem.motorBackward();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,7 +37,7 @@ public class Extend extends CommandBase
     // Called once after isFinished returns true
     protected void end()
     {
-        climbSubsystem.stopMotor();
+        climberSubsystem.stopMotor();
     }
 
     // Called when another command which requires one or more of the same

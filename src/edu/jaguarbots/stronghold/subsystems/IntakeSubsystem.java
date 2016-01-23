@@ -60,15 +60,15 @@ public class IntakeSubsystem extends Subsystem
      */
     public void positionMotorUp()
     {
-        if (limitSwitch.get() == true)
-        {
-            topPosition = getPositionEncoderValue();
-            bottomPosition = Math.abs(topPosition - bottomPosition);
-            resetPositionEncoder();
-            stopPositionMotor();
-        }
-        else
             positionMotor.set(Relay.Value.kForward);
+    }
+    
+    public void topReset()
+    {
+        topPosition = getPositionEncoderValue();
+        bottomPosition = Math.abs(topPosition - bottomPosition);
+        resetPositionEncoder();
+        stopPositionMotor();
     }
 
     /*
@@ -77,14 +77,22 @@ public class IntakeSubsystem extends Subsystem
      */
     public void positionMotorDown()
     {
-        if (getPositionEncoderValue() <= bottomPosition)
-        {
-            stopPositionMotor();
-        }
-        else
-        {
             positionMotor.set(Relay.Value.kReverse);
-        }
+    }
+    
+    public double getBottomPosition()
+    {
+        return bottomPosition;
+    }
+    
+    public double getTopPosition()
+    {
+        return topPosition;
+    }
+    
+    public boolean getLimitSwitch()
+    {
+        return limitSwitch.get();
     }
 
     /*

@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.commands.climber;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * Retracts the winch
@@ -30,7 +31,7 @@ public class Retract extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return climberSubsystem.getLimit();
+        return climberSubsystem.getLimit() || oi.Manipulator.getY(Hand.kLeft) <= .7;
 //        TODO add limit switch integration
     }
 

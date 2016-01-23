@@ -7,6 +7,7 @@ import edu.jaguarbots.stronghold.commands.intake.Intake;
 import edu.jaguarbots.stronghold.commands.intake.Output;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterDown;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -32,6 +33,10 @@ public class OI
                                                         // respectively
         Manipulator_DpadUp.whenPressed(new ShooterUp());
         Manipulator_DpadDown.whenPressed(new ShooterDown());
+        if(Manipulator.getY(Hand.kLeft)>.7)
+            new Retract();
+        if(Manipulator.getY(Hand.kLeft)<-.7)
+            new Extend();
     }
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a

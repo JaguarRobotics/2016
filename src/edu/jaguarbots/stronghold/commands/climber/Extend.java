@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.commands.climber;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * Extends the winch
@@ -30,7 +31,7 @@ public class Extend extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return false;
+        return oi.Manipulator.getY(Hand.kLeft)>=-.7;
 //        TODO add limit switch integration
     }
 

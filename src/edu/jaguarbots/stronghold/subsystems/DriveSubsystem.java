@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 /**
  *
@@ -29,6 +28,30 @@ public class DriveSubsystem extends Subsystem
     private double            diameter        = 21;
     private static AnalogGyro gyro            = new AnalogGyro(RobotMap.gyro);
     private static Solenoid   gearSol         = new Solenoid(RobotMap.pwmGearSol);
+    private double            leftMotorSpeed;
+    private double            rightMotorSpeed;
+
+    public double[] getMotorPowers()
+    {
+        double[] powers = new double[2];
+        double lastLeftMotorSpeed = leftMotorSpeed;
+        double lastRightMotorSpeed = rightMotorSpeed;
+        double lastLeftEncoder = leftEncoderValue;
+        double lastRightEncoder = rightEncoderValue;
+        getEncoders();
+        leftMotorSpeed = rightMotorSpeed = powers[0] = powers[1] = 1;
+        double estimatedLeft = (leftEncoderValue - lastLeftEncoder) / lastLeftMotorSpeed;
+        double estimatedRight = (rightEncoderValue - lastRightEncoder) / lastRightMotorSpeed;
+        if (leftEncoderValue > rightEncoderValue)
+        {
+            powers[0] = leftMotorSpeed = rightEncoderValue / leftEncoderValue + estimatedRight / estimatedLeft - 1;
+        }
+        else if (leftEncoderValue < rightEncoderValue)
+        {
+            powers[1] = rightMotorSpeed = leftEncoderValue / rightEncoderValue + estimatedLeft / estimatedRight - 1;
+        }
+        return powers;
+    }
 
     public void resetEncoders(boolean left, boolean right)
     {

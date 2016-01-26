@@ -60,13 +60,23 @@ public class IntakeSubsystem extends Subsystem
      */
     public void positionMotorUp()
     {
-            positionMotor.set(Relay.Value.kForward);
+        positionMotor.set(Relay.Value.kForward);
     }
-    
+
     public void topReset()
     {
         topPosition = getPositionEncoderValue();
-        bottomPosition = Math.abs(topPosition - bottomPosition);
+        bottomPosition = Math.abs(topPosition - bottomPosition); // TODO Math
+                                                                 // appears to
+                                                                 // be faulty,
+                                                                 // should be
+                                                                 // looked over
+                                                                 // - could
+                                                                 // return
+                                                                 // positive
+                                                                 // value when
+                                                                 // needed value
+                                                                 // is negative
         resetPositionEncoder();
         stopPositionMotor();
     }
@@ -77,19 +87,19 @@ public class IntakeSubsystem extends Subsystem
      */
     public void positionMotorDown()
     {
-            positionMotor.set(Relay.Value.kReverse);
+        positionMotor.set(Relay.Value.kReverse);
     }
-    
+
     public double getBottomPosition()
     {
         return bottomPosition;
     }
-    
+
     public double getTopPosition()
     {
         return topPosition;
     }
-    
+
     public boolean getLimitSwitch()
     {
         return limitSwitch.get();

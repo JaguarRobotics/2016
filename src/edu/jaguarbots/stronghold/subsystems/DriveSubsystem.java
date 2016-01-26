@@ -25,7 +25,7 @@ public class DriveSubsystem extends Subsystem
     private double[]          encoderValues   = { leftEncoderValue, rightEncoderValue };
     private double            bias            = 1;
     private boolean           inAdjustedDrive = false;
-    private double            diameter        = 21;
+    private double            diameter        = 21; // TODO change to diameter of pulleys
     private static AnalogGyro gyro            = new AnalogGyro(RobotMap.gyro);
     private static Solenoid   gearSol         = new Solenoid(RobotMap.pwmGearSol);
     private double            leftMotorSpeed;

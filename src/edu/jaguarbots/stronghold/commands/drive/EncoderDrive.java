@@ -36,7 +36,7 @@ public class EncoderDrive extends CommandBase
     protected void execute()
     {
         powers = driveSubsystem.getMotorPowers();
-        driveSubsystem.driveTank(speed*powers[0], speed*powers[0]);
+        driveSubsystem.driveTank(speed*powers[0], speed*powers[1]);
         
         if (driveSubsystem.getEncoderLeft() >= distance || driveSubsystem.getEncoderRight() >= distance)
         { 

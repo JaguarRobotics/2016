@@ -75,7 +75,7 @@ public class DriveSubsystem extends Subsystem
 
     public void driveTank(double left, double right)
     {
-        /*if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
+        if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
         {
             if (!inAdjustedDrive)
             {
@@ -83,12 +83,15 @@ public class DriveSubsystem extends Subsystem
                 resetEncoders(true, true);
                 // reset encoders
             }
-            driveAdjusted(left, right);
+            //driveAdjusted(left, right);
+            double[] powers = new double[2];
+            powers = getMotorPowers();
+            driveTank(left*powers[0], right*powers[1]);
         }
         else
         {
             inAdjustedDrive = false;
-        }*/
+        }
     robotDrive.tankDrive(left, right);
     }
 

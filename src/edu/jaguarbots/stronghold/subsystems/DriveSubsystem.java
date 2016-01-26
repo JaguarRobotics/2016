@@ -108,6 +108,34 @@ public class DriveSubsystem extends Subsystem
             right = right * bias; // if left is faster than right
         }
         robotDrive.tankDrive(left, right);
+        
+//            double leftMax = 1;
+//            double rightMax = 1;
+//            if(leftEnc > rightEnc){
+//               delta = left - right;
+//               while(rightEnc <= leftEnc){
+//                       left = 0;
+//                       if(delta > rightMax){
+//                           right = delta / rightMax;
+//                       } else{
+//                           right = rightMax / delta;
+//                       }
+//                   }
+//               right = rightMax;
+//               left = rightMax / leftMax;
+//            } else if(rightEnc < leftEnc){
+//                delta = right - left;
+//                while(leftEnc <= rightEnc){
+//                        right = 0;
+//                        if(delta > leftMax){
+//                            left = delta / leftMax;
+//                        } else{
+//                            left = leftMax / delta;
+//                        }
+//                }
+//                right = leftMax / rightMax;
+//                left = leftMax;
+//            }
     }
 
     public void robotTurn(double speed)

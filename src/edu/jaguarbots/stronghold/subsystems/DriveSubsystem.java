@@ -64,7 +64,7 @@ public class DriveSubsystem extends Subsystem
         leftEncoder.setDistancePerPulse(Math.PI * diameter / 360);
         rightEncoder.setDistancePerPulse(Math.PI * diameter / 360);
     }
-
+    
     public double[] getEncoders()
     {
         leftEncoderValue = leftEncoder.getDistance();
@@ -75,7 +75,7 @@ public class DriveSubsystem extends Subsystem
 
     public void driveTank(double left, double right)
     {
-        if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
+        /*if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
         {
             if (!inAdjustedDrive)
             {
@@ -88,8 +88,8 @@ public class DriveSubsystem extends Subsystem
         else
         {
             inAdjustedDrive = false;
-            robotDrive.tankDrive(left, right);
-        }
+        }*/
+    robotDrive.tankDrive(left, right);
     }
 
     public void driveAdjusted(double left, double right)

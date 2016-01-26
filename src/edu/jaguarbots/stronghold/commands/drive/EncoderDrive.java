@@ -7,6 +7,7 @@ public class EncoderDrive extends CommandBase
     private double distance;
     private double speed = .7;
     private boolean end;
+    private double powers[] = new double[2];
     
     public EncoderDrive(double distance)
     {
@@ -26,12 +27,17 @@ public class EncoderDrive extends CommandBase
     {
         driveSubsystem.startEncoders();
         driveSubsystem.resetEncoders(true, true);
-        driveSubsystem.driveTank(speed, speed);
+        //driveSubsystem.driveTank(speed, speed);
+        
+        
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+        powers = driveSubsystem.getMotorPowers();
+        driveSubsystem.driveTank(speed*powers[0], speed*powers[1]);
+        
         if (driveSubsystem.getEncoderLeft() >= distance || driveSubsystem.getEncoderRight() >= distance)
         { 
             end=true;

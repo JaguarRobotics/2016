@@ -2,26 +2,24 @@ package edu.jaguarbots.stronghold.commands.shooter;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
-public class ShooterReady extends CommandBase
+public class ShooterFire extends CommandBase
 {
-    private boolean end;
-    
-    public ShooterReady()
+    boolean end;
+    public ShooterFire()
     {
         requires(shooterSubsystem);
     }
     @Override
     protected void initialize()
     {
-        
     }
     
     @Override
     protected void execute()
     {
-        end = shooterSubsystem.wenchMotor();
+        end = shooterSubsystem.wenchMotor();    
     }    
-    
+
     @Override
     protected boolean isFinished()
     {

@@ -5,8 +5,7 @@ import edu.jaguarbots.stronghold.commands.drive.DriveTurn;
 import edu.jaguarbots.stronghold.commands.drive.EncoderDrive;
 import edu.jaguarbots.stronghold.commands.intake.IntakeDown;
 import edu.jaguarbots.stronghold.commands.intake.IntakeUp;
-import edu.jaguarbots.stronghold.commands.shooter.ShooterLetGo;
-import edu.jaguarbots.stronghold.commands.shooter.ShooterReady;
+import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -49,8 +48,7 @@ public class Autonomous extends CommandGroup
         {
             addSequential(new DriveTurn(30));
             addSequential(new ShooterUp());
-            addSequential(new ShooterLetGo());
-            addSequential(new ShooterReady());
+            addSequential(new ShooterFire());
         }
         else
             addSequential(new EncoderDrive(-5));
@@ -111,8 +109,7 @@ public class Autonomous extends CommandGroup
        }
        
            addSequential(new ShooterUp());
-           addSequential(new ShooterLetGo());
-           addSequential(new ShooterReady());
+           addSequential(new ShooterFire());
        
   
     }

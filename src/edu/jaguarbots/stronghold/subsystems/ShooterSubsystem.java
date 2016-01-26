@@ -49,12 +49,6 @@ public class ShooterSubsystem extends Subsystem
         }
     }
 
-    public void shootFinal(double time)
-    {
-        startMotor();
-        edu.wpi.first.wpilibj.Timer.delay(time);
-        stopMotor();
-    }
     public void initDefaultCommand()
     {
         // Set the default command for a subsystem here.

@@ -9,6 +9,7 @@ import edu.jaguarbots.stronghold.commands.intake.IntakeDown;
 import edu.jaguarbots.stronghold.commands.intake.IntakeUp;
 import edu.jaguarbots.stronghold.commands.intake.Output;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterDown;
+import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick;
@@ -34,6 +35,8 @@ public class OI
             new Retract();
         if(Manipulator.getY(Hand.kLeft)<-.7)
             new Extend();
+        if(Manipulator_L2.get())
+            Manipulator_R2.whenPressed(new ShooterFire());
         Joystick1_Button1.whenPressed(new GearShift());
     }
     //// CREATING BUTTONS

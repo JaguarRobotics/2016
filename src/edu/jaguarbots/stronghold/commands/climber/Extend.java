@@ -4,7 +4,7 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
- * Extends the winch
+ * Extends the climbing winch
  * @author Cody Moose
  * @since 2016
  */

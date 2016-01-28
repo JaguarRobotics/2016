@@ -3,7 +3,7 @@ package edu.jaguarbots.stronghold.commands.climber;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 /**
- *
+ * Reaches up to castle bar in order to scale the wall.
  */
 public class Grab extends CommandBase
 {

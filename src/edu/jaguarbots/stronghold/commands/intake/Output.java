@@ -3,7 +3,7 @@ package edu.jaguarbots.stronghold.commands.intake;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 /**
- *
+ * Spins the intake motor so that a ball is pushed out
  */
 public class Output extends CommandBase
 {

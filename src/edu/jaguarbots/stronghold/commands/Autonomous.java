@@ -15,33 +15,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Autonomous extends CommandGroup
 {
 
-/*    
-    Category A - Portcullis (gate): false; Cheval De Frise (Teetor totter): true;
-    Category B - Moat:              false; Ramparts (steps):                true;
-    Category C - Drawbridge:        false; Sally Port (door):               true;
-    Category D - Rockwall (Bar):    false; Rough Terrain:                   true;
     
-    for int robotPosition - From lowbar then left.
-    Lowbar:     1
-                2
-                3
-                4
-                5
-
-    for int category
-    low 0
-    A   1
-    B   2
-    C   3
-    D   4
-*/  
-    
-   
+   /**
+    * Default, drives forward 5
+    */
     public Autonomous()
     {
         addSequential(new EncoderDrive(5));
     }
     
+    /**
+     * If spybot position.
+     * @param spyShoot true if we want to shoot, false to drive up to defense.
+     */
     public Autonomous(boolean spyShoot)
     {
         if(spyShoot)
@@ -54,6 +40,29 @@ public class Autonomous extends CommandGroup
             addSequential(new EncoderDrive(-5));
     }
     
+    /**
+     * Selects autonomous route based on robot position, category of defense in front of, and defense.
+     * @param robotPosition 
+     * From lowbar then left.
+     * Lowbar:  1
+     *          2
+     *          3
+     *          4
+     *          5
+     
+     * @param category
+     * low 0
+     * A   1
+     * B   2
+     * C   3
+     * D   4
+     
+     * @param defense
+     * Category A - Portcullis (gate): false; Cheval De Frise (Teetor totter): true;
+     * Category B - Moat:              false; Ramparts (steps):                true;
+     * Category C - Drawbridge:        false; Sally Port (door):               true;
+     * Category D - Rockwall (Bar):    false; Rough Terrain:                   true;
+     */
     public Autonomous(int robotPosition, int category, boolean defense)
     {
        addSequential(new EncoderDrive(5));

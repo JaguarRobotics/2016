@@ -12,31 +12,31 @@ public class VisionSubsystem extends Subsystem
     double[]     centerY;
     double[]     width;
     double[]     height;
-    double[]     defaultValue    = null; // returns
-                                         // if
-                                         // nothing
-                                         // is
-                                         // found
-                                         // in
-                                         // the
-                                         // array
+    
+    /**
+     * Returns if nothing is found in the array
+     */
+    double[]     defaultValue    = null;
+    
+    /**
+     * Left target, in format {x, y, width, height, area}
+     */
     double[]     leftTarget      = null;
+    
+    /**
+     * Right target, in format {x, y, width, height, area}
+     */
     double[]     rightTarget     = null;
-    double[]     midTarget       = null; // The
-                                         // targets
-                                         // are
-                                         // in
-                                         // the
-                                         // format
-                                         // {x,
-                                         // y,
-                                         // width,
-                                         // height,
-                                         // area}
+    
+    /**
+     * Middle target, in format {x, y, width, height, area}
+     */
+    double[]     midTarget       = null; 
     double[]     targetXDistance = null;
     double[]     targetYDistance = null;
     int          numTargets      = 0;
 
+    
     public VisionSubsystem()
     {
         table = NetworkTable.getTable("GRIP/myContoursReport");
@@ -46,51 +46,82 @@ public class VisionSubsystem extends Subsystem
 
     // For GRIP - I'm figuring out some stuff with GRIP, so we will see how it
     // goes.
-    public double[] getArea() // returns an array of target areas
+    /**
+     * 
+     * @return an array of the target areas.
+     */
+    public double[] getArea()
     {
         area = table.getNumberArray("area", defaultValue);
         return area;
     }
 
-    public double[] getCenterX() // returns array of target center Xs
+    /**
+     * 
+     * @return an array of target center Xs
+     */
+    public double[] getCenterX()
     {
         centerX = table.getNumberArray("centerX", defaultValue);
         return centerX;
     }
 
-    public double[] getCenterY() // returns array of target center Ys
+    /**
+     * 
+     * @return array of target center Ys
+     */
+    public double[] getCenterY()
     {
         centerY = table.getNumberArray("centerY", defaultValue);
         return centerY;
     }
 
-    public double[] getWidth() // returns array of target widths
+    /**
+     * 
+     * @return array of target widths.
+     */
+    public double[] getWidth()
     {
         width = table.getNumberArray("width", defaultValue);
         return width;
     }
 
-    public double[] getHeight() // returns array of target heights
+    /**
+     * 
+     * @return array of target heights.
+     */
+    public double[] getHeight()
     {
         height = table.getNumberArray("height", defaultValue);
         return height;
     }
 
-    public int numTargets() // returns the number of targets
+    /**
+     * 
+     * @return number of targets.
+     */
+    public int numTargets()
     {
         numTargets = area.length;
         if (numTargets > 3) System.out.println("Error! Too many targets");
         return numTargets;
     }
 
-    public double[] getLeftTarget() // The targets are in the format {x, y,
-                                    // width, height, area}
+    /**
+     * The targets are in the format {x, y, width, height, area}
+     * @return left target
+     */
+    public double[] getLeftTarget()
     {
         leftTarget = new double[] { centerX[0], centerY[0], width[0], height[0],
                         area[0] };
         return leftTarget;
     }
 
+    /**
+     * The targets are in the format {x, y, width, height, area}
+     * @return mid target
+     */
     public double[] getMidTarget()
     {
         midTarget = new double[] { centerX[1], centerY[1], width[1], height[1],
@@ -98,6 +129,10 @@ public class VisionSubsystem extends Subsystem
         return midTarget;
     }
 
+    /**
+     * The targets are in the format {x, y, width, height, area}
+     * @return right target
+     */
     public double[] getRightTarget()
     {
         rightTarget = new double[] { centerX[2], centerY[2], width[2],
@@ -105,12 +140,20 @@ public class VisionSubsystem extends Subsystem
         return rightTarget;
     }
 
-    public double[] getTargetXDistance()
+    /**
+     * 
+     * @return X distance to targets in array 
+     */
+    public double[] getTargetXDistance() //TODO algorithm to calculate it.
     {
         return targetXDistance;
     }
 
-    public double[] getTargetYDistance()
+    /**
+     * 
+     * @return Y distance to targets in array
+     */
+    public double[] getTargetYDistance() //TODO algorithm to calculate
     {
         return targetYDistance;
     }

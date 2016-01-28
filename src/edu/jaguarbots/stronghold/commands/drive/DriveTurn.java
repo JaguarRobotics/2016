@@ -4,7 +4,7 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 
 /**
- * Turns robot a specified angle left or right. Negative angles turn left.
+ * Turns robot a specified angle left or right. Positive angles turn counter-clockwise.
  * 
  * @author Cody Moose
  * @version 2016
@@ -19,7 +19,7 @@ public class DriveTurn extends CommandBase
      * Turns robot a specified angle left or right.
      * 
      * @param turnAmount
-     *            Angle to turn. Negative values cause a left turn.
+     *            Angle to turn. Negative values cause a clockwise turn.
      */
     public DriveTurn(double turnAmount)
     {

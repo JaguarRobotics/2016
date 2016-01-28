@@ -3,7 +3,7 @@ package edu.jaguarbots.stronghold.commands.drive;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 /**
- *
+ * Drives the robot in teleop based on left and right joystick inputs.
  */
 public class DriveTank extends CommandBase
 {

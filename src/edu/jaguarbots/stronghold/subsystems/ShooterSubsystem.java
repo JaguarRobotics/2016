@@ -12,9 +12,18 @@ public class ShooterSubsystem extends Subsystem
 {
     // private DigitalInput shooter = new DigitalInput(
     // RobotMap.pwmShooterMotor);
+    /**
+     * its the shooter motor
+     */
     private DigitalInput shooterMotor = new DigitalInput(
                     RobotMap.pwmShooterMotor);
+    /**
+     * its the solenoid
+     */
     private Solenoid     shooterSol   = new Solenoid(RobotMap.pwmShooterSol);
+    /**
+     * its the limit switch for the shooter
+     */
     private DigitalInput limitSwitch = new DigitalInput(RobotMap.shooterLimitSwitch);
 /**
  * starts the motor for shooting

@@ -17,12 +17,35 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class IntakeSubsystem extends Subsystem
 {
+    /**
+     * This is the motor controller for the intake motor
+     */
     private Victor       intakeMotor     = new Victor(RobotMap.pwmIntakeMotor);
+    
+    /**
+     * This is the relay for the position of the motor
+     */
     private Relay        positionMotor   = new Relay(RobotMap.pwmIntakePositionMotor);
+    
+    /**
+     * This is the encoder for the intake subsystem, it takes two channels
+     */
     private Encoder      positionEncoder = new Encoder(RobotMap.intakePositionEncoderAChannel,
                     RobotMap.intakePositionEncoderBChannel);
+    
+    /**
+     * This is the limit switch indicating the top postion for the intake arm
+     */
     private DigitalInput limitSwitch     = new DigitalInput(RobotMap.intakeLimitSwitch);
+    
+    /**
+     * This is a integer relating to the encoder
+     */
     private int          bottomPosition;
+    
+    /**
+     * This is a integer relating to the encoder
+     */
     private int          topPosition;
 
     /**
@@ -30,6 +53,7 @@ public class IntakeSubsystem extends Subsystem
      */
     public IntakeSubsystem()
     {
+        
         bottomPosition = getPositionEncoderValue();
     }
 

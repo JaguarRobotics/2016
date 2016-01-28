@@ -8,61 +8,82 @@ import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Intake subsystem is designed to manipulate the roller-arm attached to the robot
+ * 
+ * @author Nathan Gawith
+ * @since 2016
+ * @version 2016
+ * 
  */
 public class IntakeSubsystem extends Subsystem
 {
-    /*
-     * the motor that sucks in the ball
+    /**
+     * This is the motor controller for the intake motor
      */
     private Victor       intakeMotor     = new Victor(RobotMap.pwmIntakeMotor);
+    
+    /**
+     * This is the relay for the position of the motor
+     */
     private Relay        positionMotor   = new Relay(RobotMap.pwmIntakePositionMotor);
+    
+    /**
+     * This is the encoder for the intake subsystem, it takes two channels
+     */
     private Encoder      positionEncoder = new Encoder(RobotMap.intakePositionEncoderAChannel,
                     RobotMap.intakePositionEncoderBChannel);
+    
+    /**
+     * This is the limit switch indicating the top postion for the intake arm
+     */
     private DigitalInput limitSwitch     = new DigitalInput(RobotMap.intakeLimitSwitch);
+    
+    /**
+     * This is a integer relating to the encoder
+     */
     private int          bottomPosition;
+    
+    /**
+     * This is a integer relating to the encoder
+     */
     private int          topPosition;
 
-    /*
+    /**
      * Constructor for IntakeSubsytem
      */
     public IntakeSubsystem()
     {
+        
         bottomPosition = getPositionEncoderValue();
     }
 
-    /*
-     * runs the intake motor in the default direction
+    /**
+     * Runs the intake motor in the default direction
      */
     public void intakeMotorForward()
     {
         intakeMotor.set(1);
     }
 
-    /*
-     * runs the intake motor in the opposite direction of the default direction
+    /**
+     * Runs the intake motor in the opposite direction of the default direction
      */
     public void intakeMotorBackward()
     {
         intakeMotor.set(-1);
     }
 
-    /*
-     * stops the intake motor
+    /**
+     * Stops the intake motor
      */
     public void stopIntakeMotor()
     {
         intakeMotor.set(0);
     }
-
-    /*
-     * runs the position motor in the default direction
+    
+    /**
+     * Resets the top and bottom positions
      */
-    public void positionMotorUp()
-    {
-        positionMotor.set(Relay.Value.kForward);
-    }
-
     public void topReset()
     {
         topPosition = getPositionEncoderValue();
@@ -80,32 +101,49 @@ public class IntakeSubsystem extends Subsystem
         resetPositionEncoder();
         stopPositionMotor();
     }
-
-    /*
-     * runs the position motor in the opposite direction of the default
+    
+    /**
+     * Runs the position motor in the default direction
+     */
+    public void positionMotorUp()
+    {
+        positionMotor.set(Relay.Value.kForward);
+    }
+    
+    /**
+     * Runs the position motor in the opposite direction of the default
      * direction
      */
     public void positionMotorDown()
     {
         positionMotor.set(Relay.Value.kReverse);
     }
-
+    
+    /**
+     * Returns the bottom position
+     */
     public double getBottomPosition()
     {
         return bottomPosition;
     }
-
+    
+    /**
+     * Returns the top position
+     */
     public double getTopPosition()
     {
         return topPosition;
     }
 
+    /**
+     * Returns the limit switch value (boolean)
+     */
     public boolean getLimitSwitch()
     {
         return limitSwitch.get();
     }
 
-    /*
+    /**
      * stops the position motor
      */
     public void stopPositionMotor()
@@ -113,7 +151,7 @@ public class IntakeSubsystem extends Subsystem
         positionMotor.set(Relay.Value.kOff);
     }
 
-    /*
+    /**
      * resets the position encoder
      */
     public void resetPositionEncoder()
@@ -121,7 +159,7 @@ public class IntakeSubsystem extends Subsystem
         positionEncoder.reset();
     }
 
-    /*
+    /**
      * gets the position encoder value
      */
     public int getPositionEncoderValue()

@@ -34,6 +34,10 @@ public class ClimberSubsystem extends Subsystem
         climberMotor.startLiveWindowMode();
     }
     
+    /**
+     * Gets the value of the limit switch for the climbing mechanism
+     * @return limit switch value
+     */
     public boolean getLimit()
     {
         return climberLimit.get();
@@ -66,11 +70,17 @@ public class ClimberSubsystem extends Subsystem
         // TODO find out which direction is forward and which is backward
     }
 
+    /**
+     * Extends climbing solenoid for reaching
+     */
     public void solUp()
     {
         climberSol.set(true);
     }
 
+    /**
+     * Retracts climbing solenoid
+     */
     public void solDown() // tentative, mechanical structure may not allow this
                           // to occur
     {

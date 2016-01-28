@@ -4,6 +4,9 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 
 public class ShooterDown extends CommandBase
 {
+    /**
+     * moves the shooter down with the solinoid
+     */
     public ShooterDown()
     {
         requires(shooterSubsystem);

@@ -5,6 +5,9 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 public class ShooterUp extends CommandBase
 {
 
+    /**
+     * moves the shooter up
+     */
     public ShooterUp()
     {
         requires(shooterSubsystem);

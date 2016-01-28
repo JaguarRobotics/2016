@@ -2,6 +2,11 @@ package edu.jaguarbots.stronghold.commands.drive;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
+/**
+ * Drives the robot based on a distance gotten from encoders.
+ * @author Jack
+ *
+ */
 public class EncoderDrive extends CommandBase
 {
     private double distance;
@@ -9,13 +14,21 @@ public class EncoderDrive extends CommandBase
     private boolean end;
     private double powers[] = new double[2];
     
+    /**
+     * Drives a certain distance at a speed of .7
+     * @param distance to drive in inches.
+     */
     public EncoderDrive(double distance)
     {
         requires(driveSubsystem);
         this.distance=distance;
         end = false;
     }
-    
+    /**
+     * Drives a certain distance at a certain speed.
+     * @param distance to travel in inches.
+     * @param speed to run motors at.
+     */
     public EncoderDrive(double distance, double speed)
     {
         requires(driveSubsystem);

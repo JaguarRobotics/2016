@@ -3,7 +3,7 @@ package edu.jaguarbots.stronghold.commands.intake;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 /**
- *
+ * Moves the intake arm up
  */
 public class IntakeUp extends CommandBase
 {

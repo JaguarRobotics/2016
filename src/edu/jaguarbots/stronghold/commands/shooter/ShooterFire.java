@@ -4,7 +4,13 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 
 public class ShooterFire extends CommandBase
 {
-    boolean end;
+    /**
+     * its the boolean variable that ends this command
+     */
+    private boolean end;
+    /**
+     * shoots the ball and rewenches the shooter
+     */
     public ShooterFire()
     {
         requires(shooterSubsystem);

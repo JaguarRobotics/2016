@@ -12,31 +12,31 @@ public class VisionSubsystem extends Subsystem
     double[]     centerY;
     double[]     width;
     double[]     height;
-    
     /**
      * Returns if nothing is found in the array
      */
-    double[]     defaultValue    = null;
-    
+    double[]     defaultValue  = null;
     /**
      * Left target, in format {x, y, width, height, area}
      */
-    double[]     leftTarget      = null;
-    
+    double[]     leftTarget    = null;
     /**
      * Right target, in format {x, y, width, height, area}
      */
-    double[]     rightTarget     = null;
-    
+    double[]     rightTarget   = null;
     /**
      * Middle target, in format {x, y, width, height, area}
      */
-    double[]     midTarget       = null; 
-    double[]     targetXDistance = null;
-    double[]     targetYDistance = null;
-    int          numTargets      = 0;
+    double[]     midTarget     = null;
+    int          numTargets    = 0;
+    double       imageDPI      = 114;      // constant used based on size of
+                                           // image.
+                                           // Guess for now.
+    double       viewAngle     = 23.5;     // AXIS M1011, to be determined for
+                                           // others.
+    double       idealXRange[] = { 5, 8 }; // Guess for now, to be determined
+                                           // through testing.
 
-    
     public VisionSubsystem()
     {
         table = NetworkTable.getTable("GRIP/myContoursReport");
@@ -47,7 +47,6 @@ public class VisionSubsystem extends Subsystem
     // For GRIP - I'm figuring out some stuff with GRIP, so we will see how it
     // goes.
     /**
-     * 
      * @return an array of the target areas.
      */
     public double[] getArea()
@@ -57,7 +56,6 @@ public class VisionSubsystem extends Subsystem
     }
 
     /**
-     * 
      * @return an array of target center Xs
      */
     public double[] getCenterX()
@@ -67,7 +65,6 @@ public class VisionSubsystem extends Subsystem
     }
 
     /**
-     * 
      * @return array of target center Ys
      */
     public double[] getCenterY()
@@ -77,7 +74,6 @@ public class VisionSubsystem extends Subsystem
     }
 
     /**
-     * 
      * @return array of target widths.
      */
     public double[] getWidth()
@@ -87,7 +83,6 @@ public class VisionSubsystem extends Subsystem
     }
 
     /**
-     * 
      * @return array of target heights.
      */
     public double[] getHeight()
@@ -97,7 +92,6 @@ public class VisionSubsystem extends Subsystem
     }
 
     /**
-     * 
      * @return number of targets.
      */
     public int numTargets()
@@ -109,6 +103,7 @@ public class VisionSubsystem extends Subsystem
 
     /**
      * The targets are in the format {x, y, width, height, area}
+     * 
      * @return left target
      */
     public double[] getLeftTarget()
@@ -120,6 +115,7 @@ public class VisionSubsystem extends Subsystem
 
     /**
      * The targets are in the format {x, y, width, height, area}
+     * 
      * @return mid target
      */
     public double[] getMidTarget()
@@ -131,6 +127,7 @@ public class VisionSubsystem extends Subsystem
 
     /**
      * The targets are in the format {x, y, width, height, area}
+     * 
      * @return right target
      */
     public double[] getRightTarget()
@@ -141,21 +138,55 @@ public class VisionSubsystem extends Subsystem
     }
 
     /**
-     * 
-     * @return X distance to targets in array 
+     * @return X distance to target
      */
-    public double[] getTargetXDistance() //TODO algorithm to calculate it.
+    public double getTargetXDistance(double[] target)
     {
-        return targetXDistance;
+        double xDistance = 0;
+        for (int i = 0; i <= 5; i++) // converts array to inches.
+            target[i] = target[i] / imageDPI;
+        double width = target[3];
+        xDistance = (width / 2) / Math.tan(viewAngle);
+        return xDistance;
     }
 
     /**
-     * 
-     * @return Y distance to targets in array
+     * @return Y distance to target
      */
-    public double[] getTargetYDistance() //TODO algorithm to calculate
+    public double getTargetYDistance(double[] target)
     {
-        return targetYDistance;
+        double yDistance = 0;
+        for (int i = 0; i <= 5; i++) // converts array to inches.
+            target[i] = target[i] / imageDPI;
+        double height = target[4];
+        yDistance = (height / 2) / Math.tan(viewAngle);
+        return yDistance;
+    }
+
+    /**
+     * @param xDistance
+     *            distance to target
+     * @return true if needs to move up
+     */
+    public boolean aimUp(double xDistance)
+    {
+        boolean up = true;
+        if (xDistance < idealXRange[0]) up = true;
+        else if (xDistance > idealXRange[0]) up = false;
+        return up;
+    }
+
+    /**
+     * @param xDistance
+     *            distance to target
+     * @return true if needs to move up
+     */
+    public boolean aimDown(double xDistance)
+    {
+        boolean down = true;
+        if (xDistance > idealXRange[1]) down = true;
+        else if (xDistance < idealXRange[1]) down = false;
+        return down;
     }
 
     public void initDefaultCommand()

@@ -1,9 +1,11 @@
 package edu.jaguarbots.stronghold.commands.shooter;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 public class ShooterFire extends CommandBase
 {
+
     /**
      * its the boolean variable that ends this command
      */
@@ -18,6 +20,8 @@ public class ShooterFire extends CommandBase
     @Override
     protected void initialize()
     {
+        shooterSubsystem.startMotor();
+        Timer.delay(.1);
     }
     
     @Override

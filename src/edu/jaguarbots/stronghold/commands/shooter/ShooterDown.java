@@ -11,36 +11,33 @@ public class ShooterDown extends CommandBase
     {
         requires(shooterSubsystem);
     }
+
     @Override
     protected void initialize()
     {
         shooterSubsystem.solDown();
     }
-    
+
     @Override
     protected void execute()
     {
-        
-        
-    }    
-    
+    }
+
     @Override
     protected boolean isFinished()
     {
         return true;
     }
-    
+
     @Override
     protected void end()
     {
         // TODO Auto-generated method stub
-        
-    }   
+    }
 
     @Override
     protected void interrupted()
     {
         // TODO Auto-generated method stub
-        
     }
 }

@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 public class ShooterFire extends CommandBase
+
 {
 
     /**

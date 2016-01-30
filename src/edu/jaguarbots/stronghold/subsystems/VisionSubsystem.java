@@ -15,27 +15,33 @@ public class VisionSubsystem extends Subsystem
     /**
      * Returns if nothing is found in the array
      */
-    double[]     defaultValue  = null;
+    double[]     defaultValue          = null;
     /**
      * Left target, in format {x, y, width, height, area}
      */
-    double[]     leftTarget    = null;
+    double[]     leftTarget            = null;
     /**
      * Right target, in format {x, y, width, height, area}
      */
-    double[]     rightTarget   = null;
+    double[]     rightTarget           = null;
     /**
      * Middle target, in format {x, y, width, height, area}
      */
-    double[]     midTarget     = null;
-    int          numTargets    = 0;
-    double       imageDPI      = 114;      // constant used based on size of
-                                           // image.
-                                           // Guess for now.
-    double       viewAngle     = 23.5;     // AXIS M1011, to be determined for
-                                           // others.
-    double       idealXRange[] = { 5, 8 }; // Guess for now, to be determined
-                                           // through testing.
+    double[]     midTarget             = null;
+    int          numTargets            = 0;
+    double       imageDPI              = 114;      // constant used based on
+                                                   // size of
+                                                   // image.
+                                                   // Guess for now.
+    double       viewAngle             = 18.7;     // AXIS M1011, to be
+                                                   // determined
+                                                   // for
+                                                   // others.
+    double       idealXRange[]         = { 5, 8 }; // Guess for now, to be
+                                                   // determined
+                                                   // through testing.
+    double       idealWidthHeightRatio = 11 / 7;   // width to height ratio of
+                                                   // target
 
     public VisionSubsystem()
     {
@@ -172,21 +178,39 @@ public class VisionSubsystem extends Subsystem
     {
         boolean up = true;
         if (xDistance < idealXRange[0]) up = true;
-        else if (xDistance > idealXRange[0]) up = false;
+        else if (xDistance >= idealXRange[0]) up = false;
         return up;
     }
 
     /**
      * @param xDistance
      *            distance to target
-     * @return true if needs to move up
+     * @return true if needs to move down
      */
     public boolean aimDown(double xDistance)
     {
         boolean down = true;
         if (xDistance > idealXRange[1]) down = true;
-        else if (xDistance < idealXRange[1]) down = false;
+        else if (xDistance <= idealXRange[1]) down = false;
         return down;
+    }
+    
+/**
+ * Scores the width to height ratio of a target.
+ * @param target to score
+ * @return score from 0 to 100 based on how well the target fits the ideal ratio.
+ */
+    public double compareRatio(double[] target)
+    {
+        double widthHeightRatio = target[3] / target[4];
+        double score = widthHeightRatio / idealWidthHeightRatio;
+        if (score > 1)
+        {
+            score = score - 1;
+            score = 1 - score;
+        }
+        score *= 100;
+        return score;
     }
 
     public void initDefaultCommand()

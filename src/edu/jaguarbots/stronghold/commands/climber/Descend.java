@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
  * @author Cody Moose
  * @since 2016
  */
-public class Extend extends CommandBase
+public class Descend extends CommandBase
 {
 //    TODO Add code for limit switch
-    public Extend()
+    public Descend()
     {
         requires(climberSubsystem);
     }
@@ -31,7 +31,7 @@ public class Extend extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return oi.Manipulator.getY(Hand.kLeft)>=-.7;
+        return oi.Manipulator.getY(Hand.kLeft)<=-.7;
 //        TODO add limit switch integration
     }
 

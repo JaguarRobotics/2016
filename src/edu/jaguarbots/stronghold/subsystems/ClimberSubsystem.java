@@ -36,7 +36,7 @@ public class ClimberSubsystem extends Subsystem
     }
 
     /**
-     * Makes motor able to start running
+     * Makes motor start accepting input
      */
     public void initMotor()
     {
@@ -63,12 +63,12 @@ public class ClimberSubsystem extends Subsystem
     }
 
     /**
-     * Makes motor stop running
+     * Makes motor stop running and stop accepting input
      */
     public void stopMotor()
     {
         climberMotor.stopMotor();
-        climberMotor.stopLiveWindowMode();
+        climberMotor.stopLiveWindowMode(); //Makes motor stop accepting input
     }
 
     /**

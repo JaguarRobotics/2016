@@ -21,14 +21,26 @@ public class Robot extends IterativeRobot
 {
     public static final DriveSubsystem exampleSubsystem = new DriveSubsystem();
     Command                            autonomousCommand;
-    //vars for auto
-    SendableChooser positionChooser = new SendableChooser();
-    int position;
-    SendableChooser categoryChooser = new SendableChooser();
-    int category;
-    SendableChooser defenseChooser = new SendableChooser();
-    boolean defense;
-    
+    // vars for auto
+    SendableChooser                    positionChooser  = new SendableChooser();
+    SendableChooser                    goalChooser      = new SendableChooser();
+    SendableChooser                    defenseChooser   = new SendableChooser();
+
+    public enum Defense
+    {
+        Portcullis, Cheval, Moat, Ramparts, Rockwall, Terrain, Low
+    }
+
+    public enum Position
+    {
+        One, Two, Three, Four, Five
+    }
+
+    public enum Goal
+    {
+        Left, Middle, Right
+    }
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -36,25 +48,24 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
         CommandBase.init();
-        autonomousCommand = new Autonomous();
-        positionChooser.addDefault("1", position = 1);
-        positionChooser.addDefault("2", position = 2);
-        positionChooser.addDefault("3", position = 3);
-        positionChooser.addDefault("4", position = 4);
-        positionChooser.addDefault("5", position = 5);
+        positionChooser.addDefault("One", Position.One);
+        positionChooser.addObject("Two", Position.Two);
+        positionChooser.addObject("Three", Position.Three);
+        positionChooser.addObject("Four", Position.Four);
+        positionChooser.addObject("Five", Position.Five);
         SmartDashboard.putData("Position", positionChooser);
-        
-        categoryChooser.addDefault("low bar", category = 0);
-        categoryChooser.addDefault("A", category = 1);
-        categoryChooser.addDefault("B", category = 2);
-        categoryChooser.addDefault("C", category = 3);
-        categoryChooser.addDefault("D", category = 4);
-        SmartDashboard.putData("Category", categoryChooser);
-        
-        defenseChooser.addDefault("gate, moat, drawbridge, and rockwall", defense = false);
-        defenseChooser.addDefault("teetor-totter, steps, door, terrain", defense = true);
+        goalChooser.addObject("Left", Goal.Left);
+        goalChooser.addObject("Middle", Goal.Middle);
+        goalChooser.addObject("Right", Goal.Right);
+        SmartDashboard.putData("Goal", goalChooser);
+        defenseChooser.addDefault("Portcullis", Defense.Portcullis);
+        defenseChooser.addObject("Cheval De Frise", Defense.Cheval);
+        defenseChooser.addObject("Moat", Defense.Moat);
+        defenseChooser.addObject("Ramparts", Defense.Ramparts);
+        defenseChooser.addObject("Rockwall", Defense.Rockwall);
+        defenseChooser.addObject("Rough Terrain", Defense.Terrain);
+        defenseChooser.addObject("Low Bar", Defense.Low);
         SmartDashboard.putData("Defense", defenseChooser);
-        
     }
 
     /**
@@ -83,14 +94,10 @@ public class Robot extends IterativeRobot
      */
     public void autonomousInit()
     {
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector",
-         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-         * = new MyAutoCommand(); break; case "Default Auto": default:
-         * autonomousCommand = new ExampleCommand(); break; }
-         */
-        // schedule the autonomous command (example)
-        autonomousCommand = new Autonomous(position, category, defense);
+        Position position = (Position) positionChooser.getSelected();
+        Goal goal = (Goal) goalChooser.getSelected();
+        Defense defense = (Defense) defenseChooser.getSelected();
+        autonomousCommand = new Autonomous(defense, position, goal);
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

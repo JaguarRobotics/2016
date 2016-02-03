@@ -213,6 +213,7 @@ public class VisionSubsystem extends Subsystem
         return score;
     }
 
+    
     public void initDefaultCommand()
     {
     }

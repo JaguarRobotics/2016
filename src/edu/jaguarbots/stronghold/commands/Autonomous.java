@@ -8,6 +8,7 @@ import edu.jaguarbots.stronghold.commands.intake.IntakeDown;
 import edu.jaguarbots.stronghold.commands.intake.IntakeUp;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
+import edu.jaguarbots.stronghold.commands.vision.Aim;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -29,7 +30,7 @@ public class Autonomous extends CommandGroup
      * @param spyShoot
      *            true if we want to shoot, false to drive up to defense.
      */
-    public Autonomous(boolean spyShoot)
+    public Autonomous(final boolean spyShoot)
     {
         if (spyShoot)
         {
@@ -53,8 +54,8 @@ public class Autonomous extends CommandGroup
      * @param goal
      *            enum: Left, Middle, or Right
      */
-    public Autonomous(Robot.Defense defense, Robot.Position position,
-                    Robot.Goal goal)
+    public Autonomous(final Robot.Defense defense,
+                    final Robot.Position position, final Robot.Goal goal)
     {
         moveToRamp();
         crossDefense(defense);
@@ -66,48 +67,55 @@ public class Autonomous extends CommandGroup
         addSequential(new EncoderDrive(5));
     }
 
-    private void crossDefense(Robot.Defense defense)
+    private void crossDefense(final Robot.Defense defense)
     {
-        switch (defense)
+        if (defense == null) System.out.println("defense null");
+        else
         {
-            case Low:
-                // Low Bar
-                addSequential(new EncoderDrive(4));
-                break;
-            case Portcullis:
-                addSequential(new IntakeDown());
-                addSequential(new EncoderDrive(1, .5));
-                addParallel(new IntakeUp());
-                addSequential(new EncoderDrive(3, .4));
-                addSequential(new IntakeDown());
-                break;
-            case Cheval:
-                addSequential(new IntakeDown());
-                addSequential(new EncoderDrive(4));
-                break;
-            case Moat:
-                addSequential(new EncoderDrive(4, .5));
-                addSequential(new DriveFix(0));
-                break;
-            case Ramparts:
-                addSequential(new EncoderDrive(4, .5));
-                addSequential(new DriveFix(0));
-                break;
-            case Rockwall:
-                addSequential(new EncoderDrive(4, .5));
-                addSequential(new DriveFix(0));
-                break;
-            case Terrain:
-                addSequential(new EncoderDrive(4, .5));
-                addSequential(new DriveFix(0));
-                break;
+            switch (defense)
+            {
+                case Low:
+                    // Low Bar
+                    addSequential(new EncoderDrive(4));
+                    break;
+                case Portcullis:
+                    addSequential(new IntakeDown());
+                    addSequential(new EncoderDrive(1, .5));
+                    addParallel(new IntakeUp());
+                    addSequential(new EncoderDrive(3, .4));
+                    addSequential(new IntakeDown());
+                    break;
+                case Cheval:
+                    addSequential(new IntakeDown());
+                    addSequential(new EncoderDrive(4));
+                    break;
+                case Moat:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+                case Ramparts:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+                case Rockwall:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+                case Terrain:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+            }
         }
     }
 
-    private void shoot(Robot.Position position, Robot.Goal goal)
+    private void shoot(final Robot.Position position, final Robot.Goal goal)
     {
         switch (position)
         {
+            case Spy:
+                System.out.println("got here illegally");
+                break;
             case One:
                 switch (goal)
                 {
@@ -220,6 +228,7 @@ public class Autonomous extends CommandGroup
                 break;
         }
         addSequential(new ShooterUp());
+        addSequential(new Aim());
         addSequential(new ShooterFire());
     }
 }

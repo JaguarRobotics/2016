@@ -19,12 +19,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot
 {
-    public static final DriveSubsystem exampleSubsystem = new DriveSubsystem();
-    Command                            autonomousCommand;
+    private Command                            autonomousCommand;
     // vars for auto
-    SendableChooser                    positionChooser  = new SendableChooser();
-    SendableChooser                    goalChooser      = new SendableChooser();
-    SendableChooser                    defenseChooser   = new SendableChooser();
+    private final SendableChooser                    positionChooser  = new SendableChooser();
+    private final SendableChooser                    goalChooser      = new SendableChooser();
+    private final SendableChooser                    defenseChooser   = new SendableChooser();
 
     public enum Defense
     {
@@ -33,7 +32,7 @@ public class Robot extends IterativeRobot
 
     public enum Position
     {
-        One, Two, Three, Four, Five
+        One, Two, Three, Four, Five, Spy
     }
 
     public enum Goal
@@ -41,6 +40,7 @@ public class Robot extends IterativeRobot
         Left, Middle, Right
     }
 
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -53,18 +53,22 @@ public class Robot extends IterativeRobot
         positionChooser.addObject("Three", Position.Three);
         positionChooser.addObject("Four", Position.Four);
         positionChooser.addObject("Five", Position.Five);
+        positionChooser.addObject("Spy", Position.Spy);
+        positionChooser.addObject("null", null);
         SmartDashboard.putData("Position", positionChooser);
-        goalChooser.addObject("Left", Goal.Left);
+        goalChooser.addDefault("Left", Goal.Left);
         goalChooser.addObject("Middle", Goal.Middle);
         goalChooser.addObject("Right", Goal.Right);
+        goalChooser.addObject("null", null);
         SmartDashboard.putData("Goal", goalChooser);
-        defenseChooser.addDefault("Portcullis", Defense.Portcullis);
+        defenseChooser.addObject("Portcullis", Defense.Portcullis);
         defenseChooser.addObject("Cheval De Frise", Defense.Cheval);
         defenseChooser.addObject("Moat", Defense.Moat);
         defenseChooser.addObject("Ramparts", Defense.Ramparts);
         defenseChooser.addObject("Rockwall", Defense.Rockwall);
         defenseChooser.addObject("Rough Terrain", Defense.Terrain);
-        defenseChooser.addObject("Low Bar", Defense.Low);
+        defenseChooser.addDefault("Low Bar", Defense.Low);
+        defenseChooser.addObject("null", null);
         SmartDashboard.putData("Defense", defenseChooser);
     }
 
@@ -94,10 +98,21 @@ public class Robot extends IterativeRobot
      */
     public void autonomousInit()
     {
-        Position position = (Position) positionChooser.getSelected();
-        Goal goal = (Goal) goalChooser.getSelected();
-        Defense defense = (Defense) defenseChooser.getSelected();
-        autonomousCommand = new Autonomous(defense, position, goal);
+        final Position position = (Position) positionChooser.getSelected();
+        final Goal goal = (Goal) goalChooser.getSelected();
+        final Defense defense = (Defense) defenseChooser.getSelected();
+        if (position == Position.Spy)
+        {
+            autonomousCommand = new Autonomous(true);
+        }
+        else if(defense == null && goal == null && position == null)
+        {
+            autonomousCommand = new Autonomous();
+        }
+        else
+        {
+            autonomousCommand = new Autonomous(defense, position, goal);
+        }
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

@@ -8,7 +8,7 @@ import edu.jaguarbots.stronghold.commands.intake.IntakeDown;
 import edu.jaguarbots.stronghold.commands.intake.IntakeUp;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
-import edu.jaguarbots.stronghold.commands.vision.Aim;
+import edu.jaguarbots.stronghold.commands.vision.AimVertical;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -228,7 +228,7 @@ public class Autonomous extends CommandGroup
                 break;
         }
         addSequential(new ShooterUp());
-        addSequential(new Aim());
+        addSequential(new AimVertical());
         addSequential(new ShooterFire());
     }
 }

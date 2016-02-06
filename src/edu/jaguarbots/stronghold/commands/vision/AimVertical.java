@@ -1,18 +1,17 @@
 package edu.jaguarbots.stronghold.commands.vision;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.jaguarbots.stronghold.commands.drive.EncoderDrive;
 
 /**
  *
  */
-public class Aim extends CommandBase
+public class AimVertical extends CommandBase
 {
     private boolean up;
     private boolean down;
     private double xDistance;
     private double[] target;
-    public Aim()
+    public AimVertical()
     {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -28,7 +27,7 @@ public class Aim extends CommandBase
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        target = visionSubsystem.getMidTarget();
+        target = visionSubsystem.getLeftTarget();
         xDistance = visionSubsystem.getTargetXDistance(target);
         up = visionSubsystem.aimUp(xDistance);
         down = visionSubsystem.aimDown(xDistance);

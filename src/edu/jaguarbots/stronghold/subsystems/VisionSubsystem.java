@@ -40,6 +40,7 @@ public class VisionSubsystem extends Subsystem
     double       idealXRange[]         = { 5, 8 }; // Guess for now, to be
                                                    // determined
                                                    // through testing.
+    double       idealHorizRange[]         = { 5, 8 };
     double       idealWidthHeightRatio = 11 / 7;   // width to height ratio of
                                                    // target
 
@@ -114,6 +115,11 @@ public class VisionSubsystem extends Subsystem
      */
     public double[] getLeftTarget()
     {
+        getCenterX();
+        getCenterY();
+        getWidth();
+        getHeight();
+        getArea();
         leftTarget = new double[] { centerX[0], centerY[0], width[0], height[0],
                         area[0] };
         return leftTarget;
@@ -126,6 +132,11 @@ public class VisionSubsystem extends Subsystem
      */
     public double[] getMidTarget()
     {
+        getCenterX();
+        getCenterY();
+        getWidth();
+        getHeight();
+        getArea();
         midTarget = new double[] { centerX[1], centerY[1], width[1], height[1],
                         area[1] };
         return midTarget;
@@ -138,6 +149,11 @@ public class VisionSubsystem extends Subsystem
      */
     public double[] getRightTarget()
     {
+        getCenterX();
+        getCenterY();
+        getWidth();
+        getHeight();
+        getArea();
         rightTarget = new double[] { centerX[2], centerY[2], width[2],
                         height[2], area[2] };
         return rightTarget;
@@ -194,12 +210,30 @@ public class VisionSubsystem extends Subsystem
         else if (xDistance <= idealXRange[1]) down = false;
         return down;
     }
-    
-/**
- * Scores the width to height ratio of a target.
- * @param target to score
- * @return score from 0 to 100 based on how well the target fits the ideal ratio.
- */
+
+    public boolean aimRight(double horiz)
+    {
+        boolean right = true;
+        if(horiz < idealHorizRange[0]) right = true;
+        else if(horiz >= idealHorizRange[0]) right = false;
+        return right;
+    }
+    public boolean aimLeft(double horiz)
+    {
+        boolean left = true;
+        if(horiz < idealHorizRange[1]) left = true;
+        else if(horiz >= idealHorizRange[1]) left = false;
+        return left;
+    }
+
+    /**
+     * Scores the width to height ratio of a target.
+     * 
+     * @param target
+     *            to score
+     * @return score from 0 to 100 based on how well the target fits the ideal
+     *         ratio.
+     */
     public double compareRatio(double[] target)
     {
         double widthHeightRatio = target[3] / target[4];
@@ -213,7 +247,6 @@ public class VisionSubsystem extends Subsystem
         return score;
     }
 
-    
     public void initDefaultCommand()
     {
     }

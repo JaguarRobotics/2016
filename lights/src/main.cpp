@@ -5,32 +5,47 @@
 #include "timer.h"
 
 #define DATA_PIN 4
+//#define FAST_MODE
+
+#ifdef FAST_MODE
+#define T0H 250
+#define T1H 600
+#define T0L 1000
+#define T1L 650
+#define RES 50000
+#else
+#define T0H 500
+#define T1H 1200
+#define T0L 2000
+#define T1L 1300
+#define RES 50000
+#endif
 
 void send0(GPIO_t *gpio, struct timespec *time) {
     gpio->setPin(DATA_PIN, true);
-    time->tv_nsec += 500;
+    time->tv_nsec += T0H;
     normalizeTime(time);
     highResSleepTo(*time);
     gpio->setPin(DATA_PIN, false);
-    time->tv_nsec += 2000;
+    time->tv_nsec += T0L;
     normalizeTime(time);
     highResSleepTo(*time);
 }
 
 void send1(GPIO_t *gpio, struct timespec *time) {
     gpio->setPin(DATA_PIN, true);
-    time->tv_nsec += 1200;
+    time->tv_nsec += T1H;
     normalizeTime(time);
     highResSleepTo(*time);
     gpio->setPin(DATA_PIN, false);
-    time->tv_nsec += 1300;
+    time->tv_nsec += T1L;
     normalizeTime(time);
     highResSleepTo(*time);
 }
 
 void sendReset(GPIO_t *gpio, struct timespec *time) {
     gpio->setPin(DATA_PIN, false);
-    time->tv_nsec += 50000;
+    time->tv_nsec += RES;
     normalizeTime(time);
     highResSleepTo(*time);
 }

@@ -4,3 +4,16 @@
 /.project
 /.gradle/
 /.settings/
+autom4te.cache/
+aclocal.m4
+compile
+config.*
+configure
+depcomp
+install-sh
+Makefile
+Makefile.in
+missing
+.deps/
+runlights
+*.o

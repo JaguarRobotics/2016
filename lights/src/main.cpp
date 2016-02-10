@@ -4,7 +4,7 @@
 #include "systemDetect.hpp"
 #include "timer.h"
 
-#define DATA_PIN 4
+#define DATA_PIN 14
 //#define FAST_MODE
 
 #ifdef FAST_MODE
@@ -51,7 +51,7 @@ void sendReset(GPIO_t *gpio, struct timespec *time) {
 }
 
 void sendByte(GPIO_t *gpio, struct timespec *time, unsigned char val) {
-    for ( unsigned char i = 0; i < 8; ++i ) {
+    for ( unsigned char i = 7; i >= 0; --i ) {
         if ( val & (1 << i) ) {
             send1(gpio, time);
         } else {
@@ -67,11 +67,13 @@ void sendColor(GPIO_t *gpio, struct timespec *time, unsigned char red, unsigned 
 }
 
 int main(int argc, const char **argv) {
+    //*
     if ( !detectSystemGPIO() ) {
         fputs("Unable to init GPIO code.\n", stderr);
         return 1;
     }
     GPIO_t *gpio = getSystemGPIO();
+    gpio->init();
     gpio->setOutput(DATA_PIN);
     struct timespec time = getTime();
     while ( true ) {
@@ -89,4 +91,5 @@ int main(int argc, const char **argv) {
         highResSleepTo(time);
     }
     return 0;
+    // */
 }

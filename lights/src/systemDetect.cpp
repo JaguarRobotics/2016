@@ -5,14 +5,14 @@
 #include "PiGPIO.hpp"
 #include "mockGPIO.hpp"
 
-#define RPI_MACHINE "armv6l"
+#define RPI_MACHINE "armv7l"
 
 GPIO_t *gpio;
 
 bool detectSystemGPIO() {
     if ( !gpio ) {
         struct utsname sys;
-        if ( !uname(&sys) ) {
+        if ( uname(&sys) != 0 ) {
             fputs("Unable to get uname of system.\n", stderr);
             return false;
         }

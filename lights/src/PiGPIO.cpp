@@ -26,7 +26,7 @@ bool PiGPIO::init() {
         fprintf(stderr, "MMap failed to map memory: %d.\n", (int) (intptr_t) map);
         return false;
     }
-    gpio = (volatile unsigned *) gpio;
+    gpio = (volatile unsigned *) map;
     return true;
 }
 

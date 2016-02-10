@@ -1,8 +1,8 @@
 package edu.jaguarbots.stronghold;
 
-import edu.jaguarbots.stronghold.commands.climber.Extend;
+import edu.jaguarbots.stronghold.commands.climber.Ascend;
 import edu.jaguarbots.stronghold.commands.climber.Grab;
-import edu.jaguarbots.stronghold.commands.climber.Retract;
+import edu.jaguarbots.stronghold.commands.climber.Descend;
 import edu.jaguarbots.stronghold.commands.drive.GearShift;
 import edu.jaguarbots.stronghold.commands.intake.Intake;
 import edu.jaguarbots.stronghold.commands.intake.IntakeDown;
@@ -31,8 +31,8 @@ public class OI
         Manipulator_DpadRight.whenPressed(new ShooterDown());
         Manipulator_DpadUp.whenPressed(new IntakeUp());
         Manipulator_DpadDown.whenPressed(new IntakeDown());
-        if (Manipulator.getY(Hand.kLeft) > .7) new Retract();
-        if (Manipulator.getY(Hand.kLeft) < -.7) new Extend();
+        if (Manipulator.getY(Hand.kLeft) > .7) new Ascend();
+        if (Manipulator.getY(Hand.kLeft) < -.7) new Descend();
         if (Manipulator_L2.get()) Manipulator_R2.whenPressed(new ShooterFire());
         Joystick1_Button1.whenPressed(new GearShift());
     }

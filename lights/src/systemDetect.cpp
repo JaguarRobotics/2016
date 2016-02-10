@@ -5,7 +5,8 @@
 #include "PiGPIO.hpp"
 #include "mockGPIO.hpp"
 
-#define RPI_MACHINE "armv7l"
+#define RPI_2_MACHINE "armv7l"
+#define RPI_0_MACHINE "armv6l"
 
 GPIO_t *gpio;
 
@@ -16,7 +17,7 @@ bool detectSystemGPIO() {
             fputs("Unable to get uname of system.\n", stderr);
             return false;
         }
-        if ( strcmp(sys.machine, RPI_MACHINE) == 0 ) {
+        if ( strcmp(sys.machine, RPI_2_MACHINE) == 0 || strcmp(sys.machine, RPI_0_MACHINE) == 0 ) {
             gpio = new PiGPIO_t();
         } else {
             gpio = new mockGPIO_t();

@@ -2,7 +2,6 @@ package edu.jaguarbots.stronghold;
 
 import edu.jaguarbots.stronghold.commands.Autonomous;
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;

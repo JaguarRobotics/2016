@@ -16,8 +16,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ClimberSubsystem extends Subsystem
 {
-    private Relay    climberMotor = new Relay(RobotMap.pwmClimberMotor);
-    private Solenoid climberSol   = new Solenoid(RobotMap.pwmClimberSol);
+    /**
+     * Motor for ascending and descending
+     */
+    private Relay        climberMotor = new Relay(RobotMap.pwmClimberMotor);
+    /**
+     * Solenoid for raising and lowering the arm for climbing
+     */
+    private Solenoid     climberSol   = new Solenoid(RobotMap.pwmClimberSol);
+    /**
+     * Limit switch to ensure robot does not climb too high
+     */
     private DigitalInput climberLimit = new DigitalInput(RobotMap.climberLimitSwitch);
 
     public void initDefaultCommand()
@@ -27,15 +36,16 @@ public class ClimberSubsystem extends Subsystem
     }
 
     /**
-     * Makes motor able to start running
+     * Makes motor start accepting input
      */
     public void initMotor()
     {
         climberMotor.startLiveWindowMode();
     }
-    
+
     /**
      * Gets the value of the limit switch for the climbing mechanism
+     * 
      * @return limit switch value
      */
     public boolean getLimit()
@@ -53,12 +63,12 @@ public class ClimberSubsystem extends Subsystem
     }
 
     /**
-     * Makes motor stop running
+     * Makes motor stop running and stop accepting input
      */
     public void stopMotor()
     {
         climberMotor.stopMotor();
-        climberMotor.stopLiveWindowMode();
+        climberMotor.stopLiveWindowMode(); //Makes motor stop accepting input
     }
 
     /**

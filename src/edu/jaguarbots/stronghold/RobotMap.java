@@ -13,15 +13,15 @@ public class RobotMap
     // know those numbers yet
     public static final int leftDrive              = 0;
     public static final int rightDrive             = 1;
-    public static final int pwmIntakeMotor         = 500;
+    public static final int pwmIntakeMotor         = 2;
     public static final int pwmIntakePositionMotor = 501;
     // If you are using multiple modules, make sure to define both the port
     // number and the module. For example you with a rangefinder:
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
-    public static final int pwmShooterMotor        = 502;
+    public static final int pwmShooterMotor        = 4;
     // temporary pwm value you can change if you want
-    public static final int pwmClimberMotor        = 503;
+    public static final int pwmClimberMotor        = 5;
     // temporary pwm value you can change if you want
     public static final int pwmShooterSol          = 504;
     // temporary pwm value you can change if you want

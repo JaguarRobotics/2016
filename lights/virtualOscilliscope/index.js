@@ -99,13 +99,27 @@ function paint() {
     }
 }
 
+function generateColor() {
+    var black = "#000000";
+    while ( true ) {
+        var cint = Math.floor(Math.random() * 16777216);
+        var r = Math.floor(cint / 65536);
+        var g = Math.floor((cint % 65536) / 256);
+        var b = Math.floor(cint % 256);
+        var length = Math.sqrt(r * r + g * g + b * b);
+        var backLength = Math.sqrt(r * r + g * g + b * b / 64);
+        if ( length > 256 && length < 400 && backLength >= 192 ) {
+            var color = cint.toString(16);
+            return black.substring(0, black.length - color.length) + color;
+        }
+    }
+}
+
 function generateColors() {
     var c = [];
-    var black = "#000000";
     for ( var i = 0; i < oscilliscope.length; ++i ) {
         if ( c.indexOf(oscilliscope[i].pin) < 0 ) {
-            var color = Math.floor(Math.random() * 16777216).toString(16);
-            c[oscilliscope[i].pin] = black.substring(0, black.length - color.length) + color;
+            c[oscilliscope[i].pin] = generateColor();
         }
     }
     colors = c;

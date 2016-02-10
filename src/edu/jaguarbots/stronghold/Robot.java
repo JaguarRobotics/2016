@@ -3,6 +3,7 @@ package edu.jaguarbots.stronghold;
 import edu.jaguarbots.stronghold.commands.Autonomous;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -19,15 +20,29 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot
 {
-    public static final DriveSubsystem exampleSubsystem = new DriveSubsystem();
-    Command                            autonomousCommand;
-    //vars for auto
-    SendableChooser positionChooser = new SendableChooser();
-    int position;
-    SendableChooser categoryChooser = new SendableChooser();
-    int category;
-    SendableChooser defenseChooser = new SendableChooser();
-    boolean defense;
+    private Command                            autonomousCommand;
+    // vars for auto
+    private final SendableChooser                    positionChooser  = new SendableChooser();
+    private final SendableChooser                    goalChooser      = new SendableChooser();
+    private final SendableChooser                    defenseChooser   = new SendableChooser();
+    
+    Compressor compresser = new Compressor(RobotMap.pwmCompresser);
+
+    public enum Defense
+    {
+        Portcullis, Cheval, Moat, Ramparts, Rockwall, Terrain, Low
+    }
+
+    public enum Position
+    {
+        One, Two, Three, Four, Five, Spy
+    }
+
+    public enum Goal
+    {
+        Left, Middle, Right
+    }
+
     
     /**
      * This function is run when the robot is first started up and should be
@@ -36,25 +51,29 @@ public class Robot extends IterativeRobot
     public void robotInit()
     {
         CommandBase.init();
-        autonomousCommand = new Autonomous();
-        positionChooser.addDefault("1", position = 1);
-        positionChooser.addDefault("2", position = 2);
-        positionChooser.addDefault("3", position = 3);
-        positionChooser.addDefault("4", position = 4);
-        positionChooser.addDefault("5", position = 5);
+        positionChooser.addDefault("One", Position.One);
+        positionChooser.addObject("Two", Position.Two);
+        positionChooser.addObject("Three", Position.Three);
+        positionChooser.addObject("Four", Position.Four);
+        positionChooser.addObject("Five", Position.Five);
+        positionChooser.addObject("Spy", Position.Spy);
+        positionChooser.addObject("null", null);
         SmartDashboard.putData("Position", positionChooser);
-        
-        categoryChooser.addDefault("low bar", category = 0);
-        categoryChooser.addDefault("A", category = 1);
-        categoryChooser.addDefault("B", category = 2);
-        categoryChooser.addDefault("C", category = 3);
-        categoryChooser.addDefault("D", category = 4);
-        SmartDashboard.putData("Category", categoryChooser);
-        
-        defenseChooser.addDefault("gate, moat, drawbridge, and rockwall", defense = false);
-        defenseChooser.addDefault("teetor-totter, steps, door, terrain", defense = true);
+        goalChooser.addDefault("Left", Goal.Left);
+        goalChooser.addObject("Middle", Goal.Middle);
+        goalChooser.addObject("Right", Goal.Right);
+        goalChooser.addObject("null", null);
+        SmartDashboard.putData("Goal", goalChooser);
+        defenseChooser.addObject("Portcullis", Defense.Portcullis);
+        defenseChooser.addObject("Cheval De Frise", Defense.Cheval);
+        defenseChooser.addObject("Moat", Defense.Moat);
+        defenseChooser.addObject("Ramparts", Defense.Ramparts);
+        defenseChooser.addObject("Rockwall", Defense.Rockwall);
+        defenseChooser.addObject("Rough Terrain", Defense.Terrain);
+        defenseChooser.addDefault("Low Bar", Defense.Low);
+        defenseChooser.addObject("null", null);
         SmartDashboard.putData("Defense", defenseChooser);
-        
+        compresser.setClosedLoopControl(true);                              //should turn on the compresser
     }
 
     /**
@@ -64,6 +83,7 @@ public class Robot extends IterativeRobot
      */
     public void disabledInit()
     {
+        compresser.setClosedLoopControl(false);         //should turn off the compresser
     }
 
     public void disabledPeriodic()
@@ -83,14 +103,21 @@ public class Robot extends IterativeRobot
      */
     public void autonomousInit()
     {
-        /*
-         * String autoSelected = SmartDashboard.getString("Auto Selector",
-         * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-         * = new MyAutoCommand(); break; case "Default Auto": default:
-         * autonomousCommand = new ExampleCommand(); break; }
-         */
-        // schedule the autonomous command (example)
-        autonomousCommand = new Autonomous(position, category, defense);
+        final Position position = (Position) positionChooser.getSelected();
+        final Goal goal = (Goal) goalChooser.getSelected();
+        final Defense defense = (Defense) defenseChooser.getSelected();
+        if (position == Position.Spy)
+        {
+            autonomousCommand = new Autonomous(true);
+        }
+        else if(defense == null && goal == null && position == null)
+        {
+            autonomousCommand = new Autonomous();
+        }
+        else
+        {
+            autonomousCommand = new Autonomous(defense, position, goal);
+        }
         if (autonomousCommand != null) autonomousCommand.start();
     }
 

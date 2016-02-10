@@ -45,4 +45,6 @@ public class RobotMap
     public static final int rightStick             = 1;
     public static final int manipulator            = 2;
     public static final int dioShooterWench        = 3;
+    //needs a real pwm value 
+    public static final int pwmCompresser             = 50;
 }

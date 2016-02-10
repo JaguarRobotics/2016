@@ -1,5 +1,6 @@
 package edu.jaguarbots.stronghold.commands;
 
+import edu.jaguarbots.stronghold.Robot;
 import edu.jaguarbots.stronghold.commands.drive.DriveFix;
 import edu.jaguarbots.stronghold.commands.drive.DriveTurn;
 import edu.jaguarbots.stronghold.commands.drive.EncoderDrive;
@@ -7,6 +8,8 @@ import edu.jaguarbots.stronghold.commands.intake.IntakeDown;
 import edu.jaguarbots.stronghold.commands.intake.IntakeUp;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
+import edu.jaguarbots.stronghold.commands.vision.AimHorizontal;
+import edu.jaguarbots.stronghold.commands.vision.AimVertical;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -14,37 +17,23 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class Autonomous extends CommandGroup
 {
-
-/*    
-    Category A - Portcullis (gate): false; Cheval De Frise (Teetor totter): true;
-    Category B - Moat:              false; Ramparts (steps):                true;
-    Category C - Drawbridge:        false; Sally Port (door):               true;
-    Category D - Rockwall (Bar):    false; Rough Terrain:                   true;
-    
-    for int robotPosition - From lowbar then left.
-    Lowbar:     1
-                2
-                3
-                4
-                5
-
-    for int category
-    low 0
-    A   1
-    B   2
-    C   3
-    D   4
-*/  
-    
-   
+    /**
+     * Default, drives forward 5
+     */
     public Autonomous()
     {
-        addSequential(new EncoderDrive(5));
+        moveToRamp();
     }
-    
-    public Autonomous(boolean spyShoot)
+
+    /**
+     * If spybot position.
+     * 
+     * @param spyShoot
+     *            true if we want to shoot, false to drive up to defense.
+     */
+    public Autonomous(final boolean spyShoot)
     {
-        if(spyShoot)
+        if (spyShoot)
         {
             addSequential(new DriveTurn(30));
             addSequential(new ShooterUp());
@@ -53,64 +42,195 @@ public class Autonomous extends CommandGroup
         else
             addSequential(new EncoderDrive(-5));
     }
-    
-    public Autonomous(int robotPosition, int category, boolean defense)
+
+    /**
+     * Selects autonomous route based on defense to cross, position in, and what
+     * goal to shoot in.
+     * 
+     * @param defense
+     *            enum: Portcullis, Cheval, Moat, Ramparts, Rockwall, Terrain,
+     *            or Low
+     * @param position
+     *            enum: One, Two, Three, Four, or Five
+     * @param goal
+     *            enum: Left, Middle, or Right
+     */
+    public Autonomous(final Robot.Defense defense,
+                    final Robot.Position position, final Robot.Goal goal)
     {
-       addSequential(new EncoderDrive(5));
-        
-       if(category == 0)
-       {
-           addSequential(new EncoderDrive(3));
-       }
-        
-       if(category == 1 && defense == false)
-       {
-           addSequential(new IntakeDown());
-           addSequential(new IntakeUp());
-           addSequential(new EncoderDrive(2));
-           addSequential(new IntakeDown());
-       }
-       
-       if(category == 1 && defense == true)
-       {
-           addSequential(new IntakeDown());
-           addSequential(new EncoderDrive(2));
-       }
-       
-       if(category == 2 || category == 4)
-       {
-           addSequential(new EncoderDrive(4));
-           addSequential(new DriveFix(0));
-       }
-       
-       if(category == 3)
-       {
-           System.out.println("error! We cannot cross this defense in autonomous");
-       }
-       
-       if(robotPosition == 1)
-       {
-           addSequential(new DriveTurn(45)); //45 degress
-       }
-       
-       if(robotPosition == 2)
-       {
-           addSequential(new DriveTurn(30)); //30 degrees
-       }
-       
-       if(robotPosition == 4)
-       {
-           addSequential(new DriveTurn(-30)); //-30 degrees
-       }
-       
-       if(robotPosition == 5)
-       {
-           addSequential(new DriveTurn(-45)); //-45 degrees
-       }
-       
-           addSequential(new ShooterUp());
-           addSequential(new ShooterFire());
-       
-  
+        moveToRamp();
+        crossDefense(defense);
+        shoot(position, goal);
+    }
+
+    private void moveToRamp()
+    {
+        addSequential(new EncoderDrive(5));
+    }
+
+    private void crossDefense(final Robot.Defense defense)
+    {
+        if (defense == null) System.out.println("defense null");
+        else
+        {
+            switch (defense)
+            {
+                case Low:
+                    // Low Bar
+                    addSequential(new EncoderDrive(4));
+                    break;
+                case Portcullis:
+                    addSequential(new IntakeDown());
+                    addSequential(new EncoderDrive(1, .5));
+                    addParallel(new IntakeUp());
+                    addSequential(new EncoderDrive(3, .4));
+                    addSequential(new IntakeDown());
+                    break;
+                case Cheval:
+                    addSequential(new IntakeDown());
+                    addSequential(new EncoderDrive(4));
+                    break;
+                case Moat:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+                case Ramparts:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+                case Rockwall:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+                case Terrain:
+                    addSequential(new EncoderDrive(4, .5));
+                    addSequential(new DriveFix(0));
+                    break;
+            }
+        }
+    }
+
+    private void shoot(final Robot.Position position, final Robot.Goal goal)
+    {
+        switch (position)
+        {
+            case Spy:
+                System.out.println("got here illegally");
+                break;
+            case One:
+                switch (goal)
+                {
+                    case Left:
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(-45));
+                        break;
+                    case Middle:
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(3));
+                        break;
+                    case Right:
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(6));
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(30));
+                        break;
+                }
+                break;
+            case Two:
+                switch (goal)
+                {
+                    case Left:
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(-30));
+                        break;
+                    case Middle:
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(2.5));
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(3));
+                        break;
+                    case Right:
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(5.5));
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(30));
+                        break;
+                }
+                break;
+            case Three:
+                switch (goal)
+                {
+                    case Left:
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(-30));
+                        break;
+                    case Middle:
+                        addSequential(new EncoderDrive(3));
+                        break;
+                    case Right:
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(30));
+                        break;
+                }
+                break;
+            case Four:
+                switch (goal)
+                {
+                    case Left:
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(4));
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(-30));
+                        break;
+                    case Middle:
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(2));
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(3));
+                        break;
+                    case Right:
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(30));
+                        break;
+                }
+                break;
+            case Five:
+                switch (goal)
+                {
+                    case Left:
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(6));
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(-30));
+                        break;
+                    case Middle:
+                        addSequential(new DriveTurn(90));
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(-90));
+                        addSequential(new EncoderDrive(3));
+                        break;
+                    case Right:
+                        addSequential(new EncoderDrive(3));
+                        addSequential(new DriveTurn(45));
+                        break;
+                }
+                break;
+        }
+        addSequential(new ShooterUp());
+        addSequential(new AimVertical());
+        addSequential(new AimHorizontal());
+        addSequential(new ShooterFire());
     }
 }

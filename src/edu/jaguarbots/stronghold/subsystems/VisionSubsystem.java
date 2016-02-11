@@ -1,55 +1,179 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.image.BinaryImage;
+import edu.wpi.first.wpilibj.image.ColorImage;
+import edu.wpi.first.wpilibj.image.NIVisionException;
+import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
+import edu.wpi.first.wpilibj.image.RGBImage;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 // Based on HSL or Hue, Saturation and Luminance
 public class VisionSubsystem extends Subsystem
 {
-    NetworkTable table;
-    double[]     area;
-    double[]     centerX;
-    double[]     centerY;
-    double[]     width;
-    double[]     height;
+    NetworkTable        table;
+    double[]            area;
+    double[]            centerX;
+    double[]            centerY;
+    double[]            width;
+    double[]            height;
     /**
      * Returns if nothing is found in the array
      */
-    double[]     defaultValue          = null;
+    double[]            defaultValue          = null;
     /**
      * Left target, in format {x, y, width, height, area}
      */
-    double[]     leftTarget            = null;
+    double[]            leftTarget            = null;
     /**
      * Right target, in format {x, y, width, height, area}
      */
-    double[]     rightTarget           = null;
+    double[]            rightTarget           = null;
     /**
      * Middle target, in format {x, y, width, height, area}
      */
-    double[]     midTarget             = null;
-    int          numTargets            = 0;
-    double       imageDPI              = 114;      // constant used based on
-                                                   // size of
-                                                   // image.
-                                                   // Guess for now.
-    double       viewAngle             = 18.7;     // AXIS M1011, to be
-                                                   // determined
-                                                   // for
-                                                   // others.
-    double       idealXRange[]         = { 5, 8 }; // Guess for now, to be
-                                                   // determined
-                                                   // through testing.
-    double       idealHorizRange[]         = { 5, 8 };
-    double       idealWidthHeightRatio = 11 / 7;   // width to height ratio of
-                                                   // target
+    double[]            midTarget             = null;
+    int                 numTargets            = 0;
+    double              imageDPI              = 114;      // constant used
+                                                          // based on
+                                                          // size of
+                                                          // image.
+                                                          // Guess for now.
+    double              viewAngle             = 18.7;     // AXIS M1011, to
+                                                          // be
+                                                          // determined
+                                                          // for
+                                                          // others.
+    double              idealXRange[]         = { 5, 8 }; // Guess for now,
+                                                          // to be
+                                                          // determined
+                                                          // through testing.
+    double              idealHorizRange[]     = { 5, 8 };
+    double              idealWidthHeightRatio = 11 / 7;   // width to height
+                                                          // ratio of
+                                                          // target]
+    double ratioLimit = .75; //minimum score of ratio to be considered a target.
+    ColorImage          image;
+    AxisCamera          camera;
+    private BinaryImage thresholdImage;
+    private BinaryImage filteredImage;
+
+    private class Scores
+    {
+        double aspectRatio;
+    }
+    
+    private class Target
+    {
+        double centerX;
+        double centerY;
+        double width;
+        double height;
+        double area;
+    }
 
     public VisionSubsystem()
     {
-        table = NetworkTable.getTable("GRIP/myContoursReport");
-        centerX = getCenterX();
-        System.out.println(centerX[0]);
+        //table = NetworkTable.getTable("GRIP/myContoursReport");
+        try
+        {
+            image = new RGBImage("15.bmp");
+        }
+        catch (NIVisionException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Target[] target1 = getParticles(image);
+        System.out.println(target1[0].centerX);
     }
+    
+    private boolean scoreCompare(Scores scores)
+    {
+        boolean isTarget = false;
+        if(scores.aspectRatio > ratioLimit)
+            isTarget = true;
+        else isTarget = false;
+        return isTarget;
+    }
+
+    public Target[] getParticles(ColorImage image)
+    {
+        Target [] targetArray = new Target[2];
+        try
+        {
+            //image = camera.getImage();
+            image.write("/image1.bmp");
+            thresholdImage = image.thresholdRGB(214, 246, 226, 255, 221, 255); //filter out objects based on color.
+            thresholdImage.write("/thresholdImage.bmp");
+            filteredImage = thresholdImage.removeSmallObjects(true, 10);
+            filteredImage.write("/filteredImage.bmp");
+            Scores scores[] = new Scores[filteredImage.getNumberParticles()];
+            
+            if(filteredImage.getNumberParticles() > 0)
+            {
+                for(int i = 0; i<=filteredImage.getNumberParticles(); i++)
+                {
+                    ParticleAnalysisReport report = filteredImage.getParticleAnalysisReport(i);
+                    scores[i] = new Scores();
+                    scores[i].aspectRatio = scoreAspectRatio(report);
+                    if(scoreCompare(scores[i]))
+                    {
+                        if(i == 0)
+                        {
+                            Target left = new Target();
+                            left.area = report.particleArea;
+                            left.centerX = report.center_mass_x_normalized;
+                            left.centerY = report.center_mass_y_normalized;
+                            left.height = report.boundingRectHeight;
+                            left.width = report.boundingRectWidth;
+                            targetArray[0] = left;
+                        }
+                        else if(i == 1)
+                        {
+                            Target mid = new Target();
+                            mid.area = report.particleArea;
+                            mid.centerX = report.center_mass_x_normalized;
+                            mid.centerY = report.center_mass_y_normalized;
+                            mid.height = report.boundingRectHeight;
+                            mid.width = report.boundingRectWidth;
+                            targetArray[1] = mid;
+                        }
+                        else if(i == 2)
+                        {
+                            Target right = new Target();
+                            right.area = report.particleArea;
+                            right.centerX = report.center_mass_x_normalized;
+                            right.centerY = report.center_mass_y_normalized;
+                            right.height = report.boundingRectHeight;
+                            right.width = report.boundingRectWidth;
+                            targetArray[2] = right;
+                        }
+                    }
+                }
+            }
+        }
+        catch (NIVisionException e)
+        {
+            e.printStackTrace();
+        }
+        return targetArray;
+    }
+    
+    private double scoreAspectRatio(ParticleAnalysisReport report)
+    {
+        double widthHeightRatio = report.boundingRectWidth / report.boundingRectHeight;
+        double score = widthHeightRatio / idealWidthHeightRatio;
+        if (score > 1)
+        {
+            score = score - 1;
+            score = 1 - score;
+        }
+        score *= 100;
+        return score;
+    }
+
 
     // For GRIP - I'm figuring out some stuff with GRIP, so we will see how it
     // goes.
@@ -214,37 +338,17 @@ public class VisionSubsystem extends Subsystem
     public boolean aimRight(double horiz)
     {
         boolean right = true;
-        if(horiz < idealHorizRange[0]) right = true;
-        else if(horiz >= idealHorizRange[0]) right = false;
+        if (horiz < idealHorizRange[0]) right = true;
+        else if (horiz >= idealHorizRange[0]) right = false;
         return right;
     }
+
     public boolean aimLeft(double horiz)
     {
         boolean left = true;
-        if(horiz < idealHorizRange[1]) left = true;
-        else if(horiz >= idealHorizRange[1]) left = false;
+        if (horiz < idealHorizRange[1]) left = true;
+        else if (horiz >= idealHorizRange[1]) left = false;
         return left;
-    }
-
-    /**
-     * Scores the width to height ratio of a target.
-     * 
-     * @param target
-     *            to score
-     * @return score from 0 to 100 based on how well the target fits the ideal
-     *         ratio.
-     */
-    public double compareRatio(double[] target)
-    {
-        double widthHeightRatio = target[3] / target[4];
-        double score = widthHeightRatio / idealWidthHeightRatio;
-        if (score > 1)
-        {
-            score = score - 1;
-            score = 1 - score;
-        }
-        score *= 100;
-        return score;
     }
 
     public void initDefaultCommand()

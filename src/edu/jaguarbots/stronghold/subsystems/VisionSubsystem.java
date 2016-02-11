@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.image.RGBImage;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
-// Based on HSL or Hue, Saturation and Luminance
 public class VisionSubsystem extends Subsystem
 {
     NetworkTable        table;

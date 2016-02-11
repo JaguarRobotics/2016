@@ -1,7 +1,6 @@
 package edu.jaguarbots.stronghold.commands.drive;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 
 /**
  * Turns robot a specified angle left or right. Positive angles turn counter-clockwise.
@@ -45,7 +44,7 @@ public class DriveTurn extends CommandBase
     @Override
     protected boolean isFinished()
     {
-        return driveSubsystem.getGyro()>=turnAmount;
+        return (turnAmount >= 0 && driveSubsystem.getGyro() >= angle) || (turnAmount < 0 && driveSubsystem.getGyro() <= angle);
     }
 
     @Override

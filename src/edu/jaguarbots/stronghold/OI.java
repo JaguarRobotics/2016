@@ -6,7 +6,6 @@ import edu.jaguarbots.stronghold.commands.climber.Grab;
 import edu.jaguarbots.stronghold.commands.drive.GearShift;
 import edu.jaguarbots.stronghold.commands.intake.Intake;
 import edu.jaguarbots.stronghold.commands.intake.IntakeBottom;
-import edu.jaguarbots.stronghold.commands.intake.IntakeMiddle;
 import edu.jaguarbots.stronghold.commands.intake.IntakeTop;
 import edu.jaguarbots.stronghold.commands.intake.Output;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterDown;
@@ -35,7 +34,7 @@ public class OI
         if (Manipulator.getY(Hand.kLeft) > .7) new Ascend();
         if (Manipulator.getY(Hand.kLeft) < -.7) new Descend();
         if (Manipulator.getY(Hand.kRight) > .7) new IntakeBottom();
-        Manipulator_R3.whenPressed(new IntakeMiddle());
+        //Manipulator_R3.whenPressed(new IntakeMiddle());
         if (Manipulator.getY(Hand.kRight) < -.7) new IntakeTop();
         if (Manipulator_L2.get()) Manipulator_R2.whenPressed(new ShooterFire());
         Joystick1_Button1.whenPressed(new GearShift());

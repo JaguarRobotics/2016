@@ -4,8 +4,8 @@ import edu.jaguarbots.stronghold.Robot;
 import edu.jaguarbots.stronghold.commands.drive.DriveFix;
 import edu.jaguarbots.stronghold.commands.drive.DriveTurn;
 import edu.jaguarbots.stronghold.commands.drive.EncoderDrive;
-import edu.jaguarbots.stronghold.commands.intake.IntakeDown;
-import edu.jaguarbots.stronghold.commands.intake.IntakeUp;
+import edu.jaguarbots.stronghold.commands.intake.IntakeBottom;
+import edu.jaguarbots.stronghold.commands.intake.IntakeTop;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
 import edu.jaguarbots.stronghold.commands.vision.AimHorizontal;
@@ -80,14 +80,14 @@ public class Autonomous extends CommandGroup
                     addSequential(new EncoderDrive(4));
                     break;
                 case Portcullis:
-                    addSequential(new IntakeDown());
+                    addSequential(new IntakeBottom());
                     addSequential(new EncoderDrive(1, .5));
-                    addParallel(new IntakeUp());
+                    addParallel(new IntakeTop());
                     addSequential(new EncoderDrive(3, .4));
-                    addSequential(new IntakeDown());
+                    addSequential(new IntakeBottom());
                     break;
                 case Cheval:
-                    addSequential(new IntakeDown());
+                    addSequential(new IntakeTop());
                     addSequential(new EncoderDrive(4));
                     break;
                 case Moat:

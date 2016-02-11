@@ -19,7 +19,7 @@ bool PiGPIO::init() {
         PROT_READ | PROT_WRITE,
         MAP_SHARED,
         memfd,
-        0x20200000 // GPIO base address
+        0x3F200000 // GPIO base address
     );
     close(memfd);
     if ( map == MAP_FAILED ) {

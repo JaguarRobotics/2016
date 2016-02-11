@@ -25,19 +25,20 @@ void highResSleep(struct timespec time) {
 }
 
 void highResSleepTo(struct timespec time) {
-    normalizeTime(&time);
     struct timespec now;
     fillTime(&now);
-    struct timespec ossleep;
-    ossleep.tv_sec = time.tv_sec - now.tv_sec;
-    ossleep.tv_nsec = time.tv_nsec - now.tv_nsec - 100;
-    while ( ossleep.tv_nsec < 0 ) {
-        ossleep.tv_nsec += 1000000000;
-        --ossleep.tv_sec;
-    }
+//    struct timespec ossleep;
+//    ossleep.tv_sec = time.tv_sec - now.tv_sec;
+//    ossleep.tv_nsec = time.tv_nsec - now.tv_nsec;// - 100;
+//    while ( ossleep.tv_nsec < 0 ) {
+//        ossleep.tv_nsec += 1000000000;
+//        --ossleep.tv_sec;
+//    }
+//    sleep(ossleep.tv_sec);
+//    nanosleep(&ossleep, NULL);
     do {
         fillTime(&now);
-    } while ( now.tv_sec < time.tv_sec || (now.tv_sec == time.tv_sec && now.tv_nsec < time.tv_nsec) );
+    } while ( now.tv_sec <= time.tv_sec && (now.tv_sec != time.tv_sec || now.tv_nsec < time.tv_nsec) );
     /*
     while ( now.tv_sec < time.tv_sec || now.tv_nsec < time.tv_nsec || (now.tv_sec == time.tv_sec && now.tv_nsec < time.tv_nsec) ) {
         if ( now.tv_sec < time.tv_sec ) {

@@ -4,6 +4,7 @@
 
 class PiGPIO : public GPIO {
     public:
+        PiGPIO(int);
         virtual bool init();
         virtual void setInput(int);
         virtual void setOutput(int);
@@ -11,6 +12,7 @@ class PiGPIO : public GPIO {
         virtual void setPin(int, bool);
     
     private:
+        int offset;
         volatile unsigned *gpio;
 };
 typedef class PiGPIO PiGPIO_t;

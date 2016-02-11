@@ -7,6 +7,10 @@
 #include <sys/stat.h>
 #include "PiGPIO.hpp"
 
+PiGPIO::PiGPIO(int base) {
+    offset = base;
+}
+
 bool PiGPIO::init() {
     int memfd = open("/dev/mem", O_RDWR | O_SYNC);
     if ( memfd < 0 ) {
@@ -15,11 +19,11 @@ bool PiGPIO::init() {
     }
     void *map = mmap(
         NULL,
-        4 * 1024, // Block size
+        4096,
         PROT_READ | PROT_WRITE,
         MAP_SHARED,
         memfd,
-        0x3F200000 // GPIO base address
+        offset
     );
     close(memfd);
     if ( map == MAP_FAILED ) {

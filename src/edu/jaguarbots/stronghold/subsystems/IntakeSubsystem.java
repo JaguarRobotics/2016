@@ -4,6 +4,7 @@ import edu.jaguarbots.stronghold.RobotMap;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -22,39 +23,15 @@ public class IntakeSubsystem extends Subsystem
      */
     private Victor       intakeMotor     = new Victor(RobotMap.pwmIntakeMotor);
     
-    /**
-     * This is the relay for the position of the motor
-     */
-    private Relay        positionMotor   = new Relay(RobotMap.pwmIntakePositionMotor);
+    private Solenoid    intakeSol1 = new Solenoid(RobotMap.pwmIntakeSol1);
     
-    /**
-     * This is the encoder for the intake subsystem, it takes two channels
-     */
-    private Encoder      positionEncoder = new Encoder(RobotMap.intakePositionEncoderAChannel,
-                    RobotMap.intakePositionEncoderBChannel);
+    private Solenoid    intakeSol2 = new Solenoid(RobotMap.pwmIntakeSol2);
     
-    /**
-     * This is the limit switch indicating the top postion for the intake arm
-     */
-    private DigitalInput limitSwitch     = new DigitalInput(RobotMap.intakeLimitSwitch);
-    
-    /**
-     * This is a integer relating to the encoder
-     */
-    private int          bottomPosition;
-    
-    /**
-     * This is a integer relating to the encoder
-     */
-    private int          topPosition;
-
     /**
      * Constructor for IntakeSubsytem
      */
     public IntakeSubsystem()
     {
-        
-        bottomPosition = getPositionEncoderValue();
     }
 
     /**
@@ -81,92 +58,44 @@ public class IntakeSubsystem extends Subsystem
         intakeMotor.set(0);
     }
     
-    /**
-     * Resets the top and bottom positions
-     */
-    public void topReset()
+//    /**
+//     * Resets the top and bottom positions
+//     */
+//    public void topReset()
+//    {
+//        topPosition = getPositionEncoderValue();
+//        bottomPosition = Math.abs(topPosition - bottomPosition); // TODO Math
+//                                                                 // appears to
+//                                                                 // be faulty,
+//                                                                 // should be
+//                                                                 // looked over
+//                                                                 // - could
+//                                                                 // return
+//                                                                 // positive
+//                                                                 // value when
+//                                                                 // needed value
+//                                                                 // is negative
+//        resetPositionEncoder();
+//        stopPositionMotor();
+//    }
+    
+    public void intakeArmBottom()
     {
-        topPosition = getPositionEncoderValue();
-        bottomPosition = Math.abs(topPosition - bottomPosition); // TODO Math
-                                                                 // appears to
-                                                                 // be faulty,
-                                                                 // should be
-                                                                 // looked over
-                                                                 // - could
-                                                                 // return
-                                                                 // positive
-                                                                 // value when
-                                                                 // needed value
-                                                                 // is negative
-        resetPositionEncoder();
-        stopPositionMotor();
+        intakeSol1.set(false);
+        intakeSol2.set(false);
     }
     
-    /**
-     * Runs the position motor in the default direction
-     */
-    public void positionMotorUp()
-    {
-        positionMotor.set(Relay.Value.kForward);
+    public void intakeArmMiddle(){
+        intakeSol1.set(true);
+        intakeSol2.set(false);
     }
     
-    /**
-     * Runs the position motor in the opposite direction of the default
-     * direction
-     */
-    public void positionMotorDown()
+    public void intakeArmTop()
     {
-        positionMotor.set(Relay.Value.kReverse);
+        intakeSol1.set(true);
+        intakeSol2.set(true);
     }
     
-    /**
-     * Returns the bottom position
-     */
-    public double getBottomPosition()
-    {
-        return bottomPosition;
-    }
-    
-    /**
-     * Returns the top position
-     */
-    public double getTopPosition()
-    {
-        return topPosition;
-    }
-
-    /**
-     * Returns the limit switch value (boolean)
-     */
-    public boolean getLimitSwitch()
-    {
-        return limitSwitch.get();
-    }
-
-    /**
-     * stops the position motor
-     */
-    public void stopPositionMotor()
-    {
-        positionMotor.set(Relay.Value.kOff);
-    }
-
-    /**
-     * resets the position encoder
-     */
-    public void resetPositionEncoder()
-    {
-        positionEncoder.reset();
-    }
-
-    /**
-     * gets the position encoder value
-     */
-    public int getPositionEncoderValue()
-    {
-        return positionEncoder.get();
-    }
-
     public void initDefaultCommand()
     {
         // Set the default command for a subsystem here.

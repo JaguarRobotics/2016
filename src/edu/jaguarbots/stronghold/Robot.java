@@ -2,7 +2,7 @@ package edu.jaguarbots.stronghold;
 
 import edu.jaguarbots.stronghold.commands.Autonomous;
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -24,6 +24,8 @@ public class Robot extends IterativeRobot
     private final SendableChooser                    positionChooser  = new SendableChooser();
     private final SendableChooser                    goalChooser      = new SendableChooser();
     private final SendableChooser                    defenseChooser   = new SendableChooser();
+    
+    Compressor compresser = new Compressor(RobotMap.pwmCompresser);
 
     public enum Defense
     {
@@ -70,6 +72,7 @@ public class Robot extends IterativeRobot
         defenseChooser.addDefault("Low Bar", Defense.Low);
         defenseChooser.addObject("null", null);
         SmartDashboard.putData("Defense", defenseChooser);
+        compresser.setClosedLoopControl(true);                              //should turn on the compresser
     }
 
     /**
@@ -79,6 +82,7 @@ public class Robot extends IterativeRobot
      */
     public void disabledInit()
     {
+        compresser.setClosedLoopControl(false);         //should turn off the compresser
     }
 
     public void disabledPeriodic()

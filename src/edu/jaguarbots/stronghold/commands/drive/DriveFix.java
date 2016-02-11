@@ -1,7 +1,6 @@
 package edu.jaguarbots.stronghold.commands.drive;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 
 /**
  * Takes robot angle before doing something, and realigns robot afterwards

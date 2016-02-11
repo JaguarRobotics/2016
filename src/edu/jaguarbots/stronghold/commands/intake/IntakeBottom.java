@@ -3,11 +3,11 @@ package edu.jaguarbots.stronghold.commands.intake;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 
 /**
- * Moves the intake arm up
+ * Moves the intake arm to the bottom
  */
-public class IntakeUp extends CommandBase
+public class IntakeBottom extends CommandBase
 {
-    public IntakeUp()
+    public IntakeBottom()
     {
         requires(intakeSubsystem);
     }
@@ -20,26 +20,23 @@ public class IntakeUp extends CommandBase
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
-        intakeSubsystem.positionMotorUp();
+        intakeSubsystem.intakeArmBottom();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return intakeSubsystem.getLimitSwitch() || intakeSubsystem.getPositionEncoderValue() >= intakeSubsystem.getTopPosition();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end()
     {
-        intakeSubsystem.topReset();
-        intakeSubsystem.stopPositionMotor();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted()
     {
-        intakeSubsystem.stopPositionMotor();
     }
 }

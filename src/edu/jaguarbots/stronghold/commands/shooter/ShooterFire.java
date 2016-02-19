@@ -8,11 +8,7 @@ public class ShooterFire extends CommandBase
 {
 
     /**
-     * its the boolean variable that ends this command
-     */
-    private boolean end;
-    /**
-     * shoots the ball and rewenches the shooter
+     * shoots the ball 
      */
     public ShooterFire()
     {

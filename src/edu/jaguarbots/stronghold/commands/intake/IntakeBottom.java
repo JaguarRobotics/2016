@@ -5,7 +5,6 @@ import edu.jaguarbots.stronghold.commands.CommandBase;
 /**
  * Moves the intake arm to the bottom
  */
-//kyle is stupid
 public class IntakeBottom extends CommandBase
 {
     public IntakeBottom()

@@ -1,7 +1,6 @@
 package edu.jaguarbots.stronghold.commands.climber;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * Retracts the climbing winch

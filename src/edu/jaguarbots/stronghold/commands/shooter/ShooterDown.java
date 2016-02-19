@@ -15,7 +15,7 @@ public class ShooterDown extends CommandBase
     @Override
     protected void initialize()
     {
-        shooterSubsystem.solDown();
+        shooterSubsystem.ShooterAngleDown();
     }
 
     @Override

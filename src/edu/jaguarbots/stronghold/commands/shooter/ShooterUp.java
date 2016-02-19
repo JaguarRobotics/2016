@@ -15,7 +15,7 @@ public class ShooterUp extends CommandBase
     @Override
     protected void initialize()
     {
-        shooterSubsystem.solUp();
+        shooterSubsystem.ShooterAngleUp();
     }
 
     @Override

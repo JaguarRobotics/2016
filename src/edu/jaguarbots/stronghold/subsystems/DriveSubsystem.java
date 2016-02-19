@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -73,12 +74,12 @@ public class DriveSubsystem extends Subsystem
     /**
      * Gyroscope that measures angle of robot.
      */
-    private static AnalogGyro gyro            = new AnalogGyro(RobotMap.gyro);
+    private AnalogGyro gyro            = new AnalogGyro(RobotMap.gyro);
     
     /**
      * Solenoid to shift gears.
      */
-    private static Solenoid   gearSol         = new Solenoid(RobotMap.pwmGearSol);
+    private static Solenoid   gearSol         = new Solenoid(RobotMap.solGearShift);
     
     /** 
      * Current left motor speed.
@@ -134,8 +135,8 @@ public class DriveSubsystem extends Subsystem
      */
     public void startEncoders()
     {
-        leftEncoder.setDistancePerPulse(Math.PI * diameter / 360);
-        rightEncoder.setDistancePerPulse(Math.PI * diameter / 360);
+        leftEncoder.setDistancePerPulse(Math.PI * diameter / 400);
+        rightEncoder.setDistancePerPulse(Math.PI * diameter / 400);
     }
     
     /**
@@ -155,25 +156,28 @@ public class DriveSubsystem extends Subsystem
      * @param left speed
      * @param right speed
      */
-    public void driveTank(double left, double right)
+    @SuppressWarnings("deprecation")
+	public void driveTank(double left, double right)
     {
-        if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
-        {
-            if (!inAdjustedDrive)
-            {
-                inAdjustedDrive = true;
-                resetEncoders(true, true);
-                // reset encoders
-            }
-            //driveAdjusted(left, right);
-            double[] powers = new double[2];
-            powers = getMotorPowers();
-            driveTank(left*powers[0], right*powers[1]);
-        }
-        else
-        {
-            inAdjustedDrive = false;
-        }
+//        if (Math.abs(left) == 1 && Math.abs(right) == 1 && left == right)
+//        {
+//            if (!inAdjustedDrive)
+//            {
+//                inAdjustedDrive = true;
+//                resetEncoders(true, true);
+//                // reset encoders
+//            }
+//            //driveAdjusted(left, right);
+//            double[] powers = new double[2];
+//            powers = getMotorPowers();
+//            driveTank(left*powers[0], right*powers[1]);
+//        }
+//        else
+//        {
+//            inAdjustedDrive = false;
+//        }
+//        System.out.println("left " + getEncoderLeft());
+//        System.out.println("right " + getEncoderRight());
     robotDrive.tankDrive(left, right);
     }
 
@@ -198,7 +202,7 @@ public class DriveSubsystem extends Subsystem
             bias = Math.abs((leftEnc / (rightEnc - delta))); // adjust bias
             right = right * bias; // if left is faster than right
         }
-        robotDrive.tankDrive(left, right);
+        robotDrive.tankDrive(-left, -right);
     }
 
     /**

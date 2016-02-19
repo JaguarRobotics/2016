@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
-import edu.wpi.first.wpilibj.image.RGBImage;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
@@ -74,19 +73,23 @@ public class VisionSubsystem extends Subsystem
 
     public VisionSubsystem()
     {
-        //table = NetworkTable.getTable("GRIP/myContoursReport");
-        try
-        {
-            image = new RGBImage("15.bmp");
-        }
-        catch (NIVisionException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        Target[] target1 = getParticles(image);
-        System.out.println(target1[0].centerX);
+        table = NetworkTable.getTable("GRIP/myContoursReport");
+//        try
+//        {
+            image = null;//new RGBImage("15.bmp");
+//        }
+//        catch (NIVisionException e)
+//        {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        Target[] target1 = getParticles(image);
+//        System.out.println(target1[0].centerX);
     }
+
+	protected void initDefaultCommand() 
+	{
+	}
     
     private boolean scoreCompare(Scores scores)
     {
@@ -348,9 +351,5 @@ public class VisionSubsystem extends Subsystem
         if (horiz < idealHorizRange[1]) left = true;
         else if (horiz >= idealHorizRange[1]) left = false;
         return left;
-    }
-
-    public void initDefaultCommand()
-    {
     }
 }

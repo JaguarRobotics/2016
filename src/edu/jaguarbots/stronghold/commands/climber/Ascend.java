@@ -31,7 +31,7 @@ public class Ascend extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return climberSubsystem.getLimit() || oi.Manipulator.getY(Hand.kLeft) >= .7;
+        return true; //climberSubsystem.getLimit() || oi.Manipulator.getY(Hand.kLeft) >= .7;
 //        TODO add limit switch integration
     }
 

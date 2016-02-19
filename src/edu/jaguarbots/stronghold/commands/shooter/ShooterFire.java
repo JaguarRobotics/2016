@@ -1,7 +1,7 @@
 package edu.jaguarbots.stronghold.commands.shooter;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.jaguarbots.stronghold.commands.CommandBase;
+import edu.wpi.first.wpilibj.Timer;
 
 public class ShooterFire extends CommandBase
 
@@ -18,33 +18,30 @@ public class ShooterFire extends CommandBase
     {
         requires(shooterSubsystem);
     }
-    @Override
+
     protected void initialize()
     {
-        shooterSubsystem.startMotor();
+        shooterSubsystem.startShooter();
+		Timer.delay( .1);
+        shooterSubsystem.solShoot();
         Timer.delay(.1);
     }
     
-    @Override
     protected void execute()
     {
-        end = shooterSubsystem.wenchMotor();    
     }    
 
-    @Override
     protected boolean isFinished()
     {
-        return end;
+        return true;
     }
     
-    @Override
     protected void end()
     {
-        // TODO Auto-generated method stub
-        
+       shooterSubsystem.stopShooter();
+       shooterSubsystem.solDontShoot(); 
     }   
 
-    @Override
     protected void interrupted()
     {
         // TODO Auto-generated method stub

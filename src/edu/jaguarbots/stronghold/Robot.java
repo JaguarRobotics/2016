@@ -1,8 +1,7 @@
 package edu.jaguarbots.stronghold;
 
-import edu.jaguarbots.stronghold.commands.Autonomous;
+//import edu.jaguarbots.stronghold.commands.Autonomous;
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,7 +24,7 @@ public class Robot extends IterativeRobot
     private final SendableChooser                    goalChooser      = new SendableChooser();
     private final SendableChooser                    defenseChooser   = new SendableChooser();
     
-    Compressor compresser = new Compressor(RobotMap.pwmCompresser);
+//    Compressor compresser = new Compressor(RobotMap.pwmCompresser);
 
     public enum Defense
     {
@@ -49,7 +48,12 @@ public class Robot extends IterativeRobot
      */
     public void robotInit()
     {
-        CommandBase.init();
+        try{
+            CommandBase.init(); 
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
         positionChooser.addDefault("One", Position.One);
         positionChooser.addObject("Two", Position.Two);
         positionChooser.addObject("Three", Position.Three);
@@ -72,7 +76,7 @@ public class Robot extends IterativeRobot
         defenseChooser.addDefault("Low Bar", Defense.Low);
         defenseChooser.addObject("null", null);
         SmartDashboard.putData("Defense", defenseChooser);
-        compresser.setClosedLoopControl(true);                              //should turn on the compresser
+//        compresser.setClosedLoopControl(true);                              //should turn on the compresser
     }
 
     /**
@@ -82,7 +86,7 @@ public class Robot extends IterativeRobot
      */
     public void disabledInit()
     {
-        compresser.setClosedLoopControl(false);         //should turn off the compresser
+//        compresser.setClosedLoopControl(false);         //should turn off the compresser
     }
 
     public void disabledPeriodic()
@@ -107,15 +111,15 @@ public class Robot extends IterativeRobot
         final Defense defense = (Defense) defenseChooser.getSelected();
         if (position == Position.Spy)
         {
-            autonomousCommand = new Autonomous(true);
+//            autonomousCommand = new Autonomous(true);
         }
         else if(defense == null && goal == null && position == null)
         {
-            autonomousCommand = new Autonomous();
+//            autonomousCommand = new Autonomous();
         }
         else
         {
-            autonomousCommand = new Autonomous(defense, position, goal);
+//            autonomousCommand = new Autonomous(defense, position, goal);
         }
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -144,7 +148,7 @@ public class Robot extends IterativeRobot
     {
         Scheduler.getInstance().run();
     }
-
+    
     /**
      * This function is called periodically during test mode
      */

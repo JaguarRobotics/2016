@@ -40,7 +40,9 @@ public class Autonomous extends CommandGroup
             addSequential(new ShooterFire());
         }
         else
+        {
             addSequential(new EncoderDrive(-5));
+        }
     }
 
     /**

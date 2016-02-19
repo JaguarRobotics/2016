@@ -28,7 +28,7 @@ public class AimVertical extends CommandBase
     protected void execute()
     {
         target = visionSubsystem.getLeftTarget();
-        //xDistance = target[0];
+        xDistance = target[0];
         xDistance = visionSubsystem.getTargetXDistance(target);
         up = visionSubsystem.aimUp(xDistance);
         down = visionSubsystem.aimDown(xDistance);

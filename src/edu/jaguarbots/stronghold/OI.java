@@ -6,6 +6,7 @@ import edu.jaguarbots.stronghold.commands.climber.Grab;
 import edu.jaguarbots.stronghold.commands.drive.GearShift;
 import edu.jaguarbots.stronghold.commands.intake.Intake;
 import edu.jaguarbots.stronghold.commands.intake.IntakeBottom;
+import edu.jaguarbots.stronghold.commands.intake.IntakeMiddle;
 import edu.jaguarbots.stronghold.commands.intake.IntakeTop;
 import edu.jaguarbots.stronghold.commands.intake.Output;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterDown;
@@ -22,21 +23,33 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI
 {
-    public OI()
+    public OI() throws InterruptedException
     {
-        Manipulator_R1.whileHeld(new Intake());
         Manipulator_L1.whileHeld(new Output());
+//        Manipulator_L3.whenPressed(command);
+        Manipulator_R1.whileHeld(new Intake());
+        Manipulator_R3.whenPressed(new IntakeMiddle());
+        if(Manipulator_L2.get() == true){
+            Manipulator_R2.whenPressed(new ShooterFire());
+        }
+//        Manipulator_Start.whenPressed(command);
         Manipulator_Select.whenPressed(new Grab());
-        Manipulator_DpadLeft.whenPressed(new ShooterUp());
-        Manipulator_DpadRight.whenPressed(new ShooterDown());
-        Manipulator_DpadUp.whenPressed(new IntakeTop());
-        Manipulator_DpadDown.whenPressed(new IntakeBottom());
-        if (Manipulator.getY(Hand.kLeft) > .7) new Ascend();
-        if (Manipulator.getY(Hand.kLeft) < -.7) new Descend();
-        if (Manipulator.getY(Hand.kRight) > .7) new IntakeBottom();
-        //Manipulator_R3.whenPressed(new IntakeMiddle());
-        if (Manipulator.getY(Hand.kRight) < -.7) new IntakeTop();
-        if (Manipulator_L2.get()) Manipulator_R2.whenPressed(new ShooterFire());
+//        Manipulator_DpadLeft.whenPressed(command);
+//        Manipulator_DpadRight.whenPressed(command);
+        Manipulator_DpadUp.whenPressed(new ShooterUp());
+        Manipulator_DpadDown.whenPressed(new ShooterDown());
+        if (Manipulator.getY() > .7){
+            new Ascend();
+        }
+        if (Manipulator.getY() < -.7){
+            new Descend();
+        }
+        if (Manipulator.getZ() > .7){
+            new IntakeBottom();
+        }
+        if (Manipulator.getZ() < -.7){
+            new IntakeTop();
+        }
         Joystick1_Button1.whenPressed(new GearShift());
     }
     //// CREATING BUTTONS

@@ -1,8 +1,8 @@
 package edu.jaguarbots.stronghold.commands;
 
 import edu.jaguarbots.stronghold.OI;
-import edu.jaguarbots.stronghold.subsystems.ClimberSubsystem;
 import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
+import edu.jaguarbots.stronghold.subsystems.ClimberSubsystem;
 import edu.jaguarbots.stronghold.subsystems.IntakeSubsystem;
 import edu.jaguarbots.stronghold.subsystems.ShooterSubsystem;
 import edu.jaguarbots.stronghold.subsystems.VisionSubsystem;
@@ -48,7 +48,7 @@ public abstract class CommandBase extends Command
         super();
     }
 
-    public static void init()
+    public static void init() throws InterruptedException
     {
         try {
         oi = new OI();

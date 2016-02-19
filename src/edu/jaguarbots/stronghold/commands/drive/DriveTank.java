@@ -25,7 +25,7 @@ public class DriveTank extends CommandBase
     {
         left = oi.Joystick1.getY();
         right = oi.Joystick2.getY();
-        driveSubsystem.driveTank(left, right);
+        driveSubsystem.driveTank(-left, -right);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -19,11 +19,11 @@ public class ClimberSubsystem extends Subsystem
     /**
      * Motor for ascending and descending
      */
-    private Relay        climberMotor = new Relay(RobotMap.pwmClimberMotor);
+    private Relay        climberMotor = new Relay(RobotMap.relayClimberMotor);
     /**
      * Solenoid for raising and lowering the arm for climbing
      */
-    private Solenoid     climberSol   = new Solenoid(RobotMap.pwmClimberSol);
+    private Solenoid     climberSol   = new Solenoid(RobotMap.solClimber);
     /**
      * Limit switch to ensure robot does not climb too high
      */
@@ -97,3 +97,4 @@ public class ClimberSubsystem extends Subsystem
         climberSol.set(false);
     }
 }
+//

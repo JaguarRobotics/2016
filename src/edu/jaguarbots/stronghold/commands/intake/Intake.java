@@ -10,6 +10,7 @@ public class Intake extends CommandBase
     public Intake()
     {
         requires(intakeSubsystem);
+        requires(shooterSubsystem);
     }
 
     // Called just before this Command runs the first time
@@ -21,6 +22,7 @@ public class Intake extends CommandBase
     protected void execute()
     {
         intakeSubsystem.intakeMotorForward();
+        shooterSubsystem.takeInBall();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -33,6 +35,7 @@ public class Intake extends CommandBase
     protected void end()
     {
         intakeSubsystem.stopIntakeMotor();
+        shooterSubsystem.stopShooter();
     }
 
     // Called when another command which requires one or more of the same

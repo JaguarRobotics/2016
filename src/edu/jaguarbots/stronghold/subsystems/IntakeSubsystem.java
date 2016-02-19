@@ -23,9 +23,9 @@ public class IntakeSubsystem extends Subsystem
      */
     private Victor       intakeMotor     = new Victor(RobotMap.pwmIntakeMotor);
     
-    private Solenoid    intakeSol1 = new Solenoid(RobotMap.pwmIntakeSol1);
+    private Solenoid    intakeSol1 = new Solenoid(RobotMap.solIntakeShort);
     
-    private Solenoid    intakeSol2 = new Solenoid(RobotMap.pwmIntakeSol2);
+    private Solenoid    intakeSol2 = new Solenoid(RobotMap.solIntakeLong);
     
     /**
      * Constructor for IntakeSubsytem
@@ -102,3 +102,4 @@ public class IntakeSubsystem extends Subsystem
         // setDefaultCommand(new MySpecialCommand());
     }
 }
+//

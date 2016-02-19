@@ -7,10 +7,10 @@ int frame = 0;
 
 void setup() {
   FastLED.addLeds<WS2811, DATA_PIN, RGB>(leds, NUM_LEDS);
-  pinMode(CTRL0, OUTPUT);
-  pinMode(CTRL1, OUTPUT);
-  pinMode(CTRL2, OUTPUT);
-  pinMode(CTRL3, OUTPUT);
+  pinMode(CTRL0, INPUT);
+  pinMode(CTRL1, INPUT);
+  pinMode(CTRL2, INPUT);
+  pinMode(CTRL3, INPUT);
 }
 
 void loop() {

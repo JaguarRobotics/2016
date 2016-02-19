@@ -3,29 +3,66 @@
 #include "patterns.h"
 
 CRGB calculateLED(int frame, int led) {
-  int sel = (digitalRead(CTRL0) == HIGH ? 8 : 0) |
-            (digitalRead(CTRL1) == HIGH ? 4 : 0) |
-            (digitalRead(CTRL2) == HIGH ? 2 : 0) |
-            (digitalRead(CTRL3) == HIGH ? 1 : 0);
-  switch ( sel ) {
-    case 0:
-      return pattern0(frame, led);
-    case 1:
-      return pattern1(frame, led);
-    case 2:
-      return pattern2(frame, led);
-    case 3:
-      return pattern3(frame, led);
-    case 4:
-      return pattern4(frame, led);
-    case 5:
-      return pattern5(frame, led);
-    case 6:
-      return pattern6(frame, led);
-    case 7:
-      return pattern7(frame, led);
-    default:
-      return CRGB(0, 0, 0);
+  if ( digitalRead(CTRL0) == HIGH ) {
+    if ( digitalRead(CTRL1) == HIGH ) {
+      if ( digitalRead(CTRL2) == HIGH ) {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern0(frame, led);
+        } else {
+          return pattern1(frame, led);
+        }
+      } else {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern2(frame, led);
+        } else {
+          return pattern3(frame, led);
+        }
+      }
+    } else {
+      if ( digitalRead(CTRL2) == HIGH ) {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern4(frame, led);
+        } else {
+          return pattern5(frame, led);
+        }
+      } else {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern6(frame, led);
+        } else {
+          return pattern7(frame, led);
+        }
+      }
+    }
+  } else {
+    if ( digitalRead(CTRL1) == HIGH ) {
+      if ( digitalRead(CTRL2) == HIGH ) {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern8(frame, led);
+        } else {
+          return pattern9(frame, led);
+        }
+      } else {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern10(frame, led);
+        } else {
+          return pattern11(frame, led);
+        }
+      }
+    } else {
+      if ( digitalRead(CTRL2) == HIGH ) {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern12(frame, led);
+        } else {
+          return pattern13(frame, led);
+        }
+      } else {
+        if ( digitalRead(CTRL3) == HIGH ) {
+          return pattern14(frame, led);
+        } else {
+          return pattern15(frame, led);
+        }
+      }
+    }
   }
 }
 

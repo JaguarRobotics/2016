@@ -28,12 +28,12 @@ public class OI
         Manipulator_L1.whileHeld(new Output());
 //        Manipulator_L3.whenPressed(command);
         Manipulator_R1.whileHeld(new Intake());
-        Manipulator_R3.whenPressed(new IntakeMiddle());
+        Manipulator_R3.whenPressed(new IntakeMiddle()); //sol
         if(Manipulator_L2.get() == true){
             Manipulator_R2.whenPressed(new ShooterFire());
         }
 //        Manipulator_Start.whenPressed(command);
-        Manipulator_Select.whenPressed(new Grab());
+        Manipulator_Select.whenPressed(new Grab()); //sol
 //        Manipulator_DpadLeft.whenPressed(command);
 //        Manipulator_DpadRight.whenPressed(command);
         Manipulator_DpadUp.whenPressed(new ShooterUp());
@@ -44,13 +44,13 @@ public class OI
         if (Manipulator.getY() < -.7){
             new Descend();
         }
-        if (Manipulator.getZ() > .7){
-            new IntakeBottom();
+        if (Manipulator.getTwist() > .7){
+            new IntakeBottom(); //sol
         }
-        if (Manipulator.getZ() < -.7){
-            new IntakeTop();
+        if (Manipulator.getTwist() < -.7){
+            new IntakeTop(); //sol
         }
-        Joystick1_Button1.whenPressed(new GearShift());
+        Joystick1_Button1.whenPressed(new GearShift()); //sol
     }
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a

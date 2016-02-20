@@ -1,6 +1,6 @@
 package edu.jaguarbots.stronghold;
 
-//import edu.jaguarbots.stronghold.commands.Autonomous;
+import edu.jaguarbots.stronghold.commands.Autonomous;
 import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot
 {
     private Command                            autonomousCommand;
+    
     // vars for auto
     private final SendableChooser                    positionChooser  = new SendableChooser();
     private final SendableChooser                    goalChooser      = new SendableChooser();
@@ -111,15 +112,15 @@ public class Robot extends IterativeRobot
         final Defense defense = (Defense) defenseChooser.getSelected();
         if (position == Position.Spy)
         {
-//            autonomousCommand = new Autonomous(true);
+            autonomousCommand = new Autonomous(true);
         }
         else if(defense == null && goal == null && position == null)
         {
-//            autonomousCommand = new Autonomous();
+            autonomousCommand = new Autonomous();
         }
         else
         {
-//            autonomousCommand = new Autonomous(defense, position, goal);
+            autonomousCommand = new Autonomous(defense, position, goal);
         }
         if (autonomousCommand != null) autonomousCommand.start();
     }

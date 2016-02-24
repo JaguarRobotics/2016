@@ -164,7 +164,7 @@ public class DriveSubsystem extends Subsystem
 //            if (!inAdjustedDrive)
 //            {
 //                inAdjustedDrive = true;
-//                resetEncoders(true, true);
+//            0    resetEncoders(true, true);
 //                // reset encoders
 //            }
 //            //driveAdjusted(left, right);
@@ -291,7 +291,7 @@ public class DriveSubsystem extends Subsystem
      */
     public static void gearShiftOut()
     {
-        gearSol.set(true);
+        gearSol.set(false);
     }
 
     
@@ -300,7 +300,7 @@ public class DriveSubsystem extends Subsystem
      */
     public static void gearShiftIn()
     {
-        gearSol.set(false);
+        gearSol.set(true);
     }
     
     /**

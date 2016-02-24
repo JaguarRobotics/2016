@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.jaguarbots.stronghold.RobotMap;
+//import edu.jaguarbots.stronghold.OI;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Relay.Value;
@@ -28,19 +29,20 @@ public class ClimberSubsystem extends Subsystem
      * Limit switch to ensure robot does not climb too high
      */
     private DigitalInput climberLimit = new DigitalInput(RobotMap.climberLimitSwitch);
+    
+//    private double POV;
+    
+//    private boolean isShooterUp;
 
+    public ClimberSubsystem()
+    {
+    	solDown();
+    }
+    
     public void initDefaultCommand()
     {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new MySpecialCommand());
-    }
-
-    /**
-     * Makes motor start accepting input
-     */
-    public void initMotor()
-    {
-        climberMotor.startLiveWindowMode();
     }
 
     /**
@@ -58,6 +60,7 @@ public class ClimberSubsystem extends Subsystem
      */
     public void motorForward()
     {
+    	climberMotor.set(Value.kOn);
         climberMotor.set(Value.kForward);
         // TODO find out which direction is forward and which is backward
     }
@@ -68,7 +71,6 @@ public class ClimberSubsystem extends Subsystem
     public void stopMotor()
     {
         climberMotor.stopMotor();
-        climberMotor.stopLiveWindowMode(); //Makes motor stop accepting input
     }
 
     /**
@@ -76,6 +78,7 @@ public class ClimberSubsystem extends Subsystem
      */
     public void motorBackward()
     {
+    	climberMotor.set(Value.kOn);
         climberMotor.set(Value.kReverse);
         // TODO find out which direction is forward and which is backward
     }
@@ -96,5 +99,19 @@ public class ClimberSubsystem extends Subsystem
     {
         climberSol.set(false);
     }
+//    
+//    public void ascendDescend(double c){
+//    	POV = c;
+//    	if(POV <= 45 && POV >= -1){
+//    		isShooterUp = true;
+//    	}else if(POV >= 45 && POV <= 135){
+//    		//UNUSED
+//    	}else if(POV >= 135 && POV <= 225){
+//    		isShooterUp = false;
+//    	}else if(POV >= 225 && POV <= 315){
+//    		//UNUSED
+//    	}
+//    }
+//    public Boolean getShooterPosition = isShooterUp;
 }
 //

@@ -11,16 +11,16 @@ public class RobotMap
 	//pwms
     public static final int leftDrive              = 0;
     public static final int rightDrive             = 1;
+    public static final int pwmShooterMotor		   = 2;
     public static final int pwmIntakeMotor         = 3;
-    public static final int pwmShooterMotorRight        = 4;
-    public static final int pwmShooterMotorLeft        = 5;
+//    public static final int pwmShooterMotorRight        = 4;
+//    public static final int pwmShooterMotorLeft        = 5;
 
     //relays
     public static final int relayClimberMotor        = 1;
     
-    //solenoid
-    public static final int solIntakeShort = 1;
-    public static final int solIntakeLong = 2;
+    public static final int solIntakeLong = 1;
+    public static final int solIntakeShort = 2;
     public static final int solShooterAngle          = 3;
     public static final int solGearShift = 4;
     public static final int solClimber          = 5;

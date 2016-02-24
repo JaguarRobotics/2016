@@ -10,53 +10,51 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class ShooterSubsystem extends Subsystem
 {
+    // private DigitalInput shooter = new DigitalInput(
+    // RobotMap.pwmShooterMotor);
     /**
-     * its the shooter left motor
+     * its the shooter motor
      */
-    private Victor       shooterMotorLeft     = new Victor(RobotMap.pwmShooterMotorRight);
-    /**
-     * its the shooter right motor
-     */
-    private Victor       shooterMotorRight     = new Victor(RobotMap.pwmShooterMotorLeft);
+    private Victor       shooterMotor     = new Victor(RobotMap.pwmShooterMotor);
 
     /**
-     * its the shooter firing solenoid
+     * its the solenoid
      */
+    //
     private Solenoid     shooterPushSol   = new Solenoid(RobotMap.solShooter);
-    /**
-     * its the shooter angle solenoid
-     */
     private Solenoid     shooterSolAngle   = new Solenoid(RobotMap.solShooterAngle);
-    
-    private double intakeSpeed = -.25;
     /**
-     * starts the motors for shooting
+     * its the solenoid
+     */
+    //private Solenoid     shooterSolFire   = new Solenoid(RobotMap.pwmShooterSol);
+//    /**
+//     * its the limit switch for the shooter
+//     */
+//    private DigitalInput limitSwitch  = new DigitalInput(
+//                    RobotMap.shooterLimitSwitch);
+
+    /**
+     * starts the motor for shooting
      */
     public void startShooter()
     {
-        shooterMotorRight.set(1);
-        shooterMotorLeft.set(1);
+        shooterMotor.set(-1);
     }
 
     /**
-     * stops the shooting motors
+     * stops the motor for shooting
      */
     public void stopShooter()
     {
-        shooterMotorRight.set(0);
-        shooterMotorRight.set(0);
+        shooterMotor.set(0);
     }
 
-    /**
-     * stops the shooting motors
-     */
     public void takeInBall()
     {
-        shooterMotorRight.set(intakeSpeed);
-        shooterMotorRight.set(intakeSpeed);
+        shooterMotor.set(0.5);
     }
     /**
-     * moves the Solenoid that actually shoots the ball
+     * moves the Solenoid up to a 45 degree angle
      */
     public void solShoot()
     {
@@ -64,26 +62,41 @@ public class ShooterSubsystem extends Subsystem
     }
 
     /**
-     * moves the Solenoid that actually shoots the ball back to a non-shooting postion
+     * moves the Solenoid down allowing it to shoot into the low goal
      */
     public void solDontShoot()
     {
         shooterPushSol.set(false);
     }
-    /**
-     * moves the Solenoid up to a 45 degree angle
-     */
+
     public void ShooterAngleUp()
     {
     	shooterSolAngle.set(true);
     }
-    /**
-     * moves the Solenoid down allowing it to shoot into the low goal
-     */
+    
     public void ShooterAngleDown()
     {
     	shooterSolAngle.set(false);
     }
+    /**
+     * starts shooting and wenches it back until it his a limit switch
+     * 
+     * @return false when the shooter is not at the limit switch return true
+     *         when the shooter is at the limit switch
+     */
+//    public boolean wenchMotor()
+//    {
+//        if (limitSwitch.get() == false)
+//        {
+//            startMotor();
+//            return false;
+//        }
+//        else
+//        {
+//            stopMotor();
+//            return true;
+//        }
+//    }
 
     /**
      * it does nothing its the default command

@@ -1,15 +1,29 @@
 package edu.jaguarbots.stronghold.subsystems;
 
+import org.w3c.dom.css.RGBColor;
+
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.DrawMode;
+import com.ni.vision.NIVision.GetImageSizeResult;
+import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.RGBValue;
+import com.ni.vision.NIVision.ShapeMode;
+
+import edu.jaguarbots.stronghold.commands.vision.DefaultCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Sendable;import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.vision.AxisCamera;
 
 public class VisionSubsystem extends Subsystem
 {
+	//USBCamera camera = new USBCamera("cam0");
     NetworkTable        table;
     double[]            area;
     double[]            centerX;
@@ -52,11 +66,23 @@ public class VisionSubsystem extends Subsystem
                                                           // ratio of
                                                           // target]
     double ratioLimit = .75; //minimum score of ratio to be considered a target.
-    ColorImage          image;
-    AxisCamera          camera;
+    AxisCamera camera;
+    private ColorImage          image;
+    Image frame;
+    Image binaryFrame;
+    int acquisitionState = 0;
+    double AREA_MINIMUM = 0.5;
+    
+    NIVision.Range TARGET_HUE_RANGE = new NIVision.Range(0, 131);
+    NIVision.Range TARGET_SAT_RANGE = new NIVision.Range(101, 255);
+    NIVision.Range TARGET_LUM_RANGE = new NIVision.Range(64, 255);  //Based on sample images
+    
     private BinaryImage thresholdImage;
     private BinaryImage filteredImage;
-
+    NIVision.Rect rect = new NIVision.Rect(10, 10, 100, 100);
+	NIVision.ParticleFilterCriteria2 criteria[] = new NIVision.ParticleFilterCriteria2[1];
+	NIVision.ParticleFilterOptions2 filterOptions = new NIVision.ParticleFilterOptions2(0,0,1,1);
+    
     private class Scores
     {
         double aspectRatio;
@@ -71,12 +97,31 @@ public class VisionSubsystem extends Subsystem
         double area;
     }
 
-    public VisionSubsystem()
+    public VisionSubsystem() 
     {
-        table = NetworkTable.getTable("GRIP/myContoursReport");
+    	frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+    	binaryFrame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_U8, 0);
+    	try
+    	{
+    	camera = new AxisCamera("10.18.10.11");
+    	}
+    	catch(Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+    	criteria[0] = new NIVision.ParticleFilterCriteria2(NIVision.MeasurementType.MT_AREA_BY_IMAGE_AREA, AREA_MINIMUM, 100.0, 0, 0);
+        //table = NetworkTable.getTable("GRIP/myContoursReport");
+//        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+//        int session = NIVision.IMAQdxOpenCamera("cam0",
+//                NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+//        NIVision.IMAQdxConfigureGrab(session);
+//
+//        
+//        NIVision.IMAQdxStartAcquisition(session);
+//        NIVision.IMAQdxGrab(session, frame, 1);
+//        CameraServer.getInstance().setImage(frame);
 //        try
-//        {
-            image = null;//new RGBImage("15.bmp");
+//        {//image = new RGBImage("15.bmp");
 //        }
 //        catch (NIVisionException e)
 //        {
@@ -85,10 +130,23 @@ public class VisionSubsystem extends Subsystem
 //        }
 //        Target[] target1 = getParticles(image);
 //        System.out.println(target1[0].centerX);
+    	//image = camera.getImage();
+//        NIVision.IMAQdxStopAcquisition(session);
+//    	//getParticles(image);
+//    	RGBValue value = null;
+//    	camera.getImage(frame);
+//    	NIVision.imaqWriteFile(frame, "/image.bmp", value);
+//    	try {
+//			image.write("image1.bmp");
+//		} catch (NIVisionException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
     }
 
 	protected void initDefaultCommand() 
 	{
+		setDefaultCommand(new DefaultCamera());
 	}
     
     private boolean scoreCompare(Scores scores)
@@ -99,13 +157,81 @@ public class VisionSubsystem extends Subsystem
         else isTarget = false;
         return isTarget;
     }
+    
+    public void GetImage()
+    {
+    	boolean bError = false;
+    	int numParticles = 0;
+    	
+    	switch(acquisitionState)
+       	{
+    	case 0:
+    		try
+    		{
+    			camera.getImage(frame);
+    		}
+    		catch(Exception e)
+    		{
+    			bError = true;
+    			e.printStackTrace();
+    		}
+        	break;
+    	case 1:
+	    	GetImageSizeResult sizeResult = NIVision.imaqGetImageSize(frame);
+	    	rect.height = sizeResult.height/2;
+	    	rect.width = sizeResult.width/2;
+	    	rect.top = sizeResult.height/4;
+	    	rect.left = sizeResult.width/4;
+	    	break;
+	    	
+    	case 2:
+//	    	NIVision.imaqDrawShapeOnImage(frame, frame, rect,
+//	                DrawMode.DRAW_VALUE, ShapeMode.SHAPE_RECT, 0);
+	    	//SmartDashboard.putString("Frame: ", frame.toString());
+    		break;
+    		
+    	case 3:
+        	NIVision.imaqColorThreshold(binaryFrame, frame, 255, NIVision.ColorMode.HSL, TARGET_HUE_RANGE, TARGET_SAT_RANGE, TARGET_LUM_RANGE);
+	    	break;
+	    	
+    	case 4:
+//        	CameraServer.getInstance().setImage(frame);
+    		break;
+    	case 5:
+    		criteria[0].lower = (float)0.2;
+    		numParticles = NIVision.imaqCountParticles(binaryFrame, 1);
+    		SmartDashboard.putNumber("Masked Particles:", numParticles);
+    		break;
+    		
+    	case 6:
+    		NIVision.imaqParticleFilter4(binaryFrame, binaryFrame, criteria, filterOptions, null);
+    		break;
+
+    	case 7:
+    		CameraServer.getInstance().setImage(binaryFrame);
+//    		numParticles = NIVision.imaqCountParticles(frame, 1);
+//    		SmartDashboard.putNumber("Filtered Particles:", numParticles);
+    		break;
+    	}
+    	if (!bError)
+    	{
+    		acquisitionState++;
+    		if (acquisitionState > 7)
+    			acquisitionState = 0;
+    	}
+    }
+    
+    public void getParticles1(Image image)
+    {
+    	NIVision.imaqColorThreshold(binaryFrame, image, 255, NIVision.ColorMode.HSV, TARGET_HUE_RANGE, TARGET_SAT_RANGE, TARGET_LUM_RANGE);
+    }
 
     public Target[] getParticles(ColorImage image)
     {
         Target [] targetArray = new Target[2];
         try
         {
-            //image = camera.getImage();
+            image = camera.getImage();
             image.write("/image1.bmp");
             thresholdImage = image.thresholdRGB(214, 246, 226, 255, 221, 255); //filter out objects based on color.
             thresholdImage.write("/thresholdImage.bmp");

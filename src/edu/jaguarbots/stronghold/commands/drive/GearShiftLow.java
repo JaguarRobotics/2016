@@ -1,6 +1,7 @@
 package edu.jaguarbots.stronghold.commands.drive;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
+import edu.jaguarbots.stronghold.subsystems.DriveSubsystem;
 
 /**
  *
@@ -15,7 +16,7 @@ public class GearShiftLow extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	driveSubsystem.gearShiftIn();
+    	DriveSubsystem.gearShiftIn();
     }
 
     // Called repeatedly when this Command is scheduled to run

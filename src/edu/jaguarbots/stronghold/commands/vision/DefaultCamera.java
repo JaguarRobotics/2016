@@ -1,11 +1,11 @@
 package edu.jaguarbots.stronghold.commands.vision;
 
 import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.Image;
+//import com.ni.vision.NIVision.Image;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.vision.USBCamera;
+//import edu.wpi.first.wpilibj.CameraServer;
+//import edu.wpi.first.wpilibj.vision.USBCamera;
 
 /**
  *
@@ -47,8 +47,8 @@ public class DefaultCamera extends CommandBase {
 //    	camera.getImage(frame);
 //        CameraServer.getInstance().setImage(frame);
     
-    	counter++;
-    	if (counter % 10 == 0){}
+//    	counter++;
+//    	if (counter % 10 == 0){}
     		visionSubsystem.GetImage();
     	
     }

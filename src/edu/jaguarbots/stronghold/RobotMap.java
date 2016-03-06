@@ -19,6 +19,7 @@ public class RobotMap
     //relays
     public static final int relayClimberMotor        = 1;
     
+    //sol
     public static final int solIntakeLong = 1;
     public static final int solIntakeShort = 2;
     public static final int solShooterAngle          = 3;

@@ -1,9 +1,6 @@
 package edu.jaguarbots.stronghold.subsystems;
 
 import edu.jaguarbots.stronghold.RobotMap;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -58,27 +55,6 @@ public class IntakeSubsystem extends Subsystem
         intakeMotor.set(0);
     }
     
-//    /**
-//     * Resets the top and bottom positions
-//     */
-//    public void topReset()
-//    {
-//        topPosition = getPositionEncoderValue();
-//        bottomPosition = Math.abs(topPosition - bottomPosition); // TODO Math
-//                                                                 // appears to
-//                                                                 // be faulty,
-//                                                                 // should be
-//                                                                 // looked over
-//                                                                 // - could
-//                                                                 // return
-//                                                                 // positive
-//                                                                 // value when
-//                                                                 // needed value
-//                                                                 // is negative
-//        resetPositionEncoder();
-//        stopPositionMotor();
-//    }
-    
     public void intakeArmBottom()
     {
         intakeSol1.set(false);
@@ -102,4 +78,3 @@ public class IntakeSubsystem extends Subsystem
         // setDefaultCommand(new MySpecialCommand());
     }
 }
-//

@@ -1,6 +1,6 @@
 package edu.jaguarbots.stronghold.commands.shooter;
 
-import java.util.Date;
+//import java.util.Date;
 
 import edu.jaguarbots.stronghold.commands.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
@@ -14,7 +14,7 @@ public class ShooterFire extends CommandBase
     /**
      * its the boolean variable that ends this command
      */
-    private boolean end;
+//    private boolean end;
     /**
      * shoots the ball and rewenches the shooter
      */
@@ -62,7 +62,5 @@ public class ShooterFire extends CommandBase
 
     protected void interrupted()
     {
-        // TODO Auto-generated method stub
-        
     }
 }

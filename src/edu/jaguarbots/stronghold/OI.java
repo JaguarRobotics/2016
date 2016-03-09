@@ -12,7 +12,6 @@ import edu.jaguarbots.stronghold.commands.intake.IntakeMiddle;
 import edu.jaguarbots.stronghold.commands.intake.IntakeTop;
 import edu.jaguarbots.stronghold.commands.intake.Output;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterDown;
-import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.jaguarbots.stronghold.commands.shooter.ShooterUp;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -25,19 +24,19 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	public OI() throws InterruptedException {
 		
-		if(Manipulator.getIsXbox() == false){
-			Manipulator_L1.whileHeld(new Intake());							//1
-		 	Manipulator_L3.whenPressed(new IntakeMiddle());					//2
-		 	Manipulator_R1.whileHeld(new Output());							//3
-		 	Manipulator_R3.whenPressed(new Ascend());						//4
-		 	Manipulator_R2.whenPressed(new ShooterFire());					//5
-		 	Manipulator_Start.whenPressed(new Down());						//6
-		 	Manipulator_Select.whenPressed(new Grab());						//7
-		 	Manipulator_DpadLeft.whenPressed(new IntakeBottom());			//8
-		 	Manipulator_DpadRight.whenPressed(new IntakeTop());				//9
-		 	Manipulator_DpadUp.whenPressed(new ShooterUp());				//10
-		 	Manipulator_DpadDown.whenPressed(new ShooterDown());			//11
-		} else{
+//		if(Manipulator.getIsXbox() == false){
+//			Manipulator_L1.whileHeld(new Intake());							//1
+//		 	Manipulator_L3.whenPressed(new IntakeMiddle());					//2
+//		 	Manipulator_R1.whileHeld(new Output());							//3
+//		 	Manipulator_R3.whenPressed(new Ascend());						//4
+//		 	Manipulator_R2.whenPressed(new ShooterFire());					//5
+//		 	Manipulator_Start.whenPressed(new Down());						//6
+//		 	Manipulator_Select.whenPressed(new Grab());						//7
+//		 	Manipulator_DpadLeft.whenPressed(new IntakeBottom());			//8
+//		 	Manipulator_DpadRight.whenPressed(new IntakeTop());				//9
+//		 	Manipulator_DpadUp.whenPressed(new ShooterUp());				//10
+//		 	Manipulator_DpadDown.whenPressed(new ShooterDown());			//11
+//		} else{
 			ManipulatorXbox_A.whenPressed(new ShooterDown());				//1
 			ManipulatorXbox_B.whenPressed(new IntakeBottom());				//2
 			ManipulatorXbox_X.whenPressed(new IntakeTop());					//3
@@ -48,22 +47,7 @@ public class OI {
 			ManipulatorXbox_Start.whenPressed(new Grab());					//8
 			ManipulatorXbox_LStick.whenPressed(new IntakeMiddle());			//9
 			ManipulatorXbox_RStick.whenPressed(new Ascend());				//10
-		}
-//		Manipulator_Back.whenPressed(new Grab());
-//		Manipulator_LB.whileHeld(new Intake());
-//		Manipulator_RB.whileHeld(new Output());
-//		Manipulator_YButton.whenPressed(new IntakeBottom());
-//		Manipulator_B.whenPressed(new IntakeMiddle());
-//		Manipulator_A.whenPressed(new IntakeTop());
-//		Manipulator_XButton.whenPressed(new ShooterFire());
-//		if(CommandBase.climberSubsystem == true){
-//			
 //		}
-//		Joystick1_Button2.whenPressed(new IntakeBottom());					//8
-//		Joystick1_Button3.whenPressed(new IntakeTop());						//9
-//		Joystick1_Button4.whenPressed(new IntakeMiddle());					//10
-//		Joystick2_Button3.whileHeld(new Ascend());
-//		Joystick2_Button2.whileHeld(new Descend());
 		Joystick1_Button1.whenPressed(new GearShiftLow()); // sol
 		Joystick2_Button1.whenPressed(new GearShiftHigh());
 	}

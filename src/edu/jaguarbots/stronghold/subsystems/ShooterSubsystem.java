@@ -6,12 +6,15 @@ import edu.jaguarbots.stronghold.commands.shooter.ShooterFire;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+//import edu.wpi.first.wpilibj.command.StartCommand;
 
 /**
  * this is the shooter subsystem class, it contains methods for shooter
  */
 public class ShooterSubsystem extends Subsystem
 {
+//	private static StartCommand		 command = new StartCommand(new ShooterFire());
+//	private ShooterFire  shooterFire 	 = new ShooterFire();
     private Victor       shooterMotor     = new Victor(RobotMap.pwmShooterMotor);
     private Solenoid     shooterPushSol   = new Solenoid(RobotMap.solShooter);
     private Solenoid     shooterSolAngle   = new Solenoid(RobotMap.solShooterAngle);
@@ -28,7 +31,7 @@ public class ShooterSubsystem extends Subsystem
 
     public void takeInBall()
     {
-        shooterMotor.set(0.5);
+        shooterMotor.set(0.25);
     }
     public void solShoot()
     {
@@ -50,12 +53,8 @@ public class ShooterSubsystem extends Subsystem
     	shooterSolAngle.set(false);
     }
 
-    public void FireShooter(){
-    	new ShooterFire();
-    }
     public void initDefaultCommand()
     {
     	setDefaultCommand(new ShooterControl());
     }
 }
-//

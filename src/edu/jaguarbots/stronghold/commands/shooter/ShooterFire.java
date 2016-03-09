@@ -23,14 +23,14 @@ public class ShooterFire extends CommandBase
         requires(shooterSubsystem);
     }
 
-    protected void initialize()
+    public void initialize()
     {
         shooterSubsystem.startShooter();
         state = 1;
         timer.start();
     }
     
-    protected void execute()
+    public void execute()
     {
         if (state == 1 || state == 3)
         {
@@ -47,12 +47,12 @@ public class ShooterFire extends CommandBase
         }
     }    
 
-    protected boolean isFinished()
+    public boolean isFinished()
     {
         return state == 4;
     }
     
-    protected void end()
+    public void end()
     {
        shooterSubsystem.stopShooter();
        shooterSubsystem.solDontShoot(); 
@@ -60,7 +60,7 @@ public class ShooterFire extends CommandBase
        timer.reset();
     }   
 
-    protected void interrupted()
+    public void interrupted()
     {
     }
 }

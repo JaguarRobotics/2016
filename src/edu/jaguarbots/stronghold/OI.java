@@ -45,8 +45,8 @@ public class OI {
 			ManipulatorXbox_RB.whileHeld(new Output());						//6
 			ManipulatorXbox_Back.whenPressed(new Down());					//7
 			ManipulatorXbox_Start.whenPressed(new Grab());					//8
-			ManipulatorXbox_LStick.whenPressed(new IntakeMiddle());			//9
-			ManipulatorXbox_RStick.whenPressed(new Ascend());				//10
+			ManipulatorXbox_RStick.whenPressed(new IntakeMiddle());			//9
+			ManipulatorXbox_LStick.whenPressed(new Ascend());				//10
 //		}
 		Joystick1_Button1.whenPressed(new GearShiftLow()); // sol
 		Joystick2_Button1.whenPressed(new GearShiftHigh());

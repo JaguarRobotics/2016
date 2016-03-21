@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -59,12 +59,12 @@ public class DriveSubsystem extends Subsystem
     /**
      * bias to multiply side for drive adjusted.
      */
-    private double            bias            = 1;
-    
-    /**
-     * Whether or not we are driving adjusted.
-     */
-    private boolean           inAdjustedDrive = false;
+//    private double            bias            = 1;
+//    
+//    /**
+//     * Whether or not we are driving adjusted.
+//     */
+//    private boolean           inAdjustedDrive = false;
     
     /**
      * Diameter of pulleys, used for encoder calculations.
@@ -164,7 +164,7 @@ public class DriveSubsystem extends Subsystem
 //            if (!inAdjustedDrive)
 //            {
 //                inAdjustedDrive = true;
-//                resetEncoders(true, true);
+//            0    resetEncoders(true, true);
 //                // reset encoders
 //            }
 //            //driveAdjusted(left, right);
@@ -178,32 +178,32 @@ public class DriveSubsystem extends Subsystem
 //        }
 //        System.out.println("left " + getEncoderLeft());
 //        System.out.println("right " + getEncoderRight());
-    robotDrive.tankDrive(left, right);
+    	robotDrive.tankDrive(left, right);
     }
 
     
-    /**
-     * Old, outdated adjusted drive algorithm
-     * @param left speed
-     * @param right speed
-     */
-    public void driveAdjusted(double left, double right)
-    {
-        double leftEnc = leftEncoder.getRaw();
-        double rightEnc = rightEncoder.getRaw();
-        double delta = leftEnc - rightEnc;
-        if (delta > 0) // if left is faster than right
-        {
-            bias = Math.abs((rightEnc / (leftEnc + delta))); // adjust bias
-            left = left * bias; // reduce left power
-        }
-        else if (delta < 0) // if right is faster than left
-        {
-            bias = Math.abs((leftEnc / (rightEnc - delta))); // adjust bias
-            right = right * bias; // if left is faster than right
-        }
-        robotDrive.tankDrive(-left, -right);
-    }
+//    /**
+//     * Old, outdated adjusted drive algorithm
+//     * @param left speed
+//     * @param right speed
+//     */
+//    public void driveAdjusted(double left, double right)
+//    {
+//        double leftEnc = leftEncoder.getRaw();
+//        double rightEnc = rightEncoder.getRaw();
+//        double delta = leftEnc - rightEnc;
+//        if (delta > 0) // if left is faster than right
+//        {
+//            bias = Math.abs((rightEnc / (leftEnc + delta))); // adjust bias
+//            left = left * bias; // reduce left power
+//        }
+//        else if (delta < 0) // if right is faster than left
+//        {
+//            bias = Math.abs((leftEnc / (rightEnc - delta))); // adjust bias
+//            right = right * bias; // if left is faster than right
+//        }
+//        robotDrive.tankDrive(-left, -right);
+//    }
 
     /**
      * Turns robot counter-clockwise at a specific speed.
@@ -291,7 +291,7 @@ public class DriveSubsystem extends Subsystem
      */
     public static void gearShiftOut()
     {
-        gearSol.set(true);
+        gearSol.set(false);
     }
 
     
@@ -300,7 +300,7 @@ public class DriveSubsystem extends Subsystem
      */
     public static void gearShiftIn()
     {
-        gearSol.set(false);
+        gearSol.set(true);
     }
     
     /**

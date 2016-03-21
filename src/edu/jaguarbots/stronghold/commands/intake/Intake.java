@@ -28,7 +28,7 @@ public class Intake extends CommandBase
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return true;//!oi.Manipulator_L1.get();
+        return false;//!oi.Manipulator_L1.get();
     }
 
     // Called once after isFinished returns true
@@ -43,5 +43,6 @@ public class Intake extends CommandBase
     protected void interrupted()
     {
         intakeSubsystem.stopIntakeMotor();
+        shooterSubsystem.stopShooter();
     }
 }

@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot
 {
     private Command                            autonomousCommand;
-    
     // vars for auto
     private final SendableChooser                    positionChooser  = new SendableChooser();
     private final SendableChooser                    goalChooser      = new SendableChooser();
@@ -139,6 +138,7 @@ public class Robot extends IterativeRobot
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+    	//new GearShiftLow();
         if (autonomousCommand != null) autonomousCommand.cancel();
     }
 

@@ -29,14 +29,14 @@ public class AimHorizontal extends CommandBase
         horizDistance = target[1];
         left = visionSubsystem.aimLeft(horizDistance);
         right = visionSubsystem.aimRight(horizDistance);
-        if(left == true)
-        {
-            driveSubsystem.driveAdjusted(-.4, .4);
-        }
-        if(right == true)
-        {
-            driveSubsystem.driveAdjusted(.4, -.4);
-        }
+//        if(left == true)
+//        {
+//            driveSubsystem.driveAdjusted(-.4, .4);
+//        }
+//        if(right == true)
+//        {
+//            driveSubsystem.driveAdjusted(.4, -.4);
+//        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

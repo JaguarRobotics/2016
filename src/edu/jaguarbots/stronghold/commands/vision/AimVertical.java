@@ -32,14 +32,14 @@ public class AimVertical extends CommandBase
         xDistance = visionSubsystem.getTargetXDistance(target);
         up = visionSubsystem.aimUp(xDistance);
         down = visionSubsystem.aimDown(xDistance);
-        if(up == true)
-        {
-            driveSubsystem.driveAdjusted(.4, .4);
-        }
-        if(down == true)
-        {
-            driveSubsystem.driveAdjusted(-.4, -.4);
-        }
+//        if(up == true)
+//        {
+//            driveSubsystem.driveAdjusted(.4, .4);
+//        }
+//        if(down == true)
+//        {
+//            driveSubsystem.driveAdjusted(-.4, -.4);
+//        }
     }
 
     // Make this return true when this Command no longer needs to run execute()

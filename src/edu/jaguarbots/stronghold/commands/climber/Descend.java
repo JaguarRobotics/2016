@@ -18,20 +18,19 @@ public class Descend extends CommandBase
     // Called just before this Command runs the first time
     protected void initialize()
     {
-        climberSubsystem.initMotor();
-        climberSubsystem.motorBackward();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute()
     {
+
+        climberSubsystem.motorBackward();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished()
     {
-        return true;//oi.Manipulator.getY(Hand.kLeft)<=-.7;
-//        TODO add limit switch integration
+        return false;
     }
 
     // Called once after isFinished returns true
@@ -44,5 +43,6 @@ public class Descend extends CommandBase
     // subsystems is scheduled to run
     protected void interrupted()
     {
+    	climberSubsystem.stopMotor();
     }
 }

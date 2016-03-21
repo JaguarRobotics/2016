@@ -3,7 +3,7 @@
 #include "constants.h"
 
 CRGB leds[NUM_LEDS];
-int frame = 0;
+long frame = 0;
 
 void setup() {
   FastLED.addLeds<WS2811, DATA_PIN, GRB>(leds, NUM_LEDS);

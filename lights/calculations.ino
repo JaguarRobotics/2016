@@ -4,7 +4,7 @@
 
 #define VALUE LOW
 
-CRGB calculateLED(int frame, int led) {
+CRGB calculateLED(long frame, int led) {
   if ( digitalRead(CTRL0) == VALUE ) {
     if ( digitalRead(CTRL1) == VALUE ) {
       if ( digitalRead(CTRL2) == VALUE ) {

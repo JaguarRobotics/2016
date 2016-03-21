@@ -3,7 +3,7 @@
 
 #include "lib.h"
 
-CRGB calculateLED(int frame, int led);
+CRGB calculateLED(long frame, int led);
 
 #endif
 

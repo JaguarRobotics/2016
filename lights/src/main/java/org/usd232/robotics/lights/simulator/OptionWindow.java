@@ -123,12 +123,10 @@ public class OptionWindow extends JFrame implements KeyListener
                                                                        greenSlider1.getValue(), blueSlider1.getValue());
                                                        sampleButton1.setForeground(customColor1);
                                                        sampleButton1.setBackground(customColor1);
-                                                       sampleButton1.setBounds(color1Sample);
                                                        customColor2 = new Color(redSlider2.getValue(),
                                                                        greenSlider2.getValue(), blueSlider2.getValue());
                                                        sampleButton2.setForeground(customColor2);
                                                        sampleButton2.setBackground(customColor2);
-                                                       sampleButton2.setBounds(color2Sample);
                                                    }
                                                };
     /**
@@ -160,60 +158,48 @@ public class OptionWindow extends JFrame implements KeyListener
         setSize(500, 475);
         setLocation(d.width / 2 - getWidth() / 2, d.height / 2 - (getHeight() - 50) / 2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-        setVisible(true);
+        setResizable(true);
         add(optionsPanel);
-        lightsLbl.setSize(150, 30);
         optionsPanel.add(lightsLbl);
         lightTextBox.setToolTipText("How many lights to be used");
         lightTextBox.setText("40");
-        lightTextBox.setSize(300, 30);
         lightTextBox.setHorizontalAlignment(JTextField.CENTER);
         lightTextBox.addKeyListener(this);
         optionsPanel.add(lightTextBox);
-        patternLbl.setSize(300, 30);
         optionsPanel.add(patternLbl);
-        patternDropDown.setSize(300, 30);
         patternDropDown.setSelectedIndex(0);
         patternDropDown.setSelectedItem(patternDropDown.getItemAt(0));
         patternDropDown.addKeyListener(this);
         optionsPanel.add(patternDropDown);
-        patternDropDown2.setSize(300, 30);
         patternDropDown2.setSelectedIndex(0);
         patternDropDown2.setSelectedItem(patternDropDown2.getItemAt(0));
         patternDropDown2.addKeyListener(this);
         optionsPanel.add(patternDropDown2);
-        redSlider1.setSize(256, 10);
         redSlider1.setVisible(true);
         redSlider1.setBackground(Color.RED);
         redSlider1.addChangeListener(sliderChange);
         redSlider1.addKeyListener(this);
         optionsPanel.add(redSlider1);
-        greenSlider1.setSize(256, 10);
         greenSlider1.setVisible(true);
         greenSlider1.setBackground(Color.GREEN);
         greenSlider1.addChangeListener(sliderChange);
         greenSlider1.addKeyListener(this);
         optionsPanel.add(greenSlider1);
-        blueSlider1.setSize(256, 10);
         blueSlider1.setVisible(true);
         blueSlider1.setBackground(Color.BLUE);
         blueSlider1.addChangeListener(sliderChange);
         blueSlider1.addKeyListener(this);
         optionsPanel.add(blueSlider1);
-        redSlider2.setSize(256, 10);
         redSlider2.setVisible(true);
         redSlider2.setBackground(Color.RED);
         redSlider2.addChangeListener(sliderChange);
         redSlider2.addKeyListener(this);
         optionsPanel.add(redSlider2);
-        greenSlider2.setSize(256, 10);
         greenSlider2.setVisible(true);
         greenSlider2.setBackground(Color.GREEN);
         greenSlider2.addChangeListener(sliderChange);
         greenSlider2.addKeyListener(this);
         optionsPanel.add(greenSlider2);
-        blueSlider2.setSize(256, 10);
         blueSlider2.setVisible(true);
         blueSlider2.setBackground(Color.BLUE);
         blueSlider2.addChangeListener(sliderChange);
@@ -275,54 +261,10 @@ public class OptionWindow extends JFrame implements KeyListener
         });
         enterBtn.setEnabled(true);
         enterBtn.setVisible(true);
-        enterBtn.setSize(300, 50);
         enterBtn.addKeyListener(this);
         optionsPanel.add(enterBtn);
         setVisible(true);
-        // SET PLACES HERE
-        lightsLbl.setLocation(getWidth() / 2 - lightsLbl.getWidth() / 2, 0);
-        lightTextBox.setLocation(getWidth() / 2 - lightTextBox.getWidth() / 2,
-                        lightsLbl.getHeight() + lightsLbl.getY());
-        patternLbl.setLocation(getWidth() / 2 - patternLbl.getWidth() / 2,
-                        (int) (lightTextBox.getHeight() + (1.5 * lightTextBox.getHeight())));
-        patternDropDown.setLocation(getWidth() / 2 - patternDropDown.getWidth() / 2,
-                        patternLbl.getHeight() + patternLbl.getY());
-        patternDropDown2.setLocation(getWidth() / 2 - patternDropDown2.getWidth() / 2,
-                        (int) (patternDropDown.getY() + (1.2 * patternDropDown.getHeight())));
-        redSlider1.setLocation(getWidth() / 2 - redSlider1.getWidth() / 2,
-                        (int) (patternDropDown2.getY() + (1.5 * patternDropDown2.getHeight())));
-        greenSlider1.setLocation(getWidth() / 2 - greenSlider1.getWidth() / 2,
-                        redSlider1.getY() + redSlider1.getHeight() + 5);
-        blueSlider1.setLocation(getWidth() / 2 - blueSlider1.getWidth() / 2,
-                        greenSlider1.getY() + greenSlider1.getHeight() + 5);
-        color1Sample = new Rectangle(redSlider1.getWidth() + redSlider1.getX() + 15,
-                        redSlider1.getY() + redSlider1.getHeight() / 2,
-                        (getWidth() - 15) - (redSlider1.getWidth() + redSlider1.getX() + 15),
-                        (blueSlider1.getY() - blueSlider1.getHeight() / 2)
-                                        - (redSlider1.getY() + redSlider1.getHeight() / 2));
-        redSlider2.setLocation(getWidth() / 2 - redSlider2.getWidth() / 2,
-                        (int) (blueSlider1.getY() + (3 * blueSlider1.getHeight())));
-        greenSlider2.setLocation(getWidth() / 2 - greenSlider2.getWidth() / 2,
-                        redSlider2.getY() + redSlider2.getHeight() + 5);
-        blueSlider2.setLocation(getWidth() / 2 - blueSlider2.getWidth() / 2,
-                        greenSlider2.getY() + greenSlider2.getHeight() + 5);
-        color2Sample = new Rectangle(redSlider2.getWidth() + redSlider2.getX() + 15,
-                        redSlider2.getY() + redSlider2.getHeight() / 2,
-                        (getWidth() - 15) - (redSlider2.getWidth() + redSlider2.getX() + 15),
-                        (blueSlider2.getY() - blueSlider2.getHeight() / 2)
-                                        - (redSlider2.getY() + redSlider2.getHeight() / 2));
-        sampleButton1.setForeground(
-                        new Color(redSlider1.getValue() - 1, greenSlider1.getValue() - 1, blueSlider1.getValue() - 1));
-        sampleButton1.setBackground(
-                        new Color(redSlider1.getValue() - 1, greenSlider1.getValue() - 1, blueSlider1.getValue() - 1));
-        sampleButton1.setBounds(color1Sample);
-        sampleButton2.setForeground(
-                        new Color(redSlider2.getValue() - 1, greenSlider2.getValue() - 1, blueSlider2.getValue() - 1));
-        sampleButton2.setBackground(
-                        new Color(redSlider2.getValue() - 1, greenSlider2.getValue() - 1, blueSlider2.getValue() - 1));
-        sampleButton2.setBounds(color2Sample);
-        enterBtn.setLocation(getWidth() / 2 - enterBtn.getWidth() / 2, (getHeight() - 50) - enterBtn.getHeight());
-        repaint();
+        invalidate();
     }
 
     @Override

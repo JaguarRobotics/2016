@@ -3,7 +3,6 @@ package org.usd232.robotics.lights.simulator;
 
 // \
 import java.awt.Color;
-import patterntester.Pattern;
 
 // \
 public class Formula extends FormulaBase

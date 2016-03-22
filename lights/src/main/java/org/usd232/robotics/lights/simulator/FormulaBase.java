@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public class FormulaBase
 {
-    static final Class<?> cls = Formula.class;
-    private static Method[] methods = cls.getMethods();
-    protected static ArrayList<String> names = new ArrayList<String>();
+    static final Class<?>              cls     = Formula.class;
+    private static Method[]            methods = cls.getMethods();
+    protected static ArrayList<String> names   = new ArrayList<String>();
 
     /**
      * Manages the patterns and uses the one specified
@@ -22,8 +22,8 @@ public class FormulaBase
      *            the amount of lights in the simulator
      * @return the color of the light currently being drawn
      */
-    public static Color patternFormula(long frame, int led, int maxLights, String pattern, String underPattern, Color custom1,
-                    Color custom2)
+    public static Color patternFormula(long frame, int led, int maxLights, String pattern, String underPattern,
+                    Color custom1, Color custom2)
     {
         Color color = new Color(0, 0, 0);
         for (int i = 0; i < methods.length; i++)

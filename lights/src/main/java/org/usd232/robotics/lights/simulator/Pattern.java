@@ -7,5 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Pattern
 {
     String getName();
+
     boolean isPattern();
 }

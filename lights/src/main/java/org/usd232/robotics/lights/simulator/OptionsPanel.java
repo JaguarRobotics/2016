@@ -10,10 +10,10 @@ public class OptionsPanel extends Panel
      * 
      */
     private static final long serialVersionUID = -3658690254638550704L;
-    private Rectangle color1Sample = new Rectangle(0, 0, 0, 0);
-    private Rectangle color2Sample = new Rectangle(0, 0, 0, 0);
-    private Color color1 = Color.BLACK;
-    private Color color2 = Color.WHITE;
+    private Rectangle         color1Sample     = new Rectangle(0, 0, 0, 0);
+    private Rectangle         color2Sample     = new Rectangle(0, 0, 0, 0);
+    private Color             color1           = Color.BLACK;
+    private Color             color2           = Color.WHITE;
 
     public OptionsPanel()
     {

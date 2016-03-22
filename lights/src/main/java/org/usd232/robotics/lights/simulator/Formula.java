@@ -146,7 +146,8 @@ public class Formula extends FormulaBase
     {
         return new Color((frame / 8 + led) % 9 < 3 ? 255 : 0,
                         (frame / 8 + led) % 9 >= 3 && (frame / 8 + led) % 9 <= 5 ? 255 : 0,
-                        (frame / 8 + led) % 9 > 5 ? 255 : 0);
+                        (frame / 8 + led) % 9 > 5 ? 255
+                                        : 0);
     }
 
     /**

@@ -264,11 +264,13 @@ public class OptionWindow extends JFrame implements KeyListener
                 if (PatternTester.superLight == null)
                 {
                     PatternTester.setLightsInfo(Integer.valueOf(lightTextBox.getText()),
-                                    (String) patternDropDown.getSelectedItem(), (String) patternDropDown2.getSelectedItem(), customColor1, customColor2);
+                                    (String) patternDropDown.getSelectedItem(),
+                                    (String) patternDropDown2.getSelectedItem(), customColor1, customColor2);
                     PatternTester.makeLights(frame);
                 }
                 PatternTester.superLight.setInfo(Integer.valueOf(lightTextBox.getText()),
-                                (String) patternDropDown.getSelectedItem(), (String) patternDropDown2.getSelectedItem(), customColor1, customColor2, frame);
+                                (String) patternDropDown.getSelectedItem(), (String) patternDropDown2.getSelectedItem(),
+                                customColor1, customColor2, frame);
             }
         });
         enterBtn.setEnabled(true);

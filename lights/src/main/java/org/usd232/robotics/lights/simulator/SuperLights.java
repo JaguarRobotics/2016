@@ -61,12 +61,11 @@ public class SuperLights extends JFrame implements KeyListener
     /**
      * What frame the lights are currently on
      */
-    public static long                   frame            = 0;
+    public static long             frame            = 0;
     private String                 patternString;
     private String                 underPatternString;
     private Color                  customColor1     = Color.BLACK;
     private Color                  customColor2     = Color.WHITE;
-    
 
     /**
      * Sets the properties of the window and the lights
@@ -74,7 +73,8 @@ public class SuperLights extends JFrame implements KeyListener
      * @param inMaxLights
      *            the amount of lights to be used in the simulator
      */
-    public SuperLights(int inMaxLights, String inPatternString, String inUnderPatternString, Color custom1, Color custom2, long inFrame)
+    public SuperLights(int inMaxLights, String inPatternString, String inUnderPatternString, Color custom1,
+                    Color custom2, long inFrame)
     {
         frame = inFrame;
         setAlwaysOnTop(true);
@@ -95,8 +95,10 @@ public class SuperLights extends JFrame implements KeyListener
                             (int) ((float) getWidth() / maxLights) + 1, (int) ((float) getWidth() / maxLights));
         }
     }
-    
-    public void setInfo(int inMaxLights, String inPatternString, String inUnderPatternString, Color custom1, Color custom2, long inFrame){
+
+    public void setInfo(int inMaxLights, String inPatternString, String inUnderPatternString, Color custom1,
+                    Color custom2, long inFrame)
+    {
         frame = inFrame;
         maxLights = inMaxLights;
         patternString = inPatternString;
@@ -120,7 +122,8 @@ public class SuperLights extends JFrame implements KeyListener
         Graphics2D g2 = (Graphics2D) g;
         for (int i = 0; i < maxLights; i++)
         {
-            g2.setPaint(Formula.patternFormula(frame, i, maxLights, patternString, underPatternString, customColor1, customColor2));
+            g2.setPaint(Formula.patternFormula(frame, i, maxLights, patternString, underPatternString, customColor1,
+                            customColor2));
             g2.fillRect(rectLights[i].x, rectLights[i].y, rectLights[i].width, rectLights[i].height);
             g2.setPaint(Color.BLACK);
             g2.drawRect(rectLights[i].x, rectLights[i].y, rectLights[i].width, rectLights[i].height - 1);

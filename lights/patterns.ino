@@ -4,7 +4,6 @@
 
 #include "java2c.h"
 #include "formula.h"
-#include "src/main/java/org/usd232/robotics/lights/simulator/Formula.java"
 #include "java2c_cleanup.h"
 
 // long frame, int led, int maxLights, String underPattern, Color custom1, Color custom2

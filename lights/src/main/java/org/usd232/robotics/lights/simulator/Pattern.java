@@ -1,4 +1,4 @@
-package patterntester;
+package org.usd232.robotics.lights.simulator;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

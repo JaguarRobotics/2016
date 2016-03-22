@@ -1,4 +1,4 @@
-package patterntester;
+package org.usd232.robotics.lights.simulator;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,7 +38,7 @@ public class OptionWindow extends JFrame implements KeyListener
     /**
      * String array of the pattern options to be used in patternDropDown
      * 
-     * @see patterntester.OptionWindow#patternDropDown
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#patternDropDown
      */
     private String[]          dropDownOptions;
     /**
@@ -56,37 +56,37 @@ public class OptionWindow extends JFrame implements KeyListener
     /**
      * Slider used to choose red value of RGB of first custom color
      * 
-     * @see patterntester.OptionWindow#customColor1
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor1
      */
     private JSlider           redSlider1       = new JSlider(0, 255);
     /**
      * Slider used to choose green value of RGB of first custom color
      * 
-     * @see patterntester.OptionWindow#customColor1
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor1
      */
     private JSlider           greenSlider1     = new JSlider(0, 255);
     /**
      * Slider used to choose blue value of RGB of first custom color
      * 
-     * @see patterntester.OptionWindow#customColor1
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor1
      */
     private JSlider           blueSlider1      = new JSlider(0, 255);
     /**
      * Slider used to choose red value of RGB of second custom color
      * 
-     * @see patterntester.OptionWindow#customColor2
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor2
      */
     private JSlider           redSlider2       = new JSlider(0, 255);
     /**
      * Slider used to choose green value of RGB of second custom color
      * 
-     * @see patterntester.OptionWindow#customColor2
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor2
      */
     private JSlider           greenSlider2     = new JSlider(0, 255);
     /**
      * Slider used to choose blue value of RGB of second custom color
      * 
-     * @see patterntester.OptionWindow#customColor2
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor2
      */
     private JSlider           blueSlider2      = new JSlider(0, 255);
     /**
@@ -101,14 +101,14 @@ public class OptionWindow extends JFrame implements KeyListener
      * Button used to display first custom color. If clicked, it randomizes the
      * color
      * 
-     * @see patterntester.OptionWindow#customColor1
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor1
      */
     private JButton           sampleButton1    = new JButton();
     /**
      * Button used to display second custom color. If clicked, it randomizes the
      * color
      * 
-     * @see patterntester.OptionWindow#customColor2
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#customColor2
      */
     private JButton           sampleButton2    = new JButton();
     /**
@@ -134,13 +134,13 @@ public class OptionWindow extends JFrame implements KeyListener
     /**
      * Rectangle used for the dimensions of first sample button
      * 
-     * @see patterntester.OptionWindow#sampleButton1
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#sampleButton1
      */
     private Rectangle         color1Sample     = new Rectangle(0, 0, 0, 0);
     /**
      * Rectangle used for the dimensions of second sample button
      * 
-     * @see patterntester.OptionWindow#sampleButton2
+     * @see org.usd232.robotics.lights.simulator.OptionWindow#sampleButton2
      */
     private Rectangle         color2Sample     = new Rectangle(0, 0, 0, 0);
     private long              frame            = 0;
@@ -148,10 +148,10 @@ public class OptionWindow extends JFrame implements KeyListener
     public OptionWindow()
     {
         Formula.setMethodNames();
-        dropDownOptions = new String[Formula.names.size()];
-        for (int i = 0; i < Formula.names.size(); i++)
+        dropDownOptions = new String[FormulaBase.names.size()];
+        for (int i = 0; i < FormulaBase.names.size(); i++)
         {
-            dropDownOptions[i] = Formula.names.get(i);
+            dropDownOptions[i] = FormulaBase.names.get(i);
         }
         patternDropDown = new JComboBox<>(dropDownOptions);
         patternDropDown2 = new JComboBox<>(dropDownOptions);

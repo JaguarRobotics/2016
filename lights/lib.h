@@ -3,7 +3,7 @@
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcpp"
-#include "FastLED.h"
+#include <FastLED.h>
 #pragma GCC diagnostic pop
 
 #endif

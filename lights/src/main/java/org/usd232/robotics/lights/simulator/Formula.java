@@ -142,6 +142,19 @@ public class Formula extends FormulaBase
         return new Color(255, 255, 255);
     }
 
+    /**
+     * RGB bars chasing each other
+     * 
+     * @param frame
+     *            what frame is currently being drawn
+     * @param led
+     *            the LED that is currently being drawn
+     * @param maxLights
+     *            max amount of lights
+     * @return the color to paint the current LED
+     */
+    // \
+    @Pattern(getName = "RGB Chasers", isPattern = true)
     public static Color pattern8(long frame, int led, int maxLights, String underPattern, Color custom1, Color custom2)
     {
         return new Color((frame / 8 + led) % 9 < 3 ? 255 : 0,

@@ -9,10 +9,10 @@
 // The clock pin (the SPI CLK)
 #define CLOCK_PIN 13
 
-#define CTRL0 8
-#define CTRL1 9
-#define CTRL2 10
-#define CTRL3 11
+#define CTRL0 5
+#define CTRL1 6
+#define CTRL2 7
+#define CTRL3 8
 
 #endif
 

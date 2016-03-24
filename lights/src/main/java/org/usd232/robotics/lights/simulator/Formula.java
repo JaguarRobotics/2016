@@ -1109,8 +1109,7 @@ public class Formula extends FormulaBase
     @Pattern(getName = "Rainbow MGrad", isPattern = true)
     public static Color pattern48(long frame, int led, int maxLights, String underPattern, Color custom1, Color custom2)
     {
-        double operantLED = led;
-        // double operantLED = (frame / 2 + led) % maxLights;
+        double operantLED = (frame / 2 + led) % maxLights;
         Color color = new Color(0, 0, 0);
         if (operantLED <= (double) maxLights / 6.)
         {
